@@ -1,0 +1,8 @@
+.collaboration__text-wrapper_skewed {
+  /* border: 2px solid white; */
+  /* clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%, 0 0%); */
+  background: #8027b5;
+  border-left: 2px solid #8027b5;
+  border-right: 2px solid #8027b5;
+  clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%, 0 0%);
+}

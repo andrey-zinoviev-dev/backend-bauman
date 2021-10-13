@@ -1,0 +1,10 @@
+.reviews__wrapper {
+  display: inline-flex;
+  justify-content: flex-start;
+  padding: 5% 0;
+  min-width: 150vw;
+  justify-content: space-between;
+  transition: transform 0.5s ease-in-out;
+  /* cursor: grab; */
+  /* transform: translateX(-310px); */
+}

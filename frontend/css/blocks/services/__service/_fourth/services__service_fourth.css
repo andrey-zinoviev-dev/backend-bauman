@@ -1,0 +1,16 @@
+.services__service_fourth {
+  /* background-color: #228bc0; */
+  /* grid-row: 2/3; */
+  /* min-width: 332px;
+  min-height: 140px;
+  max-width: 320px;
+  max-height: 140px; */
+  /* clip-path: polygon(12% 0, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0 50%); */
+  /* margin: -60px 0 0 27px; */
+}
+.services__service_fourth::after {
+
+}
+.services__service_fourth::before {
+  background-color: #228bc0;
+}

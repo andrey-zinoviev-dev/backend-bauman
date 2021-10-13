@@ -1,0 +1,4 @@
+.overall-container_blurred {
+  filter: blur(1.5px);
+  /* transition: filter 0.5s linear 0.05s; */
+}

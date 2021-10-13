@@ -1,0 +1,26 @@
+@import url(./__scroll/reviews__scroll.css);
+@import url(./__wrapper/reviews__wrapper.css);
+@import url(./__button/reviews__button.css);
+@import url(./__button-sign/reviews__button-sign.css);
+@import url(./__review/reviews__review.css);
+@import url(./__review-img/reviews__review-img.css);
+@import url(./__review-para/reviews__review-para.css);
+@import url(./__review-quote-logo/reviews__review-quote-logo.css);
+@import url(./__buttons/reviews__buttons.css);
+@import url(./__buttons-button/reviews__buttons-button.css);
+@import url(./__buttons-button-round/reviews__buttons-button-round.css);
+.reviews {
+  position: relative;
+  /* overflow: hidden; */
+}
+.reviews::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(80% - 1320px);
+  height: 3px;
+  background: rgba(94,218,227,255);
+  box-shadow: 0 0 20px rgb(94 218 227), 0 0 35px rgb(94 218 227);
+  border-radius: 0 10px 10px 0;
+}

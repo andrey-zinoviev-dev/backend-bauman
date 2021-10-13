@@ -1,0 +1,4 @@
+.slider__left-img {
+  transform: rotate(180deg);
+  max-width: 35px;
+}

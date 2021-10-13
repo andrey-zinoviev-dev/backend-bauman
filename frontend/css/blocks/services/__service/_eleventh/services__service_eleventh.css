@@ -1,0 +1,16 @@
+.services__service_eleventh {
+  /* background-color: #01bb4c; */
+  /* grid-row: 2/3; */
+  /* min-width: 320px; */
+  /* min-height: 140px;
+  max-width: 320px;
+  max-height: 140px;
+  grid-row: 1/1;
+  grid-column: 5/6;
+  margin: 65px 0px 0 -14px;
+  min-width: 332px; */
+  /* clip-path: polygon(12% 0, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0 50%); */
+}
+.services__service_eleventh::before {
+  background-color: #01bb4c;
+}

@@ -1,0 +1,9 @@
+.services__service-shadow {
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  background: white;
+  z-index: 5;
+  transform: rotate(126deg) skew(7deg, 25deg);
+  box-shadow: 0px 0px 25px black, 0px 0px 45px black;
+}

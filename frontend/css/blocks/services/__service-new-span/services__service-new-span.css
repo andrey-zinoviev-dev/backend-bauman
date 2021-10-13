@@ -1,0 +1,13 @@
+.services__service-new-span {
+  font-size: 20px;
+  margin: 25% 0 20% 0;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.1s ease-out, opacity 0.5s ease-out 0.1s, margin 0.5s ease-out 0.1s;
+}
+.services__service-new:hover .services__service-new-span {
+  
+  visibility: hidden;
+  opacity: 0;
+  margin: 15% 0;
+}

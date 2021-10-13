@@ -1,0 +1,5 @@
+.header__contact-method-img {
+    max-width: 24px;
+    min-height: 24px;
+    object-fit: cover;
+}

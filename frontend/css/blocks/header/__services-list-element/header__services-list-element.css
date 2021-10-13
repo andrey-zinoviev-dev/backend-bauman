@@ -1,0 +1,3 @@
+.header__services-list-element:not(:last-of-type) {
+  margin-right: 25px;
+}

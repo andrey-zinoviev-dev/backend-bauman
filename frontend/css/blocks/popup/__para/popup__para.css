@@ -1,0 +1,6 @@
+.popup__para {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5% 0 5% 0;
+}

@@ -1,0 +1,11 @@
+.services__service-new-vector {
+  font-size: 7em;
+  color: transparent;
+  -webkit-text-stroke: 1px white;
+  transition: all 0.5s ease-out;
+  align-self: center;
+}
+.services__service-new:hover .services__service-new-vector {
+  /* font-size: 10em; */
+  -webkit-text-stroke: 3px white;
+}

@@ -1,0 +1,13 @@
+@import url(./__headline/collaboration__headline.css);
+@import url(./__flex-box/collaboration__flex-box.css);
+@import url(./__text-wrapper/collaboration__text-wrapper.css);
+@import url(./__text-wrapper-background/collaboration__text-wrapper-background.css);
+@import url(./__button/collaboration__button.css);
+.collaboration {
+  /* min-height: 450px; */
+  padding: 2% 0 0 0;
+  /* background: rgba(185,47,183,0.45); */
+  /* border-radius: 120px 0 0 0; */
+  /* margin: 5% 0 0 2%; */
+  /* box-shadow: 0 0 20px rgb(185 47 183), 0 0 35px rgb(185 47 183); */
+}

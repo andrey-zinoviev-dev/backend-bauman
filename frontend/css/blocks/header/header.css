@@ -1,0 +1,26 @@
+@import url('./__wrapper/header__wrapper.css');
+@import url('./__logo/header__logo.css');
+@import url('./__text/header__text.css');
+@import url('./__text-p/header__text-p.css');
+@import url('./__text-span/header__text-span.css');
+@import url('./__contact/header__contact.css');
+@import url('./__contact-method/header__contact-method.css');
+@import url('./__contact-method-img/header__contact-method-img.css');
+@import url('./__contact-method-anchor/header__contact-method-anchor.css');
+@import url('./__services-list/header__services-list.css');
+@import url('./__services-list-element/header__services-list-element.css');
+@import url('./__services-list-element-anchor/header__services-list-element-anchor.css');
+@import url('./__services-list-element-button/header__services-list-element-button.css');
+@import url('./__loggedIn-button/header__loggedIn-button.css');
+.header {
+  /* position: relative;
+  z-index: 1; */
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  /* right: 15%;
+  top: 5%; */
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}

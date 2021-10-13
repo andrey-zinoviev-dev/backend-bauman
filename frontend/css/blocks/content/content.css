@@ -1,0 +1,20 @@
+@import url(./__text-wrapper/content__text-wrapper.css);
+@import url(./__headline/content__headline.css);
+@import url(./__para/content__para.css);
+@import url(./__button-wrapper/content__button-wrapper.css);
+@import url(./__button/content__button.css);
+@import url(./__background-video/content__background-video.css);
+.content {
+  /* width: 100vw; */
+  height: 100vh;
+  /*раскомментировать для горизонтального скролла*/
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  /* background-image: url(../../pics/background-light.png); */
+  /* background-image: url(../../pics/illustrAndreyPNG.png); */
+  background-position: right;
+  background-size: cover;
+  position: relative;
+  /* border-bottom: 2px solid #8027b5; */
+}

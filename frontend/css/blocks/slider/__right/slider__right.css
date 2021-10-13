@@ -1,0 +1,21 @@
+.slider__right {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 55px;
+    min-height: 55px;
+    cursor: pointer;
+    transition: all 0.35s ease-in-out;
+}
+.slider__right:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.slider__right::after {
+    color: rgba(242, 172, 31, 0.7);
+}

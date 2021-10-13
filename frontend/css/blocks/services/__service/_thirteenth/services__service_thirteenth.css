@@ -1,0 +1,14 @@
+.services__service_thirteenth {
+  /* background-color: #018553;
+  max-height: 200px;
+  max-width: 230px;
+  align-self: end;
+  min-width: 210px;
+  min-height: 180px;
+  grid-column: 7/7;
+  grid-row: 1/1; */
+  /* margin: 0px 0px -7px -53px; */
+}
+.services__service_thirteenth::before {
+  background-color: #018553;
+}

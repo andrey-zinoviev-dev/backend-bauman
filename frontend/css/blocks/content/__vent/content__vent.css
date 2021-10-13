@@ -1,0 +1,18 @@
+@keyframes rotate {
+  from {
+    transform: rotateX(-55deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(-55deg) rotateZ(-360deg);
+  }
+  /* 100% {
+    transform: rotateX(-55deg) rotateZ(-360deg)
+  } */
+}
+.content__vent {
+  position: absolute;
+  max-width: 300px;
+  transform-style: preserve-3d;
+  transform: rotateX(-55deg);
+  animation: rotate 8.5s linear infinite;
+}

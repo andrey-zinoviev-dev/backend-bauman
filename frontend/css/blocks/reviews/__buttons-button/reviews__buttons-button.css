@@ -1,0 +1,24 @@
+.reviews__buttons-button {
+  background: transparent;
+  /* border: 1px solid white; */
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 7px;
+  /* border-radius: 25px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* clip-path: polygon(0 0, 100% 0, 100% 100%, 25% 100%, 0 75%); */
+  position: relative;
+}
+.reviews__buttons-button_status_active {
+  border: 1px solid white;
+}
+/* .reviews__buttons-button::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+} */

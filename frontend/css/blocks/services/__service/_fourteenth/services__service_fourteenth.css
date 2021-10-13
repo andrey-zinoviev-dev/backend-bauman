@@ -1,0 +1,16 @@
+.services__service_fourteenth {
+  /* background-color: #5b9bd5; */
+  /* align-self: end;
+  justify-self: start;
+  min-width: 160px;
+  min-height: 140px;
+  grid-row: 2/2;
+  grid-column: 7/7; */
+  /* margin: 0px 0 -7px -58px; */
+}
+.services__service_fourteenth::after {
+
+}
+.services__service_fourteenth::before {
+  background-color: #5b9bd5;
+}

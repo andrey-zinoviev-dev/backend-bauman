@@ -1,0 +1,12 @@
+.popup__form-input {
+  min-width: 320px;
+  min-height: 40px;
+  border-radius: 25px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 15px rgb(0 0 0 / 60%);
+  outline: none;
+  margin-bottom: 30px;
+  padding: 5px 20px;
+  box-sizing: border-box;
+}

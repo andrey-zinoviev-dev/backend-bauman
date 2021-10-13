@@ -1,0 +1,8 @@
+.footer__footer-wrapper {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  min-width: 500px;
+  justify-content: space-between;
+  /* padding: 0 0 0 10%; */
+}

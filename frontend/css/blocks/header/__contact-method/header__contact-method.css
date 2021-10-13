@@ -1,0 +1,9 @@
+.header__contact-method {
+    display: flex;
+    align-items: center;
+    min-width: 165px;
+    justify-content: space-between;
+}
+.header__contact-method:not(:last-of-type) {
+    margin-bottom: 5px;
+}

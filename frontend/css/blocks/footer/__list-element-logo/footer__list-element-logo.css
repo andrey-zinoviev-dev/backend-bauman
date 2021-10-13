@@ -1,0 +1,8 @@
+.footer__list-element-logo {
+  /* color: white; */
+  font-size: 1.8em;
+  -webkit-text-stroke: 1px #d0a2dc;
+    color: transparent;
+    text-shadow: 0 0 15px #d0a2dc;
+    transform: translateZ(15px);
+}

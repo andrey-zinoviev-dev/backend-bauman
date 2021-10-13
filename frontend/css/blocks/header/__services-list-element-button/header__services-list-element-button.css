@@ -1,0 +1,16 @@
+.header__services-list-element-button {
+  color: #d0a2dc;
+  min-width: 150px;
+  font-size: 18px;
+  min-height: 45px;
+  visibility: visible;
+  opacity: 1;
+  /* border: 2px solid #d0a2dc; */
+}
+.header__services-list-element-button:hover {
+  border-radius: 30px;
+  border: 2px solid #d0a2dc;
+}
+/* .header__services-list-element-button:last-of-type {
+  margin-right: 25px;
+} */

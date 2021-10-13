@@ -1,0 +1,8 @@
+.slides__slide-img {
+    /* max-width: 1280px; */
+    width: 100%;
+    /* min-width: 1280px; */
+    object-fit: cover;
+    max-height: 675px;
+    /* min-height: 720px; */
+}

@@ -1,0 +1,8 @@
+.reviews__review-img {
+  position: absolute;
+  top: -25%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}

@@ -1,0 +1,14 @@
+.services__service_tenth {
+  /* background-color: #55cdd3;
+  grid-column: 6/6;
+  grid-row: 1/1;
+  max-width: 160px;
+  max-height: 140px;
+  min-width: 160px;
+  min-height: 140px;
+  justify-self: end;
+  margin: -95px 12px 0 0; */
+}
+.services__service_tenth::before {
+  background-color: #55cdd3;
+}

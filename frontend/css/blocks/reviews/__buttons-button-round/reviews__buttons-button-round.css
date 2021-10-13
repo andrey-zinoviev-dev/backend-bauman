@@ -1,0 +1,6 @@
+.reviews__buttons-button-round {
+  min-width: 6px;
+  min-height: 6px;
+  background-color: white;
+  border-radius: 50%;
+}

@@ -1,0 +1,15 @@
+.content__button {
+  min-width: 215px;
+  min-height: 65px;
+  border: 2px solid #d0a2dc;
+  border-radius: 30px;
+  color: #d0a2dc;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.content__button:hover {
+  background-color: #d0a2dc;
+  color: white;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out 0.05s;
+}

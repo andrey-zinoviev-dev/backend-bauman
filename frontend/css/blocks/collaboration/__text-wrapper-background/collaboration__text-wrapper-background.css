@@ -1,0 +1,6 @@
+.collaboration__text-wrapper-background {
+  background: rgba(25,38,116,255);
+  clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%, 0 0%);
+  padding: 4.5% 15% 4.5% 20%;
+  box-sizing: border-box;
+}

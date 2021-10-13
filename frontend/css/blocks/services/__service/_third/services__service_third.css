@@ -1,0 +1,18 @@
+.services__service_third {
+  /* background-color: #4569cf; */
+  /* grid-column: 2/3;
+  align-self: center; */
+  /* min-width: 310px; */
+  /* min-width: 288px;
+  min-height: 140px;
+  max-width: 310px;
+  max-height: 140px; */
+  /* clip-path: polygon(14% 0, 86% 0%, 100% 50%, 86% 100%, 14% 100%, 0 50%); */
+  /* margin: 0px 0 125px 40px; */
+}
+.services__service_third::after {
+
+}
+.services__service_third::before {
+  background-color: #4569cf;
+}

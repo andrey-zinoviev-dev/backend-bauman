@@ -1,0 +1,7 @@
+.slider__thumbnail {
+  min-width: 15px;
+  min-height: 15px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  background-color: rgba(242, 172, 31, 0.9);
+}

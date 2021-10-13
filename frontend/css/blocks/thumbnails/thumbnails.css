@@ -1,0 +1,8 @@
+.thumbnails {
+  max-width: 768px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 0;
+}

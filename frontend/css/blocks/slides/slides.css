@@ -1,0 +1,6 @@
+@import url(./__slide/slides__slide.css);
+@import url(./__slide-img/slides__slide-img.css);
+@import url(./__slide-span/slides__slide-span.css);
+.slides {
+    display: flex;
+}

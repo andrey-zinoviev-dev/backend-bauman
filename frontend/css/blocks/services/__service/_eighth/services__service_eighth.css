@@ -1,0 +1,14 @@
+.services__service_eighth {
+  /* background-color: #82eeab; */
+  /* max-height: 200px;
+  max-width: 230px; */
+  /* grid-row: 2/2; */
+  /* grid-column: 4/4;
+  align-self: end;
+  min-width: 210px;
+  min-height: 180px; */
+  /* margin: 0px 0px -40px -12px; */
+}
+.services__service_eighth::before {
+  background-color: #82eeab;
+}

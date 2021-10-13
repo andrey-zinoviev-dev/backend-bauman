@@ -1,0 +1,8 @@
+.collaboration__button {
+  padding: 15px 20px;
+    border: 2px solid #d230ba;
+    color: white;
+    border-radius: 45px;
+    font-size: 18px;
+    box-shadow: 0 0 20px #d230ba, 0 0 35px #d230ba;
+}

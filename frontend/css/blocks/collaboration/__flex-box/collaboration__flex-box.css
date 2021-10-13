@@ -1,0 +1,7 @@
+.collaboration__flex-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 96px;
+  box-sizing: border-box;
+  border-top: 2px solid #8027b5;
+}

@@ -1,0 +1,68 @@
+@import url(../blocks/root/root.css);
+@import url(../blocks/overlay/overlay.css);
+@import url(../blocks/overall-container/overall-container.css);
+@import url(../blocks/overall-container/_blurred/overall-container_blurred.css);
+@import url(../blocks/container/container.css);
+@import url(../blocks/container/_display-type/_flex/container_display-type_flex.css);
+@import url(../blocks/container/_more-padding/container_more-padding.css);
+@import url(../blocks/container/_slider/container_slider.css);
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__contact-method-img/_small/header__contact-method-img_small.css);
+@import url(../blocks/header/__services-list-element-button/_hidden/header__services-list-element-button_hidden.css);
+@import url(../blocks/logo/logo.css);
+@import url(../blocks/main/main.css);
+@import url(../blocks/content/content.css);
+@import url(../blocks/content/__vent/_order/_first/content__vent_order_first.css);
+@import url(../blocks/content/__vent/_order/_second/content__vent_order_second.css);
+@import url(../blocks/content/__vent/_order/_third/content__vent_order_third.css);
+@import url(../blocks/content/__vent/_order/_order_fourth/content__vent_order_fourth.css);
+@import url(../blocks/content/__vent/_order/_fifth/content__vent_order_fifth.css);
+@import url(../blocks/content/__vent/_order/_sixth/content__vent_order_sixth.css);
+@import url(../blocks/services/servcies.css);
+@import url(../blocks/services/__service/_first/services__service_first.css);
+@import url(../blocks/services/__service/_second/services__service_second.css);
+@import url(../blocks/services/__service/_third/services__service_third.css);
+@import url(../blocks/services/__service/_fourth/services__service_fourth.css);
+@import url(../blocks/services/__service/_fifth/services__service_fifth.css);
+@import url(../blocks/services/__service/_sixth/services__service_sixth.css);
+@import url(../blocks/services/__service/_seventh/services__service_seventh.css);
+@import url(../blocks/services/__service/_eighth/services__service_eighth.css);
+@import url(../blocks/services/__service/_ninth/services__service_ninth.css);
+@import url(../blocks/services/__service/_tenth/services__service_tenth.css);
+@import url(../blocks/services/__service/_eleventh/services__service_eleventh.css);
+@import url(../blocks/services/__service/_twelveth/services__service_twelveth.css);
+@import url(../blocks/services/__service/_thirteenth/services__service_thirteenth.css);
+@import url(../blocks/services/__service/_fourteenth/services__service_fourteenth.css);
+@import url(../blocks/services/__service-shadow/_top/services__service-shadow_top.css);
+@import url(../blocks/services/__service-shadow/_bottom/services__service-shadow_bottom.css);
+@import url(../blocks/reviews/reviews.css);
+@import url(../blocks/reviews/__button/_type/_left/reviews__button_type_left.css);
+@import url(../blocks/reviews/__button/_type/_right/reviews__button_type_right.css);
+@import url(../blocks/clients/clients.css);
+@import url(../blocks/collaboration/collaboration.css);
+@import url(../blocks/collaboration/__text-wrapper/_small-width/collaboration__text-wrapper_small-width.css);
+@import url(../blocks/collaboration/__text-wrapper/_skewed/collaboration__text-wrapper_skewed.css);
+@import url(../blocks/slider/slider.css);
+@import url(../blocks/slides/slides.css);
+@import url(../blocks/thumbnails/thumbnails.css);
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+ul {
+    padding: 0;
+    list-style: none;
+}
+h2, h3, p {
+    margin: 0;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+button {
+    background-color: rgba(0,0,0,0);
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
