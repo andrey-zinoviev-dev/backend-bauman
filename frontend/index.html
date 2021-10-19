@@ -14,45 +14,108 @@
   <title>Document</title>
 </head>
 <body class="root">
+  <header class="header">
+    <div class="container container_display-type_flex container_more-padding">
+      <img class="header__logo" src="https://www.designfreelogoonline.com/wp-content/uploads/2017/05/000840-Infinity-logo-maker-Free-infinito-Logo-design-06.png" alt="логотип">
+      <ul class="header__services-list">
+        <!-- <li class="header__services-list-element"><a class="header__services-list-element-anchor" href="#">Главная</a></li> -->
+        <!-- <li class="header__services-list-element"><a class="header__services-list-element-anchor" href="#">Оборудование</a></li> -->
+        <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_catalogue" href="#">Каталог</a></li>
+        <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_coop" href="#">Сотрудничество</a></li>
+        <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_contact" href="#">Контакты</a></li>
+        <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Войти <i class="fas fa-sign-in-alt"></i></button></li>
+        <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Регистрация <i class="fas fa-user-plus"></i></button></li>
+        <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user"><span></span> <i class="fas fa-cog"></i></button></li>
+        <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user-logout">Выйти <i class="fas fa-sign-out-alt"></i></i></button></li>
+      </ul>
+    </div>
+    <section class="dashboard">
+      <div class="container container_dashboard">
+        <!-- <h2 class="services__heading">Личный кабинет</h2> -->
+        <!-- <p class="services__para">Имя пользователя</p> -->
+        <div class="dashboard__segment-wrapper">
+          <ul class="dashboard__list dashboard__list_colored-bg dashboard__list_active">
+            <li class="dashboard__list-element">
+              <i class="fas fa-user-circle"></i>
+            </li>
+          </ul>
+          <ul class="dashboard__list">
+            <li class="dashboard__list-element dashboard__list-element-user-profile"></li>
+          </ul>
+        </div>
+        <div class="dashboard__segment-wrapper">
+          <!-- <div class="dashboard__buttons-div">
+
+          </div> -->
+          <ul class="dashboard__list dashboard__list_colored-bg">
+            <li class="dashboard__list-element">
+              <i class="fas fa-box-open"></i>
+            </li>
+            <li class="dashboard__list-element">
+              <div class="dashboard__list-element-circle"></div>
+            </li>
+            <li class="dashboard__list-element">
+              <div class="dashboard__list-element-circle"></div>
+            </li>
+          </ul>
+          <div class="dashboard__sergment-text">
+            <ul class="dashboard__list">
+              <li class="dashboard__list-element">
+                <h2 class="dashboard__list-element-heading">Заказы</h2>
+              </li>
+              <li class="dashboard__list-element">
+                <p class="dashboard__list-element-para">Что-то</p>
+              </li>
+              <li class="dashboard__list-element">
+                <p class="dashboard__list-element-para">Еще что-то</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="dashboard__segment-wrapper">
+          <!-- <div class="dashboard__buttons-div">
+
+          </div> -->
+          <ul class="dashboard__list dashboard__list_colored-bg">
+            <li class="dashboard__list-element">
+              <i class="fas fa-box-open"></i>
+            </li>
+            <li class="dashboard__list-element">
+              <div class="dashboard__list-element-circle"></div>
+            </li>
+            <li class="dashboard__list-element">
+              <div class="dashboard__list-element-circle"></div>
+            </li>
+            <li class="dashboard__list-element">
+              <div class="dashboard__list-element-circle"></div>
+            </li>
+          </ul>
+          <div class="dashboard__sergment-text">
+            <ul class="dashboard__list">
+              <li class="dashboard__list-element"> 
+                <h2 class="dashboard__list-element-heading">История</h2>
+              </li>
+              <li class="dashboard__list-element">
+                <p class="dashboard__list-element-para">В процессе</p>
+              </li>
+              <li class="dashboard__list-element">
+                <p class="dashboard__list-element-para">Завершенные</p>
+              </li>
+              <li class="dashboard__list-element">
+                <p class="dashboard__list-element-para">Отмененные</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="dashboard__button">Сообщения</button>
+        <button class="dashboard__button">Настройки</button>
+      </div>
+    </section>
+  </header>
     <main class="main">
       <div class="overall-container">
         <section class="content">
-          <header class="header">
-            <div class="container container_display-type_flex container_more-padding">
-              <img class="header__logo" src="https://www.designfreelogoonline.com/wp-content/uploads/2017/05/000840-Infinity-logo-maker-Free-infinito-Logo-design-06.png" alt="логотип">
-              <!-- <div class="header__wrapper">
-                <img class="logo" src="./pics/ENG/JPG/logo_bauman_horizont_eng.jpg" alt="логотип">
-                <div class="header__text">
-                  <p class="header__text-p">Оборудование для инеженерных систем</p>
-                  <span class="header__text-span">Разработка, производство, поставка</span>
-                </div>
-                <div class="header__contact">
-                  <div class="header__contact-method">
-                    <img class="header__contact-method-img" src="https://www.seekpng.com/png/full/792-7924973_phone-svg-png-icon-free-download-97207-onlinewebfonts.png" alt="">
-                    <a class="header__contact-method-anchor" href="tel:+74957114772">+7(495)711-47-72</a>
-                  </div>
-                  <div class="header__contact-method">
-                    <img class="header__contact-method-img" src="https://i.pinimg.com/originals/a2/dc/5c/a2dc5c3a8c443f7bce721542c2a98a2f.png" alt="">
-                    <a class="header__contact-method-anchor" href="tel:+79017045202">+7(901)704-52-02</a>
-                  </div>
-                  <div class="header__contact-method">
-                    <img class="header__contact-method-img header__contact-method-img_small" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpP73al14slwZiwIv_poYQxRbieC6q3TbUWw&usqp=CAU" alt="">
-                    <a class="header__contact-method-anchor" href="mailto:info@bauman.ru">info@bauman.ru</a>
-                  </div>
-                </div>
-              </div>  -->
-              <ul class="header__services-list">
-                <li class="header__services-list-element"><a class="header__services-list-element-anchor" href="/main">Главная</a></li>
-                <!-- <li class="header__services-list-element"><a class="header__services-list-element-anchor" href="#">Оборудование</a></li> -->
-                <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_catalogue" href="/catalogue">Каталог</a></li>
-                <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_contact" href="/contacts">Контакты</a></li>
-                <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Войти <i class="fas fa-sign-in-alt"></i></button></li>
-                <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Регистрация <i class="fas fa-user-plus"></i></button></li>
-                <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user">Пользователь <i class="fas fa-cog"></i></button></li>
-                <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user-logout">Выйти <i class="fas fa-sign-out-alt"></i></i></button></li>
-              </ul>
-            </div>
-          </header>
+
           <div class="container">
             <div class="content__text-wrapper">
               <h1 class="content__headline">Инновационные системы электроснабжения для бизнеса и частных проектов</h1>
@@ -80,27 +143,16 @@
             <p class="services__para">Продукция компании</p>
             <div class="services__wrapper">
               <div class="services__service-new">
-                <!-- <img class="services__service-new-img" src="./pics/Science_PNG.png" alt=""> -->
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Электрооборудование</h3>
                   <i class="services__service-new-vector fas fa-microchip"></i>
-                    <!-- <p class="services__service-new-para">
-                      Здесь можно найти все услуги и товары, связанные с модульными конструкциями. Абсолютно все, от материалов до предварительно собранных элементов. 
-                    </p> -->
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
-                <!-- <div class="services__service-new-overlay">
-                  <i class="services__service-new-vector fas fa-microchip"></i>
-                  <span class="services__service-new-span">Электрооборудование</span>
-                </div> -->
               </div>
               <div class="services__service-new">
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Резервуары</h3>
                   <i class="services__service-new-vector fas fa-database"></i>
-                  <!-- <p class="services__service-new-para">
-                    Все о модульных конструкциях 
-                  </p> -->
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
@@ -108,9 +160,6 @@
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Электростанции</h3>
                   <i class="services__service-new-vector fas fa-bolt"></i>
-                  <!-- <p class="services__service-new-para">
-                    Все о модульных конструкциях 
-                  </p> -->
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
@@ -118,9 +167,6 @@
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Трубопроводы</h3>
                   <i class="services__service-new-vector fas fa-stream"></i>
-                  <!-- <p class="services__service-new-para">
-                    Все о модульных конструкциях 
-                  </p> -->
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
@@ -128,9 +174,6 @@
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Металлоконструкции</h3>
                   <i class="services__service-new-vector fas fa-satellite"></i>
-                  <!-- <p class="services__service-new-para">
-                    Все о модульных конструкциях 
-                  </p> -->
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
@@ -138,23 +181,15 @@
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Перемешивающие устройства</h3>
                   <i class="services__service-new-vector fab fa-mix"></i>
-                  <!-- <p class="services__service-new-para">
-                    Все о модульных конструкциях 
-                  </p> -->
+
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
               <div class="services__service-new">
-                <!-- <img class="services__service-new-img" src="./pics/Science_PNG.png" alt=""> -->
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Бесперебойное питание</h3>
                   <i class="services__service-new-vector fas fa-car-battery"></i>
-                  <!-- <div class="services__service-new-wrapper">
-                    <h3 class="services__service-new-headline">Модульные конструкции</h3>
-                    <p class="services__service-new-para">
-                      Все о модульных конструкциях 
-                    </p>
-                  </div> -->
+
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
@@ -162,70 +197,14 @@
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Строительные материалы</h3>
                   <i class="services__service-new-vector fas fa-hammer"></i>
-                  <!-- <p class="services__service-new-para">
-                    Все о модульных конструкциях 
-                  </p> -->
+
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
               </div>
-              <!-- <div class="services__service services__service_first">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_second">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_third">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_fourth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_fifth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_sixth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_seventh">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_eighth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_ninth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_tenth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_eleventh">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_twelveth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div> -->
+
             </div>
           </div>
         </section>
-        <!-- <section class="contact">
-          <h3 class="contact__headline">Свяжитесь с нами!</h3>
-          <form class="contant__form" action="">
-            <input class="contact__form-input" type="text" placeholder="Введите вашу почту">
-            <button class="contact__form-button"></button>
-          </form>
-        </section> -->
         <section class="reviews">
           <div class="container">
             <h2 class="reviews__headline">Отзывы о нас</h2>
@@ -298,65 +277,7 @@
             </div>
           </div>
         </section>
-        <section class="collaboration">
-          <!-- <div class="container container_display-type_flex">
-           
-          </div> -->
-          <div class="collaboration__flex-box">
-            <div class="collaboration__text-wrapper collaboration__text-wrapper_small-width">
-              <h2 class="collaboration__headline">Заинтересованы в совместном проекте?</h2>
-              <p class="collaboration__para">
-                Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
-              </p>
-            </div>
-            <div class="collaboration__text-wrapper collaboration__text-wrapper_skewed">
-              <!-- <button class="collaboration__button">Связаться с нами</button> -->
-              
-              <div class="collaboration__text-wrapper-background">
-                <h2 class="collaboration__headline">Заинтересованы в совместном проекте?</h2>
-                <p class="collaboration__para">
-                  Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
-                </p>
-              </div>
-            </div>
-            <div class="collaboration__text-wrapper collaboration__text-wrapper_small-width">
-              <!-- <h2 class="collaboration__headline">Гарантия на продукцию</h2>
-              <p class="collaboration__para">
-                Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
-              </p> -->
-              <footer class="footer">
-                <div class="container">
-                  <h3 class="footer__headline">Контакты</h3>
-                  <div class="footer__footer-wrapper">
-                    <!-- <span class="footer__span">Контакты</span> -->
-                    <ul class="footer__list">
-                      <li class="footer__list-element">
-                        <i class="footer__list-element-logo fab fa-facebook-f"></i>
-                        <!-- <div class="footer__list-element-overlay"></div> -->
-                      </li>
-                      <li class="footer__list-element">
-                        <i class="footer__list-element-logo fab fa-whatsapp"></i>
-                        <!-- <div class="footer__list-element-overlay"></div> -->
-                      </li>
-                      <li class="footer__list-element">
-                        <i class="footer__list-element-logo fab fa-telegram-plane"></i>
-                        <!-- <div class="footer__list-element-overlay"></div> -->
-                      </li>
-                      <li class="footer__list-element">
-                        <i class="footer__list-element-logo fab fa-instagram"></i>
-                        <!-- <div class="footer__list-element-overlay"></div> -->
-                      </li>
-                      <li class="footer__list-element">
-                        <i class="footer__list-element-logo fab fa-docker"></i>
-                        <!-- <div class="footer__list-element-overlay"></div> -->
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </footer>
-            </div>
-          </div>
-        </section>
+       
       </div>
               <!-- <div class="services__service services__service_thirteenth">
                 <div class="services__service-shadow services__service-shadow_top"></div>
@@ -390,16 +311,74 @@
           
         </section> -->
       <!-- </div> -->
-
     </main>
+    <section class="collaboration">
+      <!-- <div class="container container_display-type_flex">
+       
+      </div> -->
+      <div class="collaboration__flex-box">
+        <div class="collaboration__text-wrapper collaboration__text-wrapper_small-width">
+          <h2 class="collaboration__headline">Заинтересованы в совместном проекте?</h2>
+          <p class="collaboration__para">
+            Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
+          </p>
+        </div>
+        <div class="collaboration__text-wrapper collaboration__text-wrapper_skewed">
+          <!-- <button class="collaboration__button">Связаться с нами</button> -->
+          
+          <div class="collaboration__text-wrapper-background">
+            <h2 class="collaboration__headline">Заинтересованы в совместном проекте?</h2>
+            <p class="collaboration__para">
+              Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
+            </p>
+          </div>
+        </div>
+        <div class="collaboration__text-wrapper collaboration__text-wrapper_small-width">
+          <!-- <h2 class="collaboration__headline">Гарантия на продукцию</h2>
+          <p class="collaboration__para">
+            Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
+          </p> -->
+          <footer class="footer">
+            <div class="container">
+              <h3 class="footer__headline">Контакты</h3>
+              <div class="footer__footer-wrapper">
+                <!-- <span class="footer__span">Контакты</span> -->
+                <ul class="footer__list">
+                  <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-facebook-f"></i>
+                    <!-- <div class="footer__list-element-overlay"></div> -->
+                  </li>
+                  <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-whatsapp"></i>
+                    <!-- <div class="footer__list-element-overlay"></div> -->
+                  </li>
+                  <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-telegram-plane"></i>
+                    <!-- <div class="footer__list-element-overlay"></div> -->
+                  </li>
+                  <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-instagram"></i>
+                    <!-- <div class="footer__list-element-overlay"></div> -->
+                  </li>
+                  <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-docker"></i>
+                    <!-- <div class="footer__list-element-overlay"></div> -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
   <section class="popup">
     <div class="popup__container">
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
       <h3 class="popup__headline">Войти</h3>
       <form class="popup__form" action="/" method="POST">
-        <input class="popup__form-input" type="text" placeholder="Email">
-        <input class="popup__form-input" type="password" placeholder="Пароль">
-        <button class="popup__form-button" type="button">Отправить</button>
+        <input class="popup__form-input" type="email" name="email" placeholder="Email">
+        <input class="popup__form-input" type="password" name="password" placeholder="Пароль">
+        <button class="popup__form-button popup__form-button_login" type="submit">Отправить</button>
       </form>
       <p class="popup__para">Не можете войти? <a class="popup__anchor" href="#">Восстановить доступ</a></p>
       <p class="popup__para">Нет учетной записи? <a class="popup__anchor" href="#">Зарегистрироваться</a></p>
@@ -411,10 +390,10 @@
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
       <h3 class="popup__headline">Регистрация</h3>
       <form class="popup__form" action="/" method="POST">
-        <input class="popup__form-input" type="text" placeholder="Логин">
-        <input class="popup__form-input" type="text" placeholder="Email">
-        <input class="popup__form-input" type="password" placeholder="Пароль">
-        <button class="popup__form-button" type="button">Отправить</button>
+        <input class="popup__form-input" type="text" name="login" placeholder="Логин">
+        <input class="popup__form-input" type="email" name="email" placeholder="Email">
+        <input class="popup__form-input" type="password" name="password" placeholder="Пароль">
+        <button class="popup__form-button popup__form-button_register" type="submit">Отправить</button>
       </form>
       <!-- <p class="popup__para">Не можете войти? <a class="popup__anchor" href="#">Восстановить доступ</a></p> -->
       <p class="popup__para">Есть учетная запись? <a class="popup__anchor" href="#">Войти</a></p>
@@ -491,6 +470,9 @@
       <span class="popup__form-span-server"></span>
       <button class="popup__form-button">Отправить</button>
     </form>
+  </template>
+  <template id="service">
+
   </template>
   <!-- <script src="https://unpkg.com/swiper/swiper-bundle.js"></script> -->
   <!-- <script src="./js/components/Section.js"></script>

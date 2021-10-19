@@ -1,0 +1,10 @@
+.header__loggedOut-button {
+  border: 2px solid #d0a2dc;
+  border-radius: 30px;
+  transition: background-color 0.5s linear, color 0.5s linear;
+}
+
+.header__loggedOut-button:hover {
+  background-color: #d0a2dc;
+  color: black;
+}

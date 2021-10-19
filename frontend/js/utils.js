@@ -1,4 +1,6 @@
 const mainContainer = document.querySelector('.main');
+const mainOverallContainer = mainContainer.querySelector('.overall-container');
+
 const footerButtons = Array.from(document.querySelectorAll('.footer__list-element'));
 const scrollButton = document.querySelector('.content__button');
 const footer = document.querySelector('.footer');
@@ -10,7 +12,7 @@ const footerListTopOffset = footerList.offsetTop;
 
 const rotateDegree = 15;
 const perspective = 500;
-let scrollParameter = 0;
+// let scrollParameter = 0;
 // const footerListOffset = footer.querySelector('.footer__list').offsetLeft;
 // console.log(footerListOffset);
 
@@ -30,6 +32,7 @@ const backgroundVideo = mainContainer.querySelector('.reviews__review-img');
 const headerMainButton = document.querySelector('.header__services-list-element-anchor');
 const headerContactsButton = document.querySelector('.header__services-list-element-anchor_contact');
 const headerCatalogueButton = document.querySelector('.header__services-list-element-anchor_catalogue');
+const headerCoopButton = document.querySelector('.header__services-list-element-anchor_coop');
 
 const services = Array.from(servicesSection.querySelectorAll('.services__service-new-button'));
 // const companyButton = mainContainer.querySelector('.content__button_second');
@@ -70,17 +73,22 @@ let currentButton;
 //попапы и их переменные
 const overallContainer = document.querySelector('.overall-container');
 const popups = Array.from(document.querySelectorAll('.popup'));
-const firstPopup = document.querySelector('.popup');
+
+const loginPopup = document.querySelector('.popup');
+// const loginPopupSubmitButton = loginPopup.querySelector('.popup__form-button');
+
 const registerPopup = document.querySelector('.popup_register');
+// const registerPopupSubmitButton = registerPopup.querySelector('.popup__form-button');
 
 // кнопки логина и регистрации
 const openButtons = Array.from(document.querySelectorAll('.header__loggedOut-button'));
 
 //скрытые кнопки
-const hiddenButtons = Array.from(document.querySelectorAll('.header__loggedIn-button'));
+const loggedInButtons = Array.from(document.querySelectorAll('.header__loggedIn-button'));
 
 //кнопка с пользователем 
 const userButton = document.querySelector('.header__button-user');
+const userButtonSpan = userButton.querySelector('span');
 
 //кнопка выхода пользователя
 const userLogoutButton = document.querySelector('.header__button-user-logout');
@@ -107,6 +115,10 @@ const formRegisterTemplate = document.querySelector('#popup-form-register');
 const htmlToRender = {
   
 }
+
+//личный кабинет
+const userProfileSection = document.querySelector('.dashboard');
+const userProfileSegment = userProfileSection.querySelector('.dashboard__list-element-user-profile');
 
 reviews.forEach((child, i, array) => {
   if(i < 0) {
@@ -297,9 +309,7 @@ function closePopup (popupSection) {
 
 //прокручивание по нажатию на кнопку
 function scrollToSection(section) {
-  return () => {
-    window.scrollTo({top: section.offsetTop, behavior: "smooth"});
-  };
+  window.scrollTo({top: section.offsetTop, behavior: "smooth"});
 }
 
 //валидация формы
@@ -363,9 +373,13 @@ function showHeaderButtons(buttons) {
 
 //функция выхода пользователя из системы
 function logout() {
-  // localStorage.removeItem('token');
-  hideHeaderButtons(hiddenButtons);
-  showHeaderButtons(openButtons);
+  requestOnServer('/logout-user')
+  .then((data) => {
+    console.log(data);
+  })
+
+  // hideHeaderButtons(hiddenButtons);
+  // showHeaderButtons(openButtons);
 }
 
 //функция изменения адресной строки
@@ -373,211 +387,211 @@ function changeAddressBar(route) {
   return window.history.pushState({}, route, route);
 }
 
-function fetchData(route) {
-  // openPopup(uniquePopup);
-  requestOnServer(route)
-  .then((data) => {
+// function fetchData(route) {
+//   // openPopup(uniquePopup);
+//   requestOnServer(route)
+//   .then((data) => {
   
-    Array.from(uniquePopupContainer.children).forEach((child) => {
-      if(Array.from(child.classList).includes('popup__button-close')) {
-        return;
-      }
-      // console.log(Array.from(child.classList));
-      uniquePopupContainer.removeChild(child);
-    });
+//     Array.from(uniquePopupContainer.children).forEach((child) => {
+//       if(Array.from(child.classList).includes('popup__button-close')) {
+//         return;
+//       }
+//       // console.log(Array.from(child.classList));
+//       uniquePopupContainer.removeChild(child);
+//     });
 
-    const objectInners = Object.entries(data);
+//     const objectInners = Object.entries(data);
 
-    for (const [key, value] of objectInners) {
-      if(key === 'headline') {
-        const popupHeadlineTemplate = generateTemplate(headlineTemplate, '.popup__headline');
-        popupHeadlineTemplate.textContent = value;
-        uniquePopupContainer.append(popupHeadlineTemplate);
-      }
-      if(key === 'content') {
-        const popupParaTemplate = generateTemplate(paraTemplate, '.popup__para');
-        popupParaTemplate.textContent = value;
-        uniquePopupContainer.append(popupParaTemplate);
-      }
-      if(key === "form" && value === "register") {
-        const dataToPost = {};
+//     for (const [key, value] of objectInners) {
+//       if(key === 'headline') {
+//         const popupHeadlineTemplate = generateTemplate(headlineTemplate, '.popup__headline');
+//         popupHeadlineTemplate.textContent = value;
+//         uniquePopupContainer.append(popupHeadlineTemplate);
+//       }
+//       if(key === 'content') {
+//         const popupParaTemplate = generateTemplate(paraTemplate, '.popup__para');
+//         popupParaTemplate.textContent = value;
+//         uniquePopupContainer.append(popupParaTemplate);
+//       }
+//       if(key === "form" && value === "register") {
+//         const dataToPost = {};
 
-        let validationMessage;
+//         let validationMessage;
 
-        const popupFormTemplate = generateTemplate(formRegisterTemplate, '.popup__form');
+//         const popupFormTemplate = generateTemplate(formRegisterTemplate, '.popup__form');
         
-        const serverErrorSpan = popupFormTemplate.querySelector(('.popup__form-span-server'));
+//         const serverErrorSpan = popupFormTemplate.querySelector(('.popup__form-span-server'));
 
-        const formInputs = Array.from(popupFormTemplate.querySelectorAll('.popup__form-input'));
+//         const formInputs = Array.from(popupFormTemplate.querySelectorAll('.popup__form-input'));
 
-        const formButton = popupFormTemplate.querySelector('.popup__form-button');
+//         const formButton = popupFormTemplate.querySelector('.popup__form-button');
 
-        formInputs.forEach((input, index, array) => {
-          changeFormButtonStatus(array, formButton)
-          input.addEventListener('input', (evt) => {
+//         formInputs.forEach((input, index, array) => {
+//           changeFormButtonStatus(array, formButton)
+//           input.addEventListener('input', (evt) => {
             
-            const inputSpan = evt.target.nextElementSibling;
-            changeFormButtonStatus(array, formButton);
-            if(!evt.target.validity.valid) {
-              if(evt.target.validity.tooShort) {
-                validationMessage = 'Введено менее 3 символов';
-              }
-              if(evt.target.validity.typeMismatch) {
-                if(evt.target.name === "email") {
-                  validationMessage = 'Введите почту';
-                };
-                if(evt.target.name === "password") {
-                  validationMessage = 'Введите пароль необходимого типа';
-                }
-              }
-              inputSpan.textContent = validationMessage;
-            } else {
-              inputSpan.textContent = '';
-            }
+//             const inputSpan = evt.target.nextElementSibling;
+//             changeFormButtonStatus(array, formButton);
+//             if(!evt.target.validity.valid) {
+//               if(evt.target.validity.tooShort) {
+//                 validationMessage = 'Введено менее 3 символов';
+//               }
+//               if(evt.target.validity.typeMismatch) {
+//                 if(evt.target.name === "email") {
+//                   validationMessage = 'Введите почту';
+//                 };
+//                 if(evt.target.name === "password") {
+//                   validationMessage = 'Введите пароль необходимого типа';
+//                 }
+//               }
+//               inputSpan.textContent = validationMessage;
+//             } else {
+//               inputSpan.textContent = '';
+//             }
             
-            dataToPost[evt.target.name] = evt.target.value;
-          });
-        });
+//             dataToPost[evt.target.name] = evt.target.value;
+//           });
+//         });
 
-        formButton.addEventListener('click', (evt) => {
-          evt.preventDefault();
-          postOnServer('/register', dataToPost)
-          .then((data) => {
-            if(data.message) {
-              return serverErrorSpan.textContent = data.message;
-            }
-            // localStorage.setItem('token', data.payload);
-            return console.log(data);
-            // hideHeaderButtons(openButtons);
-            // showHeaderButtons(hiddenButtons);
-            // popupFormTemplate.reset();
-            // closePopup(uniquePopup);
-          })
-          .then(() => {
-            // const token = localStorage.getItem('token');
-            // if(!token) {
-            //   return console.log('no');
-            // }
-            getDataLoggedIn('/current-user')
-            .then((res) => {
-              hideHeaderButtons(openButtons);
-              showHeaderButtons(hiddenButtons);
-              popupFormTemplate.reset();
-              userButton.textContent = res.email;
-              closePopup(uniquePopup);
-            });
-          })
-        });
-        uniquePopupContainer.append(popupFormTemplate);
-      }
-      if(key === 'form' && value === 'login') {
-        const dataToPost = {};
+//         formButton.addEventListener('click', (evt) => {
+//           evt.preventDefault();
+//           postOnServer('/register', dataToPost)
+//           .then((data) => {
+//             if(data.message) {
+//               return serverErrorSpan.textContent = data.message;
+//             }
+//             // localStorage.setItem('token', data.payload);
+//             return console.log(data);
+//             // hideHeaderButtons(openButtons);
+//             // showHeaderButtons(hiddenButtons);
+//             // popupFormTemplate.reset();
+//             // closePopup(uniquePopup);
+//           })
+//           .then(() => {
+//             // const token = localStorage.getItem('token');
+//             // if(!token) {
+//             //   return console.log('no');
+//             // }
+//             getDataLoggedIn('/current-user')
+//             .then((res) => {
+//               hideHeaderButtons(openButtons);
+//               showHeaderButtons(hiddenButtons);
+//               popupFormTemplate.reset();
+//               userButton.textContent = res.email;
+//               closePopup(uniquePopup);
+//             });
+//           })
+//         });
+//         uniquePopupContainer.append(popupFormTemplate);
+//       }
+//       if(key === 'form' && value === 'login') {
+//         const dataToPost = {};
 
-        let validationMessage;
+//         let validationMessage;
 
-        const popupFormTemplate = generateTemplate(formTemplate, '.popup__form');
+//         const popupFormTemplate = generateTemplate(formTemplate, '.popup__form');
         
-        const serverErrorSpan = popupFormTemplate.querySelector(('.popup__form-span-server'));
+//         const serverErrorSpan = popupFormTemplate.querySelector(('.popup__form-span-server'));
         
-        const formInputs = Array.from(popupFormTemplate.querySelectorAll('.popup__form-input'));
+//         const formInputs = Array.from(popupFormTemplate.querySelectorAll('.popup__form-input'));
 
-        const formButton = popupFormTemplate.querySelector('.popup__form-button');
+//         const formButton = popupFormTemplate.querySelector('.popup__form-button');
 
-        formInputs.forEach((input, index, array) => {
+//         formInputs.forEach((input, index, array) => {
           
-          changeFormButtonStatus(array, formButton);
-          input.addEventListener('input', (evt) => {
+//           changeFormButtonStatus(array, formButton);
+//           input.addEventListener('input', (evt) => {
 
-            serverErrorSpan.textContent = "";
+//             serverErrorSpan.textContent = "";
 
-            const inputSpan = evt.target.nextElementSibling;
-            changeFormButtonStatus(array, formButton);
-            if(!evt.target.validity.valid) {
+//             const inputSpan = evt.target.nextElementSibling;
+//             changeFormButtonStatus(array, formButton);
+//             if(!evt.target.validity.valid) {
               
-              if(evt.target.validity.tooShort) {
-                validationMessage = "Введена слишком короткая запись";
-              }
-              if(evt.target.validity.typeMismatch) {
-                if(evt.target.name === "email") {
-                  validationMessage = 'Введите почту';
-                }
-                if(evt.target.name === "password") {
-                  validationMessage = 'Введите пароль необходимого типа';
-                }
-                // validationMessage = "Необходим пароль, соттветствующий правилам";
-              }
-              inputSpan.textContent = validationMessage;;
-            } else {
-              inputSpan.textContent = '';
-            }
+//               if(evt.target.validity.tooShort) {
+//                 validationMessage = "Введена слишком короткая запись";
+//               }
+//               if(evt.target.validity.typeMismatch) {
+//                 if(evt.target.name === "email") {
+//                   validationMessage = 'Введите почту';
+//                 }
+//                 if(evt.target.name === "password") {
+//                   validationMessage = 'Введите пароль необходимого типа';
+//                 }
+//                 // validationMessage = "Необходим пароль, соттветствующий правилам";
+//               }
+//               inputSpan.textContent = validationMessage;;
+//             } else {
+//               inputSpan.textContent = '';
+//             }
             
-            dataToPost[evt.target.name] = evt.target.value;
-          });
-        });
+//             dataToPost[evt.target.name] = evt.target.value;
+//           });
+//         });
         
-        formButton.addEventListener('click', (evt) => {
-          evt.preventDefault();
-          postOnServer('/login', dataToPost)
-          .then((data) => {
-            if(data.message) {
-              return serverErrorSpan.textContent = data.message;
-            } else {
-              // localStorage.setItem("token", data.payload)
-              return data;
-            }
-          })
-          .then(() => {
-            // if(!localStorage.getItem("token")) {
-            //   return console.log('no');
-            // }
-            // const token = localStorage.getItem("token");
-            getDataLoggedIn('/current-user')
-            .then((data) => {
-              userButton.textContent = data.email;
-              hideHeaderButtons(openButtons);
-              showHeaderButtons(hiddenButtons);
-              popupFormTemplate.reset();
-              closePopup(uniquePopup);
-            })
-          });
-        });
+//         formButton.addEventListener('click', (evt) => {
+//           evt.preventDefault();
+//           postOnServer('/login', dataToPost)
+//           .then((data) => {
+//             if(data.message) {
+//               return serverErrorSpan.textContent = data.message;
+//             } else {
+//               // localStorage.setItem("token", data.payload)
+//               return data;
+//             }
+//           })
+//           .then(() => {
+//             // if(!localStorage.getItem("token")) {
+//             //   return console.log('no');
+//             // }
+//             // const token = localStorage.getItem("token");
+//             getDataLoggedIn('/current-user')
+//             .then((data) => {
+//               userButton.textContent = data.email;
+//               hideHeaderButtons(openButtons);
+//               showHeaderButtons(hiddenButtons);
+//               popupFormTemplate.reset();
+//               closePopup(uniquePopup);
+//             })
+//           });
+//         });
 
-        uniquePopupContainer.append(popupFormTemplate);
-      }
-      if(typeof(value) === 'object' && value.length >= 1 && key !== "form") {
-        const popupListTemplate = generateTemplate(listTemplte, '.popup__list');
-        // if(key === "links") {
-        //   value.forEach((element) => {
-        //     const popupButtonTemplate = generateTemplate(anchorTemplate, '.popup__anchor');
-        //     popupButtonTemplate.textContent = element;
-        //     uniquePopupContainer.append(popupButtonTemplate);
-        //   })
-        // }
-        value.forEach((element) => {
-          //здесь сделать генерацию ссылок
-          const popupListElementTemplate = generateTemplate(listELementTemplate, '.popup__list-element');
-          popupListElementTemplate.textContent = element;
-          if(key === 'links') {
-            // console.log(value);
-            popupListElementTemplate.textContent = '';
-            const linkTemplate = generateTemplate(anchorTemplate, '.popup__anchor');
-            linkTemplate.textContent = element;
-            popupListElementTemplate.append(linkTemplate);
-          }
+//         uniquePopupContainer.append(popupFormTemplate);
+//       }
+//       if(typeof(value) === 'object' && value.length >= 1 && key !== "form") {
+//         const popupListTemplate = generateTemplate(listTemplte, '.popup__list');
+//         // if(key === "links") {
+//         //   value.forEach((element) => {
+//         //     const popupButtonTemplate = generateTemplate(anchorTemplate, '.popup__anchor');
+//         //     popupButtonTemplate.textContent = element;
+//         //     uniquePopupContainer.append(popupButtonTemplate);
+//         //   })
+//         // }
+//         value.forEach((element) => {
+//           //здесь сделать генерацию ссылок
+//           const popupListElementTemplate = generateTemplate(listELementTemplate, '.popup__list-element');
+//           popupListElementTemplate.textContent = element;
+//           if(key === 'links') {
+//             // console.log(value);
+//             popupListElementTemplate.textContent = '';
+//             const linkTemplate = generateTemplate(anchorTemplate, '.popup__anchor');
+//             linkTemplate.textContent = element;
+//             popupListElementTemplate.append(linkTemplate);
+//           }
           
-          popupListTemplate.append(popupListElementTemplate);
-        });
-        // popupListElementTemplate.textContent = value;
-        // popupListTemplate.append(popupListElementTemplate);
+//           popupListTemplate.append(popupListElementTemplate);
+//         });
+//         // popupListElementTemplate.textContent = value;
+//         // popupListTemplate.append(popupListElementTemplate);
 
-        uniquePopupContainer.append(popupListTemplate);
-      }
+//         uniquePopupContainer.append(popupListTemplate);
+//       }
 
-    }
-    openPopup(uniquePopup);
-  });
+//     }
+//     openPopup(uniquePopup);
+//   });
 
-}
+// }
 
 function loadHtmlPage(page) {
   // console.log(uniquePopup);
@@ -597,6 +611,11 @@ function insertPopupContent(data) {
     }
     uniquePopupContainer.removeChild(child);
   });
+
   uniquePopupRootDiv.innerHTML = data;
   // uniquePopupContainer.append(data);
+}
+
+function sendDataToServerTest(route, data) {
+  console.log(route, data);
 }

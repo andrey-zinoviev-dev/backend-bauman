@@ -1,0 +1,11 @@
+.dashboard__list-element {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.dashboard__list-element:first-of-type {
+  margin-bottom: 15px;
+}
+.dashboard__list-element:last-of-type {
+  margin-bottom: 0;
+}

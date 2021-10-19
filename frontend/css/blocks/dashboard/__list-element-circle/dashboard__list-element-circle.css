@@ -1,0 +1,6 @@
+.dashboard__list-element-circle {
+  min-width: 5px;
+  min-height: 5px;
+  border-radius: 51%;
+  background-color: white;
+}

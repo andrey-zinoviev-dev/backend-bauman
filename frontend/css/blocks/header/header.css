@@ -12,11 +12,12 @@
 @import url('./__services-list-element-anchor/header__services-list-element-anchor.css');
 @import url('./__services-list-element-button/header__services-list-element-button.css');
 @import url('./__loggedIn-button/header__loggedIn-button.css');
+@import url('./__loggedOut-button/header__loggedOut-button.css');
 .header {
   /* position: relative;
   z-index: 1; */
   width: 100%;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   /* right: 15%;
   top: 5%; */

@@ -32,9 +32,9 @@ app.use(express.json());
 //подключение парсера кук
 app.use(cookieParser());
 
-
 //если проблемы- убрать app.get("/*"), раскомментировать app.use('/', router)
-// app.use('/', router);
+app.use('/', router);
+
 app.use('/', postRouter);
 
 

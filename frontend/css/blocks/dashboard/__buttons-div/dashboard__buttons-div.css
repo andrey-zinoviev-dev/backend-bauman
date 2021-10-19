@@ -1,0 +1,8 @@
+.dashboard__buttons-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 40px;
+  border-radius: 30px;
+  background-color: rgba(0, 0, 0, 0.45);
+}
