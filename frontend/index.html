@@ -25,7 +25,7 @@
         <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_contact" href="#">Контакты</a></li>
         <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Войти <i class="fas fa-sign-in-alt"></i></button></li>
         <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Регистрация <i class="fas fa-user-plus"></i></button></li>
-        <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user"><span></span> <i class="fas fa-cog"></i></button></li>
+        <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user"><span></span> <i class="fas fa-user-circle"></i></button></li>
         <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user-logout">Выйти <i class="fas fa-sign-out-alt"></i></i></button></li>
       </ul>
     </div>
@@ -34,12 +34,12 @@
         <!-- <h2 class="services__heading">Личный кабинет</h2> -->
         <!-- <p class="services__para">Имя пользователя</p> -->
         <div class="dashboard__segment-wrapper">
-          <ul class="dashboard__list dashboard__list_colored-bg dashboard__list_active">
+          <ul class="dashboard__list dashboard__list_colored-bg dashboard__list_active ">
             <li class="dashboard__list-element">
               <i class="fas fa-user-circle"></i>
             </li>
           </ul>
-          <ul class="dashboard__list">
+          <ul class="dashboard__list dashboard__list_text dashboard__list_text-active">
             <li class="dashboard__list-element dashboard__list-element-user-profile"></li>
           </ul>
         </div>
@@ -52,63 +52,70 @@
               <i class="fas fa-box-open"></i>
             </li>
             <li class="dashboard__list-element">
-              <div class="dashboard__list-element-circle"></div>
+              <div class="dashboard__list-element-circle dashboard__list-element-circle_color-dense"></div>
             </li>
             <li class="dashboard__list-element">
-              <div class="dashboard__list-element-circle"></div>
+              <div class="dashboard__list-element-circle dashboard__list-element-circle_color-semi"></div>
             </li>
           </ul>
-          <div class="dashboard__sergment-text">
-            <ul class="dashboard__list">
-              <li class="dashboard__list-element">
-                <h2 class="dashboard__list-element-heading">Заказы</h2>
-              </li>
-              <li class="dashboard__list-element">
-                <p class="dashboard__list-element-para">Что-то</p>
-              </li>
-              <li class="dashboard__list-element">
-                <p class="dashboard__list-element-para">Еще что-то</p>
-              </li>
-            </ul>
-          </div>
+          <ul class="dashboard__list dashboard__list_text">
+            <li class="dashboard__list-element">
+              <!-- <h2 class="dashboard__list-element-heading">Заказы</h2> -->
+              <button class="dashboard__button dashboard__button_large">Заказы</button>
+            </li>
+            <li class="dashboard__list-element">
+              <button class="dashboard__button">Активные <span class="dashboard__button-span dashboard__button-span_active"></span></button>
+              <!-- <p class="dashboard__list-element-para">Активные</p> -->
+            </li>
+            <li class="dashboard__list-element">
+              <button class="dashboard__button">В ожидании <span class="dashboard__button-span dashboard__button-span_pending"></span></button>
+              <!-- <p class="dashboard__list-element-para">В ожидании</p> -->
+            </li>
+          </ul>
         </div>
         <div class="dashboard__segment-wrapper">
-          <!-- <div class="dashboard__buttons-div">
-
-          </div> -->
           <ul class="dashboard__list dashboard__list_colored-bg">
             <li class="dashboard__list-element">
               <i class="fas fa-box-open"></i>
             </li>
             <li class="dashboard__list-element">
-              <div class="dashboard__list-element-circle"></div>
+              <div class="dashboard__list-element-circle dashboard__list-element-circle_color-dense dashboard__list-element-circle_color-dense-blue"></div>
             </li>
             <li class="dashboard__list-element">
-              <div class="dashboard__list-element-circle"></div>
-            </li>
-            <li class="dashboard__list-element">
-              <div class="dashboard__list-element-circle"></div>
+              <div class="dashboard__list-element-circle dashboard__list-element-circle_color-semi dashboard__list-element-circle_color-semi-blue"></div>
             </li>
           </ul>
-          <div class="dashboard__sergment-text">
-            <ul class="dashboard__list">
-              <li class="dashboard__list-element"> 
-                <h2 class="dashboard__list-element-heading">История</h2>
-              </li>
-              <li class="dashboard__list-element">
-                <p class="dashboard__list-element-para">В процессе</p>
-              </li>
-              <li class="dashboard__list-element">
-                <p class="dashboard__list-element-para">Завершенные</p>
-              </li>
-              <li class="dashboard__list-element">
-                <p class="dashboard__list-element-para">Отмененные</p>
-              </li>
-            </ul>
-          </div>
+          <ul class="dashboard__list dashboard__list_text">
+            <li class="dashboard__list-element"> 
+              <!-- <h2 class="dashboard__list-element-heading">История</h2> -->
+              <button class="dashboard__button dashboard__button_large">История</button>
+            </li>
+            <li class="dashboard__list-element">
+              <button class="dashboard__button">Завершенные <span class="dashboard__button-span dashboard__button-span_finished"></span></button>
+              <!-- <p class="dashboard__list-element-para">Завершенные</p> -->
+            </li>
+            <li class="dashboard__list-element">
+              <button class="dashboard__button">Отмененные <span class="dashboard__button-span dashboard__button-span_canceled"></span></button>
+              <!-- <p class="dashboard__list-element-para">Отмененные</p> -->
+            </li>
+          </ul>
         </div>
-        <button class="dashboard__button">Сообщения</button>
-        <button class="dashboard__button">Настройки</button>
+        <div class="dashboard__segment-wrapper dashboard__segment-wrapper_settings">
+          <!-- <button class="dashboard__button">Сообщения</button> -->
+          <ul class="dashboard__list dashboard__list_colored-bg">
+            <li class="dashboard__list-element">
+              <i class="fas fa-sliders-h"></i>
+            </li>
+          </ul>
+          <ul class="dashboard__list dashboard__list_text">
+            <li class="dashboard__list-element">
+              <button class="dashboard__button dashboard__button_large">
+                Настройки
+              </button>
+              <!-- <h2 class="dashboard__list-element-heading">Настройки</h2> -->
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   </header>
@@ -413,6 +420,15 @@
     </div>
     <div class="popup__overlay"></div>
   </section>
+  <section class="popup popup_service">
+    <div class="popup__container">
+      <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
+      <h3 class="popup__headline"></h3>
+      <p class="popup__para"></p>
+      <button class="popup__button-submit">Добавить к заказу</button>
+    </div>
+    <div class="popup__overlay"></div>
+  </section>
   <!-- <section class="popup">
     <h2 class="popup__heading">Это модальное окно</h2>
   </section> -->
@@ -443,13 +459,22 @@
   <template id="popup-anchor">
     <button class="popup__anchor"></button>
   </template>
-  <template id="popup-list">
-    <ul class="popup__list"></ul>
+  <template id="perosnal-space__headline">
+    <h2 class="personal-space__headline"></h2>
   </template>
-  <template id="popup-list-element">
-    <li class="popup__list-element"></li>
+  <template id="personal-space__list">
+    <ul class="personal-space__list"></ul>
   </template>
-  <template id="popup-form-login">
+  <template id="personal-space__list-element">
+    <li class="personal-space__list-element"></li>
+  </template>
+  <template id="personal-space__para">
+    <p class="personal-space__para"></p>
+  </template>
+  <!-- <template>
+    
+  </template> -->
+  <!-- <template id="popup-form-login">
     <form action="/" class="popup__form" novalidation>
       <input class="popup__form-input" type="email" name="email" placeholder="Email" required="true" minlength="3" autocomplete="off" pattern="[a-zA-Z0-9_]+@\w+.\w+">
       <span class="popup__form-span"></span>
@@ -470,9 +495,9 @@
       <span class="popup__form-span-server"></span>
       <button class="popup__form-button">Отправить</button>
     </form>
-  </template>
+  </template> -->
   <template id="service">
-
+    
   </template>
   <!-- <script src="https://unpkg.com/swiper/swiper-bundle.js"></script> -->
   <!-- <script src="./js/components/Section.js"></script>

@@ -3,36 +3,61 @@ const jwt = require('jsonwebtoken');
 // const user = require('../models/user');
 
 const User = require('../models/user');
+const Order = require('../models/order');
 
 const sendLoginData = (req, res) => {
   const { email, password } = req.body;
-  User.findOne({ email }, (err, doc) => {
+  
+  User.findOne({ email }).select('+password')
+  .then((doc) => {
     if(!doc) {
-      console.log('no');
       return res.status(400).send({
-        message: "Пользователь не найден",
-      })
-    } else {
-      return bcrypt.compare(password, doc.password)
-      .then((matched) => {
-        if(!matched) {
-          return res.status(400).send({
-            message: "Проверьте пароль",
-          });
-        }
-        const token = jwt.sign({
-          _id: doc._id
-        }, process.env.SECRET_KEY);
-        return res.cookie('token', token, {
-          httpOnly: true,
-        }).status(200).send({
-          result: "Вы успешно вошли",
-        });
-        // res.status(200).send({payload: token})
+        message: "Пользователь не найден"
       });
     }
-
+    return bcrypt.compare(password, doc.password)
+    .then((matched) => {
+      if(!matched) {
+        return res.status(400).send({
+          message: "Проверьте пароль"
+        });
+      }
+      const token = jwt.sign({ _id: doc._id }, process.env.SECRET_KEY);
+      return res.cookie('token', token, {
+        httpOnly: true,
+      }).status(200).send({
+        payload: token,
+      })
+    });
   });
+  // User.findOne({ email }, (err, doc) => {
+  //   if(!doc) {
+  //     console.log('no');
+  //     return res.status(400).send({
+  //       message: "Пользователь не найден",
+  //     })
+  //   } else {
+  //     return bcrypt.compare(password, doc.password)
+  //     .then((matched) => {
+  //       if(!matched) {
+  //         return res.status(400).send({
+  //           message: "Проверьте пароль",
+  //         });
+  //       }
+  //       const token = jwt.sign({
+  //         _id: doc._id
+  //       }, process.env.SECRET_KEY);
+  //       return res.cookie('token', token, {
+  //         httpOnly: true,
+  //       }).status(200).send({
+  //         result: "Вы успешно вошли",
+  //       });
+  //       // res.status(200).send({payload: token})
+  //     });
+  //   }
+
+  // });
+  // User.findOne({ email }).select('+password')
   // .then((data) => {
   //   if(data === null) {
   //     return res.status(400).send({
@@ -90,7 +115,53 @@ const sendRegisterData = (req, res) => {
     });
   });
 };
+
+const sendServiceOrderData = (req, res) => {
+  const { token } = req.cookies;
+  const { title, time } = req.body;
+
+  if(!token) {
+    return res.status(403).send({
+      message: "Необходима авторизация",
+    })
+  }
+
+  const payload = jwt.verify(token, process.env.SECRET_KEY);
+  const { _id } = payload;
+  let order; 
+
+  User.findById(_id)
+    .then((data) => {
+      
+      Order.create({
+        orderContent: title, orderTime: time,  owner: _id
+      })
+      .then((success) => {
+        if(!success) {
+          return res.status(400).send({
+            message: "Проверьте данные при отправке заказа",
+          });
+        }
+        
+        // return data.orders.push(order);
+        
+
+        return res.status(200).send({
+          message: "Заказ успешно отправлен",
+        });
+
+      });
+
+      
+    })
+
+
+
+
+};
+
 module.exports = {
   sendLoginData,
   sendRegisterData,
+  sendServiceOrderData,
 }

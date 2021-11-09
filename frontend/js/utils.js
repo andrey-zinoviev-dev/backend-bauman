@@ -34,7 +34,7 @@ const headerContactsButton = document.querySelector('.header__services-list-elem
 const headerCatalogueButton = document.querySelector('.header__services-list-element-anchor_catalogue');
 const headerCoopButton = document.querySelector('.header__services-list-element-anchor_coop');
 
-const services = Array.from(servicesSection.querySelectorAll('.services__service-new-button'));
+const services = Array.from(servicesSection.querySelectorAll('.services__service-new'));
 // const companyButton = mainContainer.querySelector('.content__button_second');
 
 
@@ -75,10 +75,11 @@ const overallContainer = document.querySelector('.overall-container');
 const popups = Array.from(document.querySelectorAll('.popup'));
 
 const loginPopup = document.querySelector('.popup');
-// const loginPopupSubmitButton = loginPopup.querySelector('.popup__form-button');
+
 
 const registerPopup = document.querySelector('.popup_register');
-// const registerPopupSubmitButton = registerPopup.querySelector('.popup__form-button');
+
+const servicePopup = document.querySelector('.popup_service');
 
 // кнопки логина и регистрации
 const openButtons = Array.from(document.querySelectorAll('.header__loggedOut-button'));
@@ -106,19 +107,39 @@ const uniquePopupRootDiv = uniquePopupContainer.querySelector('.popup__text-wrap
 const headlineTemplate = document.querySelector('#popup-headline');
 const paraTemplate = document.querySelector('#popup-para');
 const anchorTemplate = document.querySelector('#popup-anchor');
-const listTemplte = document.querySelector('#popup-list');
-const listELementTemplate = document.querySelector('#popup-list-element');
-const formTemplate = document.querySelector('#popup-form-login');
-const formRegisterTemplate = document.querySelector('#popup-form-register');
+
+
+
+//остальные шаблоны
+const personalSpaceHeadlineTemplate = document.querySelector('#perosnal-space__headline');
+const personalSpaceParaTemplate = document.querySelector('#personal-space__para');
+const personalSpaceListTemplate = document.querySelector('#personal-space__list');
+const personalSpaceListElementTemplate = document.querySelector('#personal-space__list-element');
 
 //объект для данных для маршрутизации на стороне клиента
 const htmlToRender = {
   
 }
 
+//пользователь
+let user;
+
 //личный кабинет
-const userProfileSection = document.querySelector('.dashboard');
-const userProfileSegment = userProfileSection.querySelector('.dashboard__list-element-user-profile');
+const userSection = document.querySelector('.dashboard');
+const userSegments = Array.from(userSection.querySelectorAll('.dashboard__segment-wrapper'));
+const userProfileSegment = userSection.querySelector('.dashboard__list-element-user-profile');
+const dashboardButtonSegments = Array.from(userSection.querySelectorAll('.dashboard__button'));
+const activeOrdersSpan = userSection.querySelector('.dashboard__button-span_active');
+const pendingOrdersSpan = userSection.querySelector('.dashboard__button-span_pending');
+const finishedOrdersSpan = userSection.querySelector('.dashboard__button-span_finished');
+const canceledOrdersSpan = userSection.querySelector('.dashboard__button-span_canceled');
+
+//переменные личного кабинета
+let dashboardSegments = [];
+let coloredDivSegments = [];
+let profilePartsToRender = [];
+let profileOrdersToRender = [];
+let userOrders = {};
 
 reviews.forEach((child, i, array) => {
   if(i < 0) {
@@ -270,6 +291,7 @@ function dragFinish() {
 
 function generateTemplate(element, selector) {
   const template = element.content.cloneNode(true).querySelector(selector);
+  // console.log(template);
   return template;
 }
 

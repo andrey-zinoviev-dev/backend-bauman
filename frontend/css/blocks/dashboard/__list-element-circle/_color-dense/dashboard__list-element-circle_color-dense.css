@@ -1,0 +1,4 @@
+.dashboard__list-element-circle_color-dense {
+  background-color:#df53be;
+  transition: background-color 0.5s ease-in-out;
+}

@@ -17,11 +17,18 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    select: false
   },
   name: {
     type: String,
     minlength: 3,
     required: true,
+  },
+  totalOrders: {
+    type: Number,
+    minlength: 0,
+    required: true,
+    default: 0,
   }
 })
 

@@ -1,0 +1,4 @@
+.dashboard__list-element-circle_color-semi {
+  background-color: #8a3780;
+  transition: background-color 0.5s ease-in-out;
+}

@@ -1,0 +1,8 @@
+.personal-space__list {
+  /* display: flex;
+  justify-content: space-between;
+  max-width: 620px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

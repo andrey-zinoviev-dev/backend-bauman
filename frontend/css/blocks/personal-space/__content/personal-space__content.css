@@ -1,0 +1,7 @@
+.personal-space__content {
+  height: 100%;
+  align-self: center;
+  margin: 0 0 0 10%;
+  padding: 10% 0;
+  box-sizing: border-box;
+}

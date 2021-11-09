@@ -1,0 +1,6 @@
+.personal-space__wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  min-height: 405px;
+}

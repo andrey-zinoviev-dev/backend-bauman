@@ -1,0 +1,5 @@
+.dashboard__list_text {
+  align-items: flex-start;
+  min-width: 145px;
+  color: rgba(255, 255, 255, 0.5);
+}

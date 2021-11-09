@@ -3,7 +3,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-
+const Order = require('../models/order')
 // const aboutCompany = (req, res) => {
 //   res.status(200).send({headline: "Информация о компании", content: "Наша компания крайне могучая и сильная, она может сделать все, что угодно, если это законно", partners: ["Газпром", "Роснефть", "Гугл"], crew:["Алексей", "Андрей", "Георгий"]});
 // };
@@ -46,7 +46,7 @@ const showCurrentUser = (req, res) => {
   //   });
   // }
   
-  return User.findById(_id)
+  return User.findById(_id).select('-password')
   .then((data) => {
     if(!data) {
       return res.status(400).send({
@@ -72,6 +72,41 @@ const logoutCurrentUser = (req, res) => {
   })
 }
 
+const showUserOrders = (req, res) => {
+  const { token } = req.cookies;
+
+  if(!token) {
+    return res.status(403).send({
+      message: "Необходима авторизация",
+    });
+  }
+
+  const payload = jwt.verify(token, process.env.SECRET_KEY);
+  const { _id } = payload;
+ 
+  Order.find({}).populate('owner')
+  .then((data) => {
+    if(!data) {
+      return res.status(400).send({
+        message: "Проверьте запрос о заказх клиента",
+      })
+    }
+
+    //если пользователь не делал заказы, то в поле owner будет null, подумать, что с этим делать
+    User.findById(_id)
+    .then((user) => {
+      const result = data.filter((element) => {
+        return element.owner.email === user.email;
+      })
+      return res.status(200).send({
+        result 
+      });
+    })
+
+  })
+
+}
+
 const loadCatalogue = (req, res) => {
   // res.sendFile(fileLocation);
   res.status(200).send([{title: "Электрооборудование", image: ""}, {title: "Резервуары", image: ""}, {title: "Электростанции", image: ""}, {title: "Трубопроводы", image: ""}, {title: "Металлоконструкции", image: ""}, {title: "Перемешивающие устройства", image: ""}, {title: "Бесперебойное питание", image: ""}, {title: "Строительные материалы", image: ""}]);
@@ -79,12 +114,8 @@ const loadCatalogue = (req, res) => {
 }
 
 module.exports = {
-  // aboutCompany,
-  // showContacs,
-  // registerPopup,
-  // loginPopup,
-  // wrongAdress,
   showCurrentUser,
   logoutCurrentUser,
+  showUserOrders,
   loadCatalogue,
 };

@@ -1,0 +1,5 @@
+.dashboard__button {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  transition: color 0.5s ease-in-out;
+}

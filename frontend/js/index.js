@@ -1,8 +1,13 @@
 // const { showCurrentUser } = require("../../controllers/getControllers");
 
+// const { showUserOrders } = require("../../controllers/getControllers");
+
 //назначение первой кнопки 1 отзыва при загрузке страницы
 window.onload = () => {
-  console.log(window.location.pathname);
+  if(window.location.pathname.includes('user')) {
+    console.log('profile page is selected');
+  }
+
   let buttons = Array.from(document.querySelectorAll('.reviews__buttons-button'));
   previousButton = buttons[1];
   previousButton.classList.add('reviews__buttons-button_status_active');
@@ -14,12 +19,62 @@ window.onload = () => {
 
     userButtonSpan.textContent = data.name.charAt(0);
     userProfileSegment.textContent = data.name;
+
+    //создание объекта с информацией о пользователе
+    user = data;
+
+    //добавление элементов для профиля в личном кабинете
+    // for (let key in user) {
+    //   //элементы меню профиля
+    //   if(key === "email" || key === "name") {
+    //     profilePartsToRender.push(user[key]);
+    //   }
+
+    //   //элементы меню заказов
+    //   // if(key.includes('Orders')) {
+    //   //   userOrders[key] = user[key];
+    //   // }
+    // };
+    
     hideHeaderButtons(openButtons);
     showHeaderButtons(loggedInButtons);
     closePopup(uniquePopup);
   });
 
-  };
+  //запрос данных о заказ вошедшего пользователя
+  getDataLoggedIn('/show-orders')
+  .then((data) => {
+    if(data.message) {
+      return;
+    }
+    //временное обнуление объекта
+    userOrders = {};
+
+    data.result.forEach((order, i ,array) => {
+
+      userOrders[order.status] = array.filter((element) => {
+        return element.status === order.status;
+      });
+
+    });
+    //добавлять заказы в бд пользователя через сервер, а не в клиенте
+    for (let key in userOrders) {
+      user.totalOrders += userOrders[key].length;
+    }
+    // return data.result.forEach((element) => {
+      
+    //   // if(element.status === "canceled") {
+    //   //   userOrders[element.status] = [].push(element);
+    //   // }
+    //   // if(element.status === "active") {
+    //   //   userOrders[element.status] = [].push(element);
+    //   // }
+    // })
+    // return userOrders = data.result;
+  })
+
+  
+};
 
 footerButtons.forEach((button) => {
   button.addEventListener('mousemove', (evt) => {
@@ -104,12 +159,33 @@ popups.forEach((popup, i, array) => {
           userButtonSpan.textContent = data.name.charAt(0);
           userProfileSegment.textContent = data.name;
           showHeaderButtons(loggedInButtons);
-
           //подумать, как скрывать и раскрывать кнопки элегантнее
           hideHeaderButtons(openButtons);
 
+          user = data;
+          //создание элементов профиля пользователя для рендера в личном кабинете в поле профиль
+          // for (let key in user) {
+          //   if(key === 'email' || key === 'name') {
+          //     profilePartsToRender.push(user[key]);
+          //   }
+          // }
+
+          //загрузка данных о заказах пользователя
+          getDataLoggedIn('/show-orders')
+          .then((data) => {
+            if(data.message) {
+              return;
+            }
+            
+            data.result.forEach((element, i, array) => {
+              userOrders[element.status] = array.filter((order) => {
+                return order.status === element.status; 
+              });
+            });
+
+          });
           closePopup(popup);
-        })
+        });
       })
        
       : 
@@ -125,6 +201,9 @@ popups.forEach((popup, i, array) => {
 
           hideHeaderButtons(openButtons);
           
+          //озапись данных объекта пользователя
+          user = data;
+
           closePopup(popup);
         })
       })
@@ -189,8 +268,19 @@ headerContactsButton.addEventListener('click', (evt) => {
 
 //обработчики карточек каталога
 services.forEach((service) => {
-  service.addEventListener('click', () => {
-    // openPopup(uniquePopup);
+  service.querySelector('.services__service-new-button').addEventListener('click', () => {
+    servicePopup.querySelector('.popup__headline').textContent = service.querySelector('.services__service-new-headline').textContent;
+    servicePopup.querySelector('.popup__button-submit').addEventListener('click', () => {
+      postOnServer('/add-service', {
+        title: service.querySelector('.services__service-new-headline').textContent,
+        time: `${new Date()}`,
+      })
+      .then((data) => {
+
+      })
+    })
+    openPopup(servicePopup);
+    
   });
 });
 
@@ -206,17 +296,373 @@ userLogoutButton.addEventListener('click', () => {
 
 //обработчик открытия личного кабинета
 userButton.addEventListener('click', () => {
-  userProfileSection.classList.toggle('dashboard_opened');
-  // openPopup(uniquePopup);
-  
-  // changeAddressBar(`/user/${userButton.textContent}`);
-
-  //это супер важно- это загрузка новой части страницы для маршрутизации, понадобится позже
-  // loadHtmlPage('../userpage.html')
-  // .then((data) => {
-  //   mainOverallContainer.classList.add('main_padding');
-  //   mainOverallContainer.innerHTML = data;
-  // })
-  // mainContainer.innerHTML = '';
+  userSection.classList.toggle('dashboard_opened');
 });
 
+//обработчики сегментов личного кабинета
+
+userSegments.forEach((segment, index, array) => {
+  dashboardSegments.push(segment.querySelector('.dashboard__list_colored-bg'));
+  
+  const colorDivDense = segment.querySelector('.dashboard__list-element-circle_color-dense');
+  const colorDivSemi = segment.querySelector('.dashboard__list-element-circle_color-semi');
+
+  if(colorDivDense && colorDivSemi) {
+    coloredDivSegments.push(colorDivDense);
+    coloredDivSegments.push(colorDivSemi);
+  }
+
+  segment.addEventListener('click', () => {
+
+    dashboardSegments.forEach((dashboardSegment) => {
+      dashboardSegment.classList.remove('dashboard__list_active');
+    });
+
+    dashboardButtonSegments.forEach((dashBoardButtonSegment) => {
+      dashBoardButtonSegment.classList.remove('dashboard__button_active');
+    });
+
+    //
+    coloredDivSegments.forEach((coloredDiv) => {
+      if(Array.from(coloredDiv.classList).includes('dashboard__list-element-circle_color-dense')) {
+        coloredDiv.classList.remove('dashboard__list-element-circle_color-dense_active');
+      } else {
+        coloredDiv.classList.remove('dashboard__list-element-circle_color-semi_active');
+      }
+    });
+    
+    const segmentButtons = Array.from(segment.querySelectorAll('.dashboard__button'));
+    segmentButtons.forEach((segmentButton) => {
+      segmentButton.classList.add('dashboard__button_active');
+    });  
+
+    const coloredDivDense = segment.querySelector('.dashboard__list-element-circle_color-dense');
+
+    const coloredDivSemi = segment.querySelector('.dashboard__list-element-circle_color-semi');
+
+    if(coloredDivDense && coloredDivSemi) {
+      coloredDivDense.classList.add('dashboard__list-element-circle_color-dense_active');
+      coloredDivSemi.classList.add('dashboard__list-element-circle_color-semi_active');
+    }
+
+    segment.querySelector('.dashboard__list_colored-bg').classList.add('dashboard__list_active');
+
+    //загрузка страницы личного кабинета
+    loadHtmlPage('./userpage.html')
+    .then((page) => {
+      // let previousButton;
+      changeAddressBar(`/user-space`);
+
+      mainContainer.classList.add('main_padding');
+      
+      mainContainer.innerHTML = page;
+
+      const personalSpaceContentDiv = mainContainer.querySelector('.personal-space__content');
+
+      const privateSpaceButtons = Array.from(document.querySelectorAll('.personal-space__list-element-button'));
+
+      let firstButton;
+
+      privateSpaceButtons.forEach((button, i, array) => {
+        button.addEventListener('click', () => {
+
+          firstButton.classList.remove('personal-space__list-element-button_active');
+          button.classList.add('personal-space__list-element-button_active');
+          firstButton = button;
+
+          personalSpaceContentDiv.innerHTML = "";
+
+          if(i === 0) {
+            //создание пунктов раздела Профиль в личном кабинете
+            // profilePartsToRender.forEach((part) => {
+
+            //   const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+            //   paraTemplateGenerated.textContent = part;
+            //   personalSpaceContentDiv.append(paraTemplateGenerated);
+      
+            // });
+            const headlineTemplateGenerated = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
+            headlineTemplateGenerated.textContent = `Здравствуйте, ${user.name}!`;
+            personalSpaceContentDiv.append(headlineTemplateGenerated);
+          }
+          if(i === 1) {
+            //создание пунктов раздела Заказы в личном кабинете
+            const paraTemplate = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+            paraTemplate.textContent = "Ваши заказы";
+            personalSpaceContentDiv.append(paraTemplate);
+            
+            for (let key in userOrders) {
+              const personalHeadlineTemplate = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
+              const listTemplate = generateTemplate(personalSpaceListTemplate, '.personal-space__list');
+             
+              if(key.includes('active')) {
+                userOrders[key].forEach((element) => {
+                  const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                  listElementTemplate.textContent = element.orderContent;
+                  listTemplate.append(listElementTemplate);
+                });
+
+                personalHeadlineTemplate.textContent = 'Активные заказы';
+                listTemplate.classList.add('personal-space__list_active-orders');
+              }
+              if(key.includes('pending')) {
+                userOrders[key].forEach((element) => {
+                  const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                  listElementTemplate.textContent = element.orderContent;
+                  listTemplate.append(listElementTemplate);
+                });
+
+                personalHeadlineTemplate.textContent = 'Заказы в ожидании';
+                listTemplate.classList.add('personal-space__list_pending-orders');
+              }
+              if(key.includes('finished')) {
+                userOrders[key].forEach((element) => {
+                  const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                  listElementTemplate.textContent = element.orderContent;
+                  listTemplate.append(listElementTemplate);
+                });
+
+                personalHeadlineTemplate.textContent = 'Завершенные заказы';
+                listTemplate.classList.add('personal-space__list_finished-orders');
+              }
+              if(key.includes('canceled')) {
+                userOrders[key].forEach((element) => {
+                  const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                  listElementTemplate.textContent = element.orderContent;
+                  listTemplate.append(listElementTemplate);
+                });
+
+                personalHeadlineTemplate.textContent = 'Отмененные заказы';
+                listTemplate.classList.add('personal-space__list_canceled-orders');
+              }
+              personalSpaceContentDiv.append(personalHeadlineTemplate);
+              personalSpaceContentDiv.append(listTemplate);
+            }
+            // for(let key in userOrders) {
+            //   const listTemplate = generateTemplate(personalSpaceListTemplate, '.personal-space__list');
+            //   const listELementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+          
+            //   if(key.includes('active')) {
+            //     listTemplate.classList.add('personal-space__list_active-orders');
+            //     listELementTemplate.textContent = userOrders[key];
+            //     listTemplate.append(listELementTemplate);
+            //   }
+
+            //   if(key.includes('pending')) {
+            //     listTemplate.classList.add('personal-space__list_pending-orders');
+            //     listELementTemplate.textContent = userOrders[key];
+            //     listTemplate.append(listELementTemplate);
+            //   }
+
+            //   if(key.includes('finished')) {
+            //     listTemplate.classList.add('personal-space__list_finished-orders');
+            //     listELementTemplate.textContent = userOrders[key];
+            //     listTemplate.append(listELementTemplate);
+            //   }
+
+            //   if(key.includes('canceled')) {
+            //     listTemplate.classList.add('personal-space__list_canceled-orders');
+            //     listELementTemplate.textContent = userOrders[key];
+            //     listTemplate.append(listELementTemplate);
+            //   }
+
+            //   personalSpaceContentDiv.append(listTemplate);
+            // };
+          }
+          if(i === 2) {
+            console.log('показать историю')
+          }
+        });
+      });
+
+      if(index === 0) {
+
+        firstButton = mainContainer.querySelector('.personal-space__list-element-button_profile');
+        firstButton.classList.add('personal-space__list-element-button_active');
+        
+        const headlineTemplateGenerated = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
+        const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+
+        // headlineTemplateGenerated.textContent = `Здравствуйте, ${user.name}!`;
+        personalSpaceContentDiv.append(headlineTemplateGenerated);
+        
+        //теперь добавлять данные на страницу профиля в личном кабинете
+        console.log(user);
+        // let counter = 0;
+
+        // for (let key in userOrders) {
+        //   counter += userOrders[key].length;
+        //   console.log(counter);
+        // };
+        // paraTemplateGenerated.textContent = 
+        // profilePartsToRender.forEach((part) => {
+
+        //   const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+        //   paraTemplateGenerated.textContent = part;
+        //   return personalSpaceContentDiv.append(paraTemplateGenerated);
+  
+        // });
+
+        // headline.textContent = user.name;
+        // return mainContainer.querySelector('.personal-space__list-element-button_profile').classList.add('personal-space__list-element-button_active');
+      }
+      if(index === 1) {
+
+        firstButton = mainContainer.querySelector('.personal-space__list-element-button_orders');
+        firstButton.classList.add('personal-space__list-element-button_active');
+
+        const paraTemplate = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+        paraTemplate.textContent = "Ваши заказы";
+        personalSpaceContentDiv.append(paraTemplate);
+        
+        for (let key in userOrders) {
+
+          const personalHeadlineTemplate = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
+          const listTemplate = generateTemplate(personalSpaceListTemplate, '.personal-space__list');
+
+          if(key.includes('active')) {
+           
+            userOrders[key].forEach((element) => {
+              const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+              listElementTemplate.textContent = element.orderContent;
+              listTemplate.append(listElementTemplate);
+            });
+
+            personalHeadlineTemplate.textContent = 'Активные заказы';
+            listTemplate.classList.add('personal-space__list_active-orders');
+            // listTemplate.textContent =
+          }
+          if(key.includes('pending')) {
+            userOrders[key].forEach((element) => {
+              const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+              listElementTemplate.textContent = element.orderContent;
+              listTemplate.append(listElementTemplate);
+            });
+            personalHeadlineTemplate.textContent = 'Заказы в ожидании';
+            listTemplate.classList.add('personal-space__list_pending-orders');
+          }
+          if(key.includes('finished')) {
+            userOrders[key].forEach((element) => {
+              const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+              listElementTemplate.textContent = element.orderContent;
+              listTemplate.append(listElementTemplate);
+            });
+            personalHeadlineTemplate.textContent = 'Завершенные заказы';
+            listTemplate.classList.add('personal-space__list_finished-orders');
+          }
+          if(key.includes('canceled')) {
+            userOrders[key].forEach((element) => {
+              const listElementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+              listElementTemplate.textContent = element.orderContent;
+              listTemplate.append(listElementTemplate);
+            });
+            personalHeadlineTemplate.textContent = 'Отмененные заказы';
+            listTemplate.classList.add('personal-space__list_canceled-orders');
+          }
+          personalSpaceContentDiv.append(personalHeadlineTemplate);
+          personalSpaceContentDiv.append(listTemplate);
+        }
+
+        // const activeOrders = userOrders.filter((element) => {
+        //   return element.status === 'active';
+        // });
+
+        // const pendingOrders = userOrders.filter((element) => {
+        //   return element.status === 'pending';
+        // });
+
+        // const finishedOrders = userOrders.filter((element) => {
+        //   return element.status === 'finished';
+        // });
+        
+        // const canceledOrders = userOrders.filter((element) => {
+        //   return element.status === 'canceled';
+        // });
+
+        
+        // for (let key in userOrders) {
+        //   const listTemplate = generateTemplate(personalSpaceListTemplate, '.personal-space__list');
+        //   const listELementTemplate = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+
+        //   if(key.includes('active')) {
+        //     listTemplate.classList.add('personal-space__list_active-orders');
+        //     listELementTemplate.textContent = userOrders[key];
+        //     listTemplate.append(listELementTemplate);
+        //   }
+        //   if(key.includes('pending')) {
+        //     listTemplate.classList.add('personal-space__list_pending-orders');
+        //     listELementTemplate.textContent = userOrders[key];
+        //     listTemplate.append(listELementTemplate);
+        //   }
+        //   if(key.includes('finished')) {
+        //     listTemplate.classList.add('personal-space__list_finished-orders');
+        //     listELementTemplate.textContent = userOrders[key];
+        //     listTemplate.append(listELementTemplate);
+        //   }
+        //   if(key.includes('canceled')) {
+        //     listTemplate.classList.add('personal-space__list_canceled-orders');
+        //     listELementTemplate.textContent = userOrders[key];
+        //     listTemplate.append(listELementTemplate);
+        //   }
+        //   personalSpaceContentDiv.append(listTemplate);
+        // }
+
+        // return mainContainer.querySelector('.personal-space__list-element-button_orders').classList.add('personal-space__list-element-button_active');
+      }
+      if(index === 2) {
+
+        firstButton = mainContainer.querySelector('.personal-space__list-element-button_history');
+        firstButton.classList.add('personal-space__list-element-button_active');
+        // return mainContainer.querySelector('.personal-space__list-element-button_history').classList.add('personal-space__list-element-button_active');
+      }
+    })
+  });
+  // console.log(coloredDivSegments);
+});
+
+//обработчик нажатия на сегмент профиля личного кабинета
+userProfileSegment.addEventListener('click', () => {
+  // console.log(window.location.origin);
+  // loadHtmlPage('/userpage.html')
+  // .then((page) => {
+  //   mainContainer.classList.add('main_padding');
+  //   mainContainer.innerHTML = page;
+  //   mainContainer.querySelector('.personal-space__para').textContent = userProfileSegment.textContent;
+
+  //   const profilePageButtons = Array.from(document.querySelectorAll('.personal-space__list-element-button'));
+  //   let firstButton;
+  //   profilePageButtons.forEach((button, i, array) => {
+  //     firstButton = array[0];
+
+  //     button.addEventListener('click', (evt) => {
+  //       //переключение подчеркивания кнопок при нажатии
+  //       firstButton.classList.remove('personal-space__list-element-button_active');
+  //       evt.target.classList.add('personal-space__list-element-button_active');
+  //       firstButton = evt.target;
+
+  //       //загрузка нужного контента в зависимости от кнопки, которую нажали
+  //       if(i === 0) {
+  //         return console.log('button 1');
+  //       }
+  //       if(i === 1) {
+  //         return console.log('button 2');
+  //       }
+  //       if(i === 2) {
+  //         return console.log('button 3');
+  //       }
+  //     });
+
+  //   });
+  //   changeAddressBar(`${userProfileSegment.textContent}`);
+  // })
+  
+  // window.history.pushState({},"", `user/${userProfileSegment.textContent}`);
+});
+
+//обработчик нажатия на кнопки навигации в личном кабинете
+// console.log(privateSpaceButtons);
+// privateSpaceButtons.forEach((button) => {
+//   button.addEventListener('click', () => {
+//     console.log('yes');
+//   })
+// })

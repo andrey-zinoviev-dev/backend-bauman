@@ -7,6 +7,7 @@
 @import url(../blocks/container/_more-padding/container_more-padding.css);
 @import url(../blocks/container/_slider/container_slider.css);
 @import url(../blocks/container/_dashboard/container_dashboard.css);
+@import url(../blocks/container/_personal-space/container_personal-space.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__contact-method-img/_small/header__contact-method-img_small.css);
 @import url(../blocks/header/__services-list-element-button/_hidden/header__services-list-element-button_hidden.css);
@@ -14,6 +15,16 @@
 @import url(../blocks/dashboard/_opened/dashboard_opened.css);
 @import url(../blocks/dashboard/__list/_colored-bg/dashboard__list_colored-bg.css);
 @import url(../blocks/dashboard/__list/_active/dashboard__list_active.css);
+@import url(../blocks/dashboard/__list/_text/dashboard__list_text.css);
+@import url(../blocks/dashboard/__list/_text-active/dashboard__list_text-active.css);
+@import url(../blocks/dashboard/__button/_active/dashboard__button_active.css);
+@import url(../blocks/dashboard/__button/_large/dashboard__button_large.css);
+@import url(../blocks/dashboard/__list-element-circle/_color-dense/dashboard__list-element-circle_color-dense.css);
+@import url(../blocks/dashboard/__list-element-circle/_color-semi/dashboard__list-element-circle_color-semi.css);
+@import url(../blocks/dashboard/__list-element-circle/_color-dense-blue/dashboard__list-element-circle_color-dense-blue.css);
+@import url(../blocks/dashboard/__list-element-circle/_color-semi-blue/dashboard__list-element-circle_color-semi-blue.css);
+@import url(../blocks/dashboard/__list-element-circle/_color-dense/_active/dashboard__list-element-circle_color-dense_active.css);
+@import url(../blocks/dashboard/__list-element-circle/_color-semi/_active/dashboard__list-element-circle_color-semi_active.css);
 @import url(../blocks/logo/logo.css);
 @import url(../blocks/main/main.css);
 @import url(../blocks/main/_padding/main_padding.css);
@@ -54,6 +65,9 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/personal-space/personal-space.css);
+@import url(../blocks/personal-space/__list/_navigation/personal-space__list_navigation.css);
+@import url(../blocks/personal-space/__list-element-button/_active/personal-space__list-element-button_active.css);
 ul {
     padding: 0;
     list-style: none;
