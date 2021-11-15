@@ -128,7 +128,6 @@ const sendServiceOrderData = (req, res) => {
 
   const payload = jwt.verify(token, process.env.SECRET_KEY);
   const { _id } = payload;
-  let order; 
 
   User.findById(_id)
     .then((data) => {
@@ -139,13 +138,10 @@ const sendServiceOrderData = (req, res) => {
       .then((success) => {
         if(!success) {
           return res.status(400).send({
-            message: "Проверьте данные при отправке заказа",
+            errorMessage: "Проверьте данные при отправке заказа",
           });
         }
         
-        // return data.orders.push(order);
-        
-
         return res.status(200).send({
           message: "Заказ успешно отправлен",
         });
@@ -154,14 +150,27 @@ const sendServiceOrderData = (req, res) => {
 
       
     })
-
-
-
-
 };
+
+const changeUserData = (req, res) => {
+  const { token } = req.cookies;
+  if(!token) {
+    return res.status(403).send({
+      errorMessage: "Необходима авторизация",
+    })
+  }
+  const payload = jwt.verify(token, process.env.SECRET_KEY);
+  const { _id } = payload;
+
+  User.findById(_id)
+  .then((data) => {
+    
+  })
+}
 
 module.exports = {
   sendLoginData,
   sendRegisterData,
   sendServiceOrderData,
+  changeUserData,
 }

@@ -4,6 +4,10 @@
 @import url(./__list-element-button/personal-space__list-element-button.css);
 @import url(./__list-element-svg/personal-space__list-element-svg.css);
 @import url(./__content/personal-space__content.css);
+@import url(./__orders/personal-space__orders.css);
+@import url(./__order/personal-space__order.css);
+@import url(./__order-status-logo/personal-space__order-status-logo.css);
+
 .personal-space {
   height: 100%;
   background-color: rgba(255, 255, 255, 0.2);

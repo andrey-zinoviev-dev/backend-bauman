@@ -266,22 +266,52 @@ headerContactsButton.addEventListener('click', (evt) => {
   scrollToSection(footer);
 });
 
+//обработчик нажатия на кнопку попапа заказов
+servicePopupButton.addEventListener('click', () => {
+  postOnServer('/add-service', orderToMake)
+  .then((data) => {
+    if(data.errorMessage) {
+      return console.log('ошибка');
+    }
+    // return changeElementData('/change-user-data', orderToMake)
+    // .then();
+  })
+});
+
 //обработчики карточек каталога
 services.forEach((service) => {
-  service.querySelector('.services__service-new-button').addEventListener('click', () => {
+  service.addEventListener('click', () => {
+    orderToMake.title = service.querySelector('.services__service-new-headline').textContent;
+    orderToMake.time = new Date();
     servicePopup.querySelector('.popup__headline').textContent = service.querySelector('.services__service-new-headline').textContent;
-    servicePopup.querySelector('.popup__button-submit').addEventListener('click', () => {
-      postOnServer('/add-service', {
-        title: service.querySelector('.services__service-new-headline').textContent,
-        time: `${new Date()}`,
-      })
-      .then((data) => {
-
-      })
-    })
     openPopup(servicePopup);
-    
   });
+
+  // const popupContainer = servicePopup.querySelector('.popup__container');
+  // popupContainer.innerHTML = '';
+
+  // service.querySelector('.services__service-new-button').addEventListener('click', () => {
+  //   const buttonGenerated = generateTemplate(popupButtonTemplate, '.popup__button-submit');
+
+  //   servicePopup.querySelector('.popup__headline').textContent = service.querySelector('.services__service-new-headline').textContent;
+  //   buttonGenerated.textContent = 'Добавить в корзину';
+  //   buttonGenerated.addEventListener('click', () => {
+  //     console.log('yes');
+  //   });
+  //   // servicePopup.querySelector('.popup__order-submit').addEventListener('click', () => {
+  //   //   // postOnServer('/add-service', {
+  //   //   //   title: service.querySelector('.services__service-new-headline').textContent,
+  //   //   //   time: `${new Date()}`,
+  //   //   // })
+  //   //   // .then((data) => {
+
+  //   //   // })
+  //   //   console.log('order is made');
+  //   // });
+  //   servicePopup.querySelector('.popup__container').append(buttonGenerated);
+  //   openPopup(servicePopup);
+    
+  // });
 });
 
 // //обработчик отправки данных для входа пользователя
@@ -382,8 +412,37 @@ userSegments.forEach((segment, index, array) => {
       
             // });
             const headlineTemplateGenerated = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
+            const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+            const paraTemplateOrdersDiv = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+    
+            const ordersDivTemplate = generateTemplate(personalSpaceOrdersTemplate, '.personal-space__orders');
+    
+            //теперь добавлять данные на страницу профиля в личном кабинете
             headlineTemplateGenerated.textContent = `Здравствуйте, ${user.name}!`;
+            paraTemplateGenerated.textContent = `У Вас ${userOrders['active'].length} активных заказов, вернитесь к ним как можно скорее, чтобы стать еще более продуктивным!`;
+            paraTemplateOrdersDiv.textContent = 'Ваши последние заказы';
+            
             personalSpaceContentDiv.append(headlineTemplateGenerated);
+            personalSpaceContentDiv.append(paraTemplateGenerated);
+            personalSpaceContentDiv.append(paraTemplateOrdersDiv);
+            personalSpaceContentDiv.append(ordersDivTemplate);
+            
+            userOrders["active"].forEach((order) => {
+              const orderTemplate = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
+              const headlineFromTemplate = orderTemplate.querySelector('.perosnal-space__order-headline');
+              const paraFromTemplate = orderTemplate.querySelector('.personal-space__order-time');
+              const statusDivFromTemplate = orderTemplate.querySelector('.personal-space__order-status-logo');
+              const buttonFromTemplate = orderTemplate.querySelector('.personal-space__order-button');
+              
+              //заполнение элементов блока заказов данными
+              headlineFromTemplate.textContent = order.orderContent;
+              paraFromTemplate.textContent = order.orderTime;
+              buttonFromTemplate.addEventListener('click', () => {
+                console.log('order clicked');
+              });
+              //вставка сгенерированных шаблонов в блок личного кабинета
+              ordersDivTemplate.append(orderTemplate);
+            });
           }
           if(i === 1) {
             //создание пунктов раздела Заказы в личном кабинете
@@ -482,12 +541,61 @@ userSegments.forEach((segment, index, array) => {
         
         const headlineTemplateGenerated = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
         const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
+        const paraTemplateOrdersDiv = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
 
-        // headlineTemplateGenerated.textContent = `Здравствуйте, ${user.name}!`;
-        personalSpaceContentDiv.append(headlineTemplateGenerated);
-        
+        const ordersDivTemplate = generateTemplate(personalSpaceOrdersTemplate, '.personal-space__orders');
+
         //теперь добавлять данные на страницу профиля в личном кабинете
-        console.log(user);
+        headlineTemplateGenerated.textContent = `Здравствуйте, ${user.name}!`;
+        paraTemplateGenerated.textContent = `У Вас ${userOrders['active'].length} активных заказов, вернитесь к ним как можно скорее, чтобы стать еще более продуктивным!`;
+        paraTemplateOrdersDiv.textContent = 'Ваши последние заказы';
+        
+        personalSpaceContentDiv.append(headlineTemplateGenerated);
+        personalSpaceContentDiv.append(paraTemplateGenerated);
+        personalSpaceContentDiv.append(paraTemplateOrdersDiv);
+        personalSpaceContentDiv.append(ordersDivTemplate);
+
+        for(let key in userOrders) {
+          if(key === "canceled" || key === "finished") {
+            continue;
+          } 
+          userOrders[key].forEach((order) => {
+            const orderTemplate = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
+            const headlineFromTemplate = orderTemplate.querySelector('.perosnal-space__order-headline');
+            const paraFromTemplate = orderTemplate.querySelector('.personal-space__order-time');
+            const statusDivFromTemplate = orderTemplate.querySelector('.personal-space__order-status-logo');
+            const buttonFromTemplate = orderTemplate.querySelector('.personal-space__order-button');
+          
+            //заполнение элементов блока заказов данными
+            headlineFromTemplate.textContent = order.orderContent;
+            paraFromTemplate.textContent = order.orderTime;
+            buttonFromTemplate.addEventListener('click', () => {
+              console.log('order clicked');
+            });
+
+            //изменение цвета блока статус
+            
+            //вставка сгенерированных шаблонов в блок личного кабинета
+            ordersDivTemplate.append(orderTemplate);
+          });
+          
+        }
+        // userOrders["active"].forEach((order) => {
+        //   const orderTemplate = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
+        //   const headlineFromTemplate = orderTemplate.querySelector('.perosnal-space__order-headline');
+        //   const paraFromTemplate = orderTemplate.querySelector('.personal-space__order-time');
+        //   const statusDivFromTemplate = orderTemplate.querySelector('.personal-space__order-status-logo');
+        //   const buttonFromTemplate = orderTemplate.querySelector('.personal-space__order-button');
+          
+        //   //заполнение элементов блока заказов данными
+        //   headlineFromTemplate.textContent = order.orderContent;
+        //   paraFromTemplate.textContent = order.orderTime;
+        //   buttonFromTemplate.addEventListener('click', () => {
+        //     console.log('order clicked');
+        //   });
+        //   //вставка сгенерированных шаблонов в блок личного кабинета
+        //   ordersDivTemplate.append(orderTemplate);
+        // });
         // let counter = 0;
 
         // for (let key in userOrders) {

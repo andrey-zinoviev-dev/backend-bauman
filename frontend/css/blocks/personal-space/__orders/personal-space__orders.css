@@ -1,0 +1,4 @@
+.personal-space__orders {
+  display: flex;
+  justify-content: space-between;
+}

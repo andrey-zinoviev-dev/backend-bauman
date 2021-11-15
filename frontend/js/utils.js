@@ -76,10 +76,11 @@ const popups = Array.from(document.querySelectorAll('.popup'));
 
 const loginPopup = document.querySelector('.popup');
 
-
 const registerPopup = document.querySelector('.popup_register');
 
 const servicePopup = document.querySelector('.popup_service');
+
+const servicePopupButton = document.querySelector('.popup__order-submit');
 
 // кнопки логина и регистрации
 const openButtons = Array.from(document.querySelectorAll('.header__loggedOut-button'));
@@ -107,19 +108,27 @@ const uniquePopupRootDiv = uniquePopupContainer.querySelector('.popup__text-wrap
 const headlineTemplate = document.querySelector('#popup-headline');
 const paraTemplate = document.querySelector('#popup-para');
 const anchorTemplate = document.querySelector('#popup-anchor');
+const popupButtonTemplate = document.querySelector('#popup__button-submit');
 
 
-
-//остальные шаблоны
+//шаблоны личнего кабинета
 const personalSpaceHeadlineTemplate = document.querySelector('#perosnal-space__headline');
 const personalSpaceParaTemplate = document.querySelector('#personal-space__para');
 const personalSpaceListTemplate = document.querySelector('#personal-space__list');
 const personalSpaceListElementTemplate = document.querySelector('#personal-space__list-element');
+const personalSpaceOrdersTemplate = document.querySelector('#personal-space__orders');
+const personalSpaceOrderTemplate = document.querySelector('#personal-space__order');
 
 //объект для данных для маршрутизации на стороне клиента
 const htmlToRender = {
   
 }
+
+//объект для данных заказа
+let orderToMake = {
+  orderContent: "",
+  time: "",
+};
 
 //пользователь
 let user;
@@ -374,6 +383,20 @@ function postOnServer(route, data) {
 //функция запроса данных пользователя
 function getDataLoggedIn(route) {
   return fetch(route)
+  .then((res) => {
+    return res.json();
+  })
+};
+
+//функция изменения полей элемента базы данных
+function changeElementData(route, data) {
+  return fetch(route, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
   .then((res) => {
     return res.json();
   })
