@@ -91,16 +91,22 @@ const showUserOrders = (req, res) => {
         message: "Проверьте запрос о заказх клиента",
       })
     }
-
-    //если пользователь не делал заказы, то в поле owner будет null, подумать, что с этим делать
+    
     User.findById(_id)
     .then((user) => {
-      const result = data.filter((element) => {
-        return element.owner.email === user.email;
+      const existingOrders = data.filter((element) => {
+        return element.owner !== null;
+        // return element.owner.email === user.email;
+      });
+      const userOrders = existingOrders.filter((element) => {
+        return element.owner.email = user.email;
       })
       return res.status(200).send({
-        result 
-      });
+        userOrders,
+      })
+      // return res.status(200).send({
+      //   result 
+      // });
     })
 
   })

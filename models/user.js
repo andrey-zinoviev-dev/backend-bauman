@@ -24,12 +24,6 @@ const userSchema = new mongoose.Schema({
     minlength: 3,
     required: true,
   },
-  totalOrders: {
-    type: Number,
-    minlength: 0,
-    required: true,
-    default: 0,
-  },
   ordersList: {
     type: Array,
     minlength: 0,

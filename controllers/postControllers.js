@@ -129,48 +129,53 @@ const sendServiceOrderData = (req, res) => {
   const payload = jwt.verify(token, process.env.SECRET_KEY);
   const { _id } = payload;
 
-  User.findById(_id)
-    .then((data) => {
-      
-      Order.create({
-        orderContent: title, orderTime: time,  owner: _id
-      })
-      .then((success) => {
-        if(!success) {
-          return res.status(400).send({
-            errorMessage: "Проверьте данные при отправке заказа",
-          });
-        }
-        
-        return res.status(200).send({
-          message: "Заказ успешно отправлен",
-        });
-
+  Order.create({
+    orderContent: title, orderTime: time,  owner: _id
+  })
+  .then((success) => {
+    if(!success) {
+      return res.status(400).send({
+        errorMessage: "Проверьте данные при отправке заказа",
       });
-
-      
+    }
+    User.findByIdAndUpdate(_id, {$addToSet: { ordersList: req.body }}, {new: true})
+    .then((doc) => {
+      if(!doc) {
+        return res.status(400).send({
+          errorMessage: "Что-то пошло не так, попробуйте еще раз",
+        })
+      }
+      return res.status(201).send(doc);
     })
+    // return res.status(200).send({
+    //   message: "Заказ успешно отправлен",
+    // });
+
+  });
 };
 
-const changeUserData = (req, res) => {
-  const { token } = req.cookies;
-  if(!token) {
-    return res.status(403).send({
-      errorMessage: "Необходима авторизация",
-    })
-  }
-  const payload = jwt.verify(token, process.env.SECRET_KEY);
-  const { _id } = payload;
+// const addOrderToUser = (req, res) => {
+//   const { token } = req.cookies;
+//   console.log(req.body);
+//   if(!token) {
+//     return res.status(403).send({
+//       errorMessage: "Необходима авторизация",
+//     })
+//   }
+//   const payload = jwt.verify(token, process.env.SECRET_KEY);
+//   const { _id } = payload;
 
-  User.findById(_id)
-  .then((data) => {
-    
-  })
-}
+//   User.findByIdAndUpdate(_id, {$addToSet: {ordersList: req.body}}, {new: true})
+//   .then((doc) => {
+//     res.status(201).send({
+//       doc,
+//     });
+//   })
+// }
 
 module.exports = {
   sendLoginData,
   sendRegisterData,
   sendServiceOrderData,
-  changeUserData,
+  // addOrderToUser,
 }
