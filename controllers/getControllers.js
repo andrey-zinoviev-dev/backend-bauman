@@ -98,12 +98,14 @@ const showUserOrders = (req, res) => {
         return element.owner !== null;
         // return element.owner.email === user.email;
       });
+
       const userOrders = existingOrders.filter((element) => {
-        return element.owner.email = user.email;
-      })
+        return element.owner.email === user.email;
+      });
+
       return res.status(200).send({
-        userOrders,
-      })
+        userOrders
+      });
       // return res.status(200).send({
       //   result 
       // });

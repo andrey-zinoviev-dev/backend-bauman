@@ -1,6 +1,7 @@
 .personal-space__para {
   display: inline-block;
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 20px;
+  /* font-size: 26px;
+  font-weight: 700; */
+  margin: 0;
+  font-size: 22px;
 }

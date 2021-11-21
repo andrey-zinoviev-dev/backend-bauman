@@ -118,6 +118,7 @@ const personalSpaceListTemplate = document.querySelector('#personal-space__list'
 const personalSpaceListElementTemplate = document.querySelector('#personal-space__list-element');
 const personalSpaceOrdersTemplate = document.querySelector('#personal-space__orders');
 const personalSpaceOrderTemplate = document.querySelector('#personal-space__order');
+const personalSpaceContentTextWrapperTemplate = document.querySelector('#personal-space__content-text-wrapper');
 
 //объект для данных для маршрутизации на стороне клиента
 const htmlToRender = {
@@ -149,6 +150,9 @@ let coloredDivSegments = [];
 let profilePartsToRender = [];
 let profileOrdersToRender = [];
 let userOrders = {};
+
+//попап добавления заказа
+// const orderPopupForm = document.querySelector('.popup__service-quantity-form');
 
 reviews.forEach((child, i, array) => {
   if(i < 0) {

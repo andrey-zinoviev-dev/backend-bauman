@@ -22,7 +22,7 @@ window.onload = () => {
 
     //создание объекта с информацией о пользователе
     user = data;
-    console.log(user);
+    
     //добавление элементов для профиля в личном кабинете
     // for (let key in user) {
     //   //элементы меню профиля
@@ -47,8 +47,10 @@ window.onload = () => {
     if(data.message) {
       return;
     }
-    //временное обнуление объекта
-    
+    //временное обнуление объекта заказов
+    // console.log(data);
+    // userOrders = {};
+    //вставка заказов в объект заказов
     data.userOrders.forEach((order, i ,array) => {
 
       userOrders[order.status] = array.filter((element) => {
@@ -165,8 +167,8 @@ popups.forEach((popup, i, array) => {
             if(data.message) {
               return;
             }
-            
-            data.result.forEach((element, i, array) => {
+
+            data.userOrders.forEach((element, i, array) => {
               userOrders[element.status] = array.filter((order) => {
                 return order.status === element.status; 
               });
@@ -192,7 +194,7 @@ popups.forEach((popup, i, array) => {
           
           //запись данных объекта пользователя
           user = data;
-
+         
           closePopup(popup);
         })
       })
@@ -256,14 +258,25 @@ headerContactsButton.addEventListener('click', (evt) => {
 });
 
 //обработчик нажатия на кнопку попапа заказов
-servicePopupButton.addEventListener('click', () => {
-  postOnServer('/add-service', orderToMake)
-  .then((data) => {
-    if(data.errorMessage) {
-      return console.log('ошибка');
-    }
-    console.log(data);
-  })
+
+servicePopupButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  console.log('order made');
+
+  // postOnServer('/add-service', orderToMake)
+  // .then((data) => {
+  //   if(data.errorMessage) {
+  //     return console.log('ошибка');
+  //   }
+  //   getDataLoggedIn('/show-orders')
+  //   .then((data) => {
+  //     data.userOrders.forEach((order, i, array) => {
+  //       userOrders[order.status] = array.filter((element) => {
+  //         return element.status === order.status;
+  //       })
+  //     });
+  //   })
+  // })
 });
 
 //обработчики карточек каталога
@@ -365,14 +378,7 @@ userSegments.forEach((segment, index, array) => {
           personalSpaceContentDiv.innerHTML = "";
 
           if(i === 0) {
-            //создание пунктов раздела Профиль в личном кабинете
-            // profilePartsToRender.forEach((part) => {
-
-            //   const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
-            //   paraTemplateGenerated.textContent = part;
-            //   personalSpaceContentDiv.append(paraTemplateGenerated);
-      
-            // });
+            const textWrapperTemplate = generateTemplate(personalSpaceContentTextWrapperTemplate, '.personal-space__content-text-wrapper');
             const headlineTemplateGenerated = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
             const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
             const paraTemplateOrdersDiv = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
@@ -384,8 +390,10 @@ userSegments.forEach((segment, index, array) => {
             paraTemplateGenerated.textContent = `У Вас ${userOrders['active']  ? userOrders['active'].length : "нет" } активных заказов, вернитесь к ним как можно скорее, чтобы стать еще более продуктивным!`;
             paraTemplateOrdersDiv.textContent = 'Ваши последние заказы';
             
-            personalSpaceContentDiv.append(headlineTemplateGenerated);
-            personalSpaceContentDiv.append(paraTemplateGenerated);
+            textWrapperTemplate.append(headlineTemplateGenerated);
+            textWrapperTemplate.append(paraTemplateGenerated);
+
+            personalSpaceContentDiv.append(textWrapperTemplate);
             personalSpaceContentDiv.append(paraTemplateOrdersDiv);
             personalSpaceContentDiv.append(ordersDivTemplate);
             
@@ -393,23 +401,30 @@ userSegments.forEach((segment, index, array) => {
               if(key === 'canceled' || key === 'finished') {
                 continue;
               }
-              userOrders[key].forEach((order) => {
+              //сортировка массивов заказов по убыванию времени заказа
+              const sortedOrdersArray = userOrders[key].sort((a, b) => {
+                return Date.parse(b.orderTime) - Date.parse(a.orderTime);
+              });
+
+              sortedOrdersArray.slice(0, 3).forEach((order) => {
                 const orderTemplate = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
                 const headlineFromTemplate = orderTemplate.querySelector('.perosnal-space__order-headline');
                 const paraFromTemplate = orderTemplate.querySelector('.personal-space__order-time');
                 const statusDivFromTemplate = orderTemplate.querySelector('.personal-space__order-status-logo');
                 const buttonFromTemplate = orderTemplate.querySelector('.personal-space__order-button');
                 
+                //создание переменной времени заказа
+                const timeOfOrder = new Date(order.orderTime);
                 //заполнение элементов блока заказов данными
                 headlineFromTemplate.textContent = order.orderContent;
-                paraFromTemplate.textContent = order.orderTime;
+                paraFromTemplate.textContent = `${timeOfOrder.getDate()} / ${timeOfOrder.getMonth() + 1} / ${timeOfOrder.getFullYear()}`;
                 buttonFromTemplate.addEventListener('click', () => {
                   console.log('order clicked');
                 });
                 //изменение цвета блока статус
                 if(key === 'pending') {
                   statusDivFromTemplate.style.backgroundColor = '#ccbc2b';
-                }
+                };
                 //вставка сгенерированных шаблонов в блок личного кабинета
                 ordersDivTemplate.append(orderTemplate);
               });
@@ -510,6 +525,7 @@ userSegments.forEach((segment, index, array) => {
         firstButton = mainContainer.querySelector('.personal-space__list-element-button_profile');
         firstButton.classList.add('personal-space__list-element-button_active');
         
+        const textWrapperTemplate = generateTemplate(personalSpaceContentTextWrapperTemplate, '.personal-space__content-text-wrapper');
         const headlineTemplateGenerated = generateTemplate(personalSpaceHeadlineTemplate, '.personal-space__headline');
         const paraTemplateGenerated = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
         const paraTemplateOrdersDiv = generateTemplate(personalSpaceParaTemplate, '.personal-space__para');
@@ -521,8 +537,11 @@ userSegments.forEach((segment, index, array) => {
         paraTemplateGenerated.textContent = `У Вас ${userOrders['active'] ? userOrders['active'].length : 'нет'} активных заказов, вернитесь к ним как можно скорее, чтобы стать еще более продуктивным!`;
         paraTemplateOrdersDiv.textContent = 'Ваши последние заказы';
         
-        personalSpaceContentDiv.append(headlineTemplateGenerated);
-        personalSpaceContentDiv.append(paraTemplateGenerated);
+        textWrapperTemplate.append(headlineTemplateGenerated);
+        textWrapperTemplate.append(paraTemplateGenerated)
+        // personalSpaceContentDiv.append(headlineTemplateGenerated);
+        // personalSpaceContentDiv.append(paraTemplateGenerated);
+        personalSpaceContentDiv.append(textWrapperTemplate);
         personalSpaceContentDiv.append(paraTemplateOrdersDiv);
         personalSpaceContentDiv.append(ordersDivTemplate);
 
@@ -530,18 +549,30 @@ userSegments.forEach((segment, index, array) => {
           if(key === "canceled" || key === "finished") {
             continue;
           } 
-          userOrders[key].forEach((order) => {
+          //сортировка заказов по убыванию времени заказа
+          const shortenedArray = userOrders[key].sort((a, b) => {
+            return Date.parse(b.orderTime) - Date.parse(a.orderTime);
+          });
+          //отсечение заказов до 3 максимум в категориях активных и в ожидании
+          shortenedArray.slice(0, 3).forEach((order) => {
+            //создание экземпляра шаблона заказа для каждого элемента массива и определение каждого элемента DOM для экземпляра шаблона
             const orderTemplate = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
             const headlineFromTemplate = orderTemplate.querySelector('.perosnal-space__order-headline');
             const paraFromTemplate = orderTemplate.querySelector('.personal-space__order-time');
             const statusDivFromTemplate = orderTemplate.querySelector('.personal-space__order-status-logo');
             const buttonFromTemplate = orderTemplate.querySelector('.personal-space__order-button');
-          
+            
+            //создание переменной времени для заказа
+            const timeOfOrder = new Date(order.orderTime);
             //заполнение элементов блока заказов данными
             headlineFromTemplate.textContent = order.orderContent;
-            paraFromTemplate.textContent = order.orderTime;
+            paraFromTemplate.textContent = `${timeOfOrder.getDate()} / ${timeOfOrder.getMonth() + 1} / ${timeOfOrder.getFullYear()}`;
             buttonFromTemplate.addEventListener('click', () => {
-              console.log('order clicked');
+              // console.log(order);
+              uniquePopup.querySelector('.popup__headline').textContent = order.orderContent;
+              uniquePopup.querySelector('.popup__para').textContent = `${timeOfOrder.getDate()} / ${timeOfOrder.getMonth() + 1} / ${timeOfOrder.getFullYear()}`;
+              uniquePopup.querySelector('.popup__para_order-status').querySelector('.popup__span').textContent = order.status;
+              openPopup(uniquePopup);
             });
 
             //изменение цвета блока статус

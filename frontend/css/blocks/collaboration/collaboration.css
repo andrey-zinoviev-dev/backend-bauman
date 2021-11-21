@@ -4,6 +4,7 @@
 @import url(./__text-wrapper-background/collaboration__text-wrapper-background.css);
 @import url(./__button/collaboration__button.css);
 .collaboration {
+  display: none;
   /* min-height: 450px; */
 
   /* padding: 2% 0 0 0; */
