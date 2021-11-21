@@ -1,8 +1,13 @@
 @import url(./__container/popup__container.css);
 @import url(./__button-close/popup__button-close.css);
 @import url(./__form/popup__form.css);
+@import url(./__service-quantity-form/popup__service-quantity-form.css);
+@import url(./__service-quantity-form-navigation/popup__service-quantity-form-navigation.css);
 @import url(./__form-input/popup__form-input.css);
+@import url(./__service-quantity-form-input/popup__service-quantity-form-input.css);
 @import url(./__form-button/popup__form-button.css);
+@import url(./__service-quantity-form-button/popup__service-quantity-form-button.css);
+@import url(./__order-submit/popup__order-submit.css);
 @import url(./__para/popup__para.css);
 @import url(./__anchor/popup__anchor.css);
 @import url(./__overlay/popup__overlay.css);

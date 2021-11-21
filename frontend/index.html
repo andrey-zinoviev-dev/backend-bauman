@@ -430,9 +430,11 @@
       <h3 class="popup__headline"></h3>
       <p class="popup__para"></p>
       <form class="popup__service-quantity-form">
-        <button class="popup__service-quantity-button popup__service-quantity-button-minus" type="button">-</button>
-        <input type="number" name="quantity" autocomplete="off" value="1" />
-        <button class="popup__service-quantity-button popup__service-quantity-button-plus" type="button">+</button>
+        <div class="popup__service-quantity-form-navigation">
+          <button class="popup__service-quantity-form-button popup__service-quantity-button-minus" type="button">-</button>
+          <input class="popup__service-quantity-form-input" type="number" name="quantity" autocomplete="off" value="1" />
+          <button class="popup__service-quantity-form-button popup__service-quantity-button-plus" type="button">+</button>
+        </div>
         <button class="popup__order-submit" type="submit">Добавить к заказу</button>
       </form>
     </div>

@@ -1,0 +1,18 @@
+.popup__service-quantity-form-input {
+  text-align: center;
+  display: inline-block;
+  width: 37px;
+  min-height: 25px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-size: 16px;
+  border-radius: 15px;
+  color: white;
+  background-image: linear-gradient(35deg, rgb(189 11 239) 20%, #0e60c3 90%);
+}
+
+.popup__service-quantity-form-input::-webkit-inner-spin-button, .popup__service-quantity-form-input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
