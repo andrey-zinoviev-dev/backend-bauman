@@ -34,7 +34,8 @@ const headerContactsButton = document.querySelector('.header__services-list-elem
 const headerCatalogueButton = document.querySelector('.header__services-list-element-anchor_catalogue');
 const headerCoopButton = document.querySelector('.header__services-list-element-anchor_coop');
 
-const services = Array.from(servicesSection.querySelectorAll('.services__service-new'));
+const servicesDiv = document.querySelector('.services__wrapper');
+// const services = Array.from(servicesSection.querySelectorAll('.services__service-new'));
 // const companyButton = mainContainer.querySelector('.content__button_second');
 
 
@@ -78,7 +79,12 @@ const loginPopup = document.querySelector('.popup');
 
 const registerPopup = document.querySelector('.popup_register');
 
+//попап услуги и его перемененые
 const servicePopup = document.querySelector('.popup_service');
+const servicePopupForm = servicePopup.querySelector('.popup__service-quantity-form');
+const servicePopupOrderInput = servicePopup.querySelector('.popup__service-quantity-form-input');
+const servicePopupOrderButtons = Array.from(servicePopup.querySelectorAll('.popup__service-quantity-form-button'));
+const servicePopupOrderMinusButton = servicePopup.querySelector('.popup__service-quantity-button-minus');
 
 const servicePopupButton = document.querySelector('.popup__order-submit');
 
@@ -95,6 +101,16 @@ const userButtonSpan = userButton.querySelector('span');
 //кнопка выхода пользователя
 const userLogoutButton = document.querySelector('.header__button-user-logout');
 
+//секция корзины заказа
+const userCart = document.querySelector('.cart');
+const userCartList = userCart.querySelector('.cart__list');
+
+//кнопка корзины пользователя
+const userCartButton = document.querySelector('.header__services-list-element-button-user-cart');
+const userCartSpan = userCartButton.querySelector('.header__services-list-element-button-span');
+
+let userCartOrders = [];
+
 //уникальный попап
 const uniquePopup = document.querySelector('.popup_unique');
 const uniquePopupContainer = uniquePopup.querySelector('.popup__container');
@@ -103,6 +119,7 @@ const uniquePopupRootDiv = uniquePopupContainer.querySelector('.popup__text-wrap
 // const uniquePopupHeadline = uniquePopup.querySelector('.popup__headline');
 // const uniquePopupLists = uniquePopup.querySelector('.popup__list');
 // const uniquePopupPara = uniquePopup.querySelector('.popup__para');
+
 
 //шаблоны для уникального попапа
 const headlineTemplate = document.querySelector('#popup-headline');
@@ -120,6 +137,12 @@ const personalSpaceOrdersTemplate = document.querySelector('#personal-space__ord
 const personalSpaceOrderTemplate = document.querySelector('#personal-space__order');
 const personalSpaceContentTextWrapperTemplate = document.querySelector('#personal-space__content-text-wrapper');
 
+//шаблон услуги компании
+const serviceTemplate = document.querySelector('#services__service-new');
+
+//шаблон элемента списка корзины
+const cartListElementTemplate = document.querySelector('#cart__list-element');
+
 //объект для данных для маршрутизации на стороне клиента
 const htmlToRender = {
   
@@ -128,7 +151,8 @@ const htmlToRender = {
 //объект для данных заказа
 let orderToMake = {
   orderContent: "",
-  time: "",
+  timeOfOrder: "",
+  quantity: 0,
 };
 
 //пользователь

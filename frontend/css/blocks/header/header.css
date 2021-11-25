@@ -11,6 +11,7 @@
 @import url('./__services-list-element/header__services-list-element.css');
 @import url('./__services-list-element-anchor/header__services-list-element-anchor.css');
 @import url('./__services-list-element-button/header__services-list-element-button.css');
+@import url('./__services-list-element-button-cart/header__services-list-element-button-cart.css');
 @import url('./__loggedIn-button/header__loggedIn-button.css');
 @import url('./__loggedOut-button/header__loggedOut-button.css');
 .header {

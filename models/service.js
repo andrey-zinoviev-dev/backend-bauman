@@ -5,16 +5,9 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  content: {
+  description: {
     type: String,
     required: true,
-  },
-  image: {
-    type: URL,
-    required: true,
-  },
-  assortment: {
-    type: Array
   },
 });
 

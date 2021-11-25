@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Order = require('../models/order')
+const Service = require('../models/service');
+
 // const aboutCompany = (req, res) => {
 //   res.status(200).send({headline: "Информация о компании", content: "Наша компания крайне могучая и сильная, она может сделать все, что угодно, если это законно", partners: ["Газпром", "Роснефть", "Гугл"], crew:["Алексей", "Андрей", "Георгий"]});
 // };
@@ -116,8 +118,17 @@ const showUserOrders = (req, res) => {
 }
 
 const loadCatalogue = (req, res) => {
+  Service.find({})
+  .then((docs) => {
+    if(!docs) {
+      return res.status(400).send({
+        errorMessage: "Услуги не найдены",
+      });
+    }
+    return res.status(200).send(docs);
+  })
   // res.sendFile(fileLocation);
-  res.status(200).send([{title: "Электрооборудование", image: ""}, {title: "Резервуары", image: ""}, {title: "Электростанции", image: ""}, {title: "Трубопроводы", image: ""}, {title: "Металлоконструкции", image: ""}, {title: "Перемешивающие устройства", image: ""}, {title: "Бесперебойное питание", image: ""}, {title: "Строительные материалы", image: ""}]);
+  // res.status(200).send([{title: "Электрооборудование", image: ""}, {title: "Резервуары", image: ""}, {title: "Электростанции", image: ""}, {title: "Трубопроводы", image: ""}, {title: "Металлоконструкции", image: ""}, {title: "Перемешивающие устройства", image: ""}, {title: "Бесперебойное питание", image: ""}, {title: "Строительные материалы", image: ""}]);
   
 }
 

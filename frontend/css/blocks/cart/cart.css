@@ -1,0 +1,16 @@
+@import url(./__list/cart__list.css);
+@import url(./__list-element/cart__list-element.css);
+@import url(./__button/cart__button.css);
+.cart {
+  max-width: 450px;
+  position: absolute;
+  right: 2%;
+  top: 150%;
+  background-color: rgba(0, 0, 0, 0.55);
+  border-radius: 18px;
+  backdrop-filter: blur(5px);
+  /* display: none; */
+  visibility: hidden;
+  opacity: 0;
+  padding: 2% 0;
+}

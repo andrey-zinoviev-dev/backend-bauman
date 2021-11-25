@@ -1,0 +1,8 @@
+.cart__list-element {
+  display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    padding: 15px 0;
+    font-size: 18px;
+    align-items: center;
+}

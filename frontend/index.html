@@ -27,6 +27,12 @@
         <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Регистрация <i class="fas fa-user-plus"></i></button></li>
         <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user"><span></span> <i class="fas fa-user-circle"></i></button></li>
         <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user-logout">Выйти <i class="fas fa-sign-out-alt"></i></i></button></li>
+        <li>
+          <button class="header__services-list-element-button header__services-list-element-button-user-cart">
+            <i class="header__services-list-element-button-cart fas fa-shopping-cart"></i>
+            <span class="header__services-list-element-button-span header__services-list-element-button-span_cart"></span>
+          </button>
+        </li>
       </ul>
     </div>
     <section class="dashboard">
@@ -118,6 +124,13 @@
         </div>
       </div>
     </section>
+    <section class="cart">
+      <div class="container">
+        <h3 class="cart__headline">Корзина покупок</h3>
+        <ul class="cart__list"></ul>
+        <button class="cart__button">Подветрдить заказ</button>
+      </div>
+    </section>
   </header>
     <main class="main">
       <div class="overall-container">
@@ -149,7 +162,7 @@
             <h2 class="services__heading">Каталог</h2>
             <p class="services__para">Продукция компании</p>
             <div class="services__wrapper">
-              <div class="services__service-new">
+              <!-- <div class="services__service-new">
                 <div class="services__service-new-container">
                   <h3 class="services__service-new-headline">Электрооборудование</h3>
                   <i class="services__service-new-vector fas fa-microchip"></i>
@@ -207,8 +220,7 @@
 
                   <button class="services__service-new-button">Подробнее</button>
                 </div>
-              </div>
-
+              </div> -->
             </div>
           </div>
         </section>
@@ -428,11 +440,11 @@
     <div class="popup__container">
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
       <h3 class="popup__headline"></h3>
-      <p class="popup__para"></p>
+      <p class="popup__para popup__para_service"></p>
       <form class="popup__service-quantity-form">
         <div class="popup__service-quantity-form-navigation">
           <button class="popup__service-quantity-form-button popup__service-quantity-button-minus" type="button">-</button>
-          <input class="popup__service-quantity-form-input" type="number" name="quantity" autocomplete="off" value="1" />
+          <input class="popup__service-quantity-form-input" type="number" name="quantity" autocomplete="off" value= 1 />
           <button class="popup__service-quantity-form-button popup__service-quantity-button-plus" type="button">+</button>
         </div>
         <button class="popup__order-submit" type="submit">Добавить к заказу</button>
@@ -451,6 +463,15 @@
     <div class="swiper-slide">
       <img class="slides__slide-img" src="" alt="">
       <span class="slides__slide-span"></span>
+    </div>
+  </template>
+  <template id="services__service-new">
+    <div class="services__service-new">
+      <div class="services__service-new-container">
+        <h3 class="services__service-new-headline"></h3>
+        <i class="services__service-new-vector"></i>
+        <button class="services__service-new-button">Подробнее</button>
+      </div>
     </div>
   </template>
   <template id="thumbnail">
@@ -493,11 +514,17 @@
       <div class="personal-space__order-status-logo"></div>
     </div>
   </template>
+  <template id="personal-space__content-text-wrapper">
+    <div class="personal-space__content-text-wrapper"></div>
+  </template>
   <template id="popup__button-submit">
     <button class="popup__button-submit"></button>  
   </template>
-  <template id="personal-space__content-text-wrapper">
-    <div class="personal-space__content-text-wrapper"></div>
+  <template id="cart__list-element">
+    <li class="cart__list-element">
+      <p class="cart__list-element-para"></p>
+      <span class="cart__list-element-span"></span>
+    </li>
   </template>
   <!-- <template>
     

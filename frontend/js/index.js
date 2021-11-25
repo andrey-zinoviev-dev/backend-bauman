@@ -64,8 +64,37 @@ window.onload = () => {
     // }
   });
 
-  
+  //запрос данных об услугах компании
+  requestOnServer('/load-catalogue')
+  .then((data) => {
+    data.forEach((service) => {
+      // console.log(service);
+      const serviceTemplateGenerated = generateTemplate(serviceTemplate, '.services__service-new');
+      const serviceTemplateGeneratedHeadline =  serviceTemplateGenerated.querySelector('.services__service-new-headline');
+      const serviceTemplateGeneratedImage = serviceTemplateGenerated.querySelector('.services__service-new-vector');
+      const serviceTemplateGeneratedButton = serviceTemplateGenerated.querySelector('.services__service-new-button');
+
+      //наполнение элементов шаблона услги контентом и обработчиками
+      serviceTemplateGeneratedHeadline.textContent = service.title;
+      //Разделение строки картинки услгуи на массив без пробелов
+      service.image.split(" ").forEach((oneClass) => {
+        serviceTemplateGeneratedImage.classList.add(oneClass);
+      })
+   
+      serviceTemplateGeneratedButton.addEventListener('click', () => {
+        servicePopup.querySelector('.popup__headline').textContent = service.title;
+        servicePopup.querySelector('.popup__para').textContent = service.description;
+        openPopup(servicePopup);
+      });
+
+      //вставка экземпляров шаблона в блок услуг
+      servicesDiv.append(serviceTemplateGenerated);
+    })
+  });
 };
+
+
+userCartSpan.textContent = userCartOrders.length;
 
 footerButtons.forEach((button) => {
   button.addEventListener('mousemove', (evt) => {
@@ -216,19 +245,33 @@ popups.forEach((popup, i, array) => {
   overlay.addEventListener('click', () => {
     closePopup(popup)
   });
-  
-  // if(i === 0 && submitButton !== null) { 
-  //   submitButton.addEventListener('click', () => {
-  //     // console.log('post on server login info');
-  //   });
-  // }
-  // if(i === 1 && submitButton !== null) {
-  //   submitButton.addEventListener('click', () => {
-  //     // console.log('post on server register info');
-  //   })
-  // }
 });
 
+//обработчики кнопок + и - в попапе заказа
+servicePopupOrderButtons.forEach((button, i, array) => {
+  button.addEventListener('click', () => {
+    if (i === 0) {
+      servicePopupOrderInput.value--;
+      if(+servicePopupOrderInput.value < 1) {
+        servicePopupOrderMinusButton.disabled = true;
+        servicePopupOrderMinusButton.classList.add('popup__service-quantity-form-button_blocked');
+      };
+    }
+    if(i === 1) {
+      servicePopupOrderInput.value++;
+      if(+servicePopupOrderInput.value > 0) {
+        servicePopupOrderMinusButton.disabled = false;
+        servicePopupOrderMinusButton.classList.remove('popup__service-quantity-form-button_blocked');
+      }
+    }
+  })
+});
+
+//обработчик кнопки корзины с заказами
+userCartButton.addEventListener('click', () => {
+  // console.log(userCartOrders);
+  userCart.classList.toggle('cart_opened');
+});
 //обработчики кнопок прокрутки
 firstMainButton.addEventListener('click',() => {
   scrollToSection(servicesSection)
@@ -258,10 +301,23 @@ headerContactsButton.addEventListener('click', (evt) => {
 });
 
 //обработчик нажатия на кнопку попапа заказов
-
 servicePopupButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  console.log('order made');
+
+  //наполнение объекта заказа значениями
+  orderToMake.orderContent = servicePopup.querySelector('.popup__headline').textContent;
+  orderToMake.timeOfOrder = new Date();
+  orderToMake.quantity = servicePopup.querySelector('.popup__service-quantity-form-input').value;
+  userCartOrders.push(orderToMake);
+  userCartSpan.textContent = userCartOrders.length;
+
+  const cartListElement = generateTemplate(cartListElementTemplate, '.cart__list-element');
+  cartListElement.querySelector('.cart__list-element-para').textContent = orderToMake.orderContent;
+  cartListElement.querySelector('.cart__list-element-span').textContent = `${orderToMake.quantity}`;
+  userCartList.append(cartListElement);
+  servicePopupForm.reset();
+  closePopup(servicePopup);
+  // console.log(orderToMake);
 
   // postOnServer('/add-service', orderToMake)
   // .then((data) => {
@@ -280,14 +336,14 @@ servicePopupButton.addEventListener('click', (evt) => {
 });
 
 //обработчики карточек каталога
-services.forEach((service) => {
-  service.addEventListener('click', () => {
-    orderToMake.title = service.querySelector('.services__service-new-headline').textContent;
-    orderToMake.time = new Date();
-    servicePopup.querySelector('.popup__headline').textContent = service.querySelector('.services__service-new-headline').textContent;
-    openPopup(servicePopup);
-  });
-});
+// services.forEach((service) => {
+//   service.addEventListener('click', () => {
+//     orderToMake.title = service.querySelector('.services__service-new-headline').textContent;
+//     orderToMake.time = new Date();
+//     servicePopup.querySelector('.popup__headline').textContent = service.querySelector('.services__service-new-headline').textContent;
+//     openPopup(servicePopup);
+//   });
+// });
 
 // //обработчик отправки данных для входа пользователя
 // loginPopupSubmitButton.addEventListener('click', () => {

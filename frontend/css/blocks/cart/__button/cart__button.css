@@ -1,0 +1,11 @@
+.cart__button {
+  box-sizing: border-box;
+    font-size: 18px;
+    margin: 25px auto 0 auto;
+    min-width: 165px;
+    min-height: 45px;
+    border-radius: 35px;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 700;
+}
