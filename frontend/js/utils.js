@@ -101,9 +101,11 @@ const userButtonSpan = userButton.querySelector('span');
 //кнопка выхода пользователя
 const userLogoutButton = document.querySelector('.header__button-user-logout');
 
-//секция корзины заказа
+//секция корзины заказа и ее переменные
 const userCart = document.querySelector('.cart');
 const userCartList = userCart.querySelector('.cart__list');
+const userCartOrderQuantity = userCart.querySelector('.cart__order-quantity-span');
+// let userCartQuantityButtons = Array.from(userCart.querySelectorAll('.cart__list-element-navigation'));
 
 //кнопка корзины пользователя
 const userCartButton = document.querySelector('.header__services-list-element-button-user-cart');

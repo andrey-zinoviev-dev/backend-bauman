@@ -1,0 +1,13 @@
+.cart__list-element-navigation-input {
+  border: none;
+  max-width: 35px;
+  border-radius: 15px;
+  text-align: center;
+  box-sizing: border-box;
+  min-height: 20px;
+}
+
+.cart__list-element-navigation-input::-webkit-inner-spin-button, .cart__list-element-navigation-input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}

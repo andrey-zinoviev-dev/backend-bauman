@@ -1,0 +1,10 @@
+.container_cart {
+  padding: 15% 20px;
+  box-sizing: border-box;
+  min-width: 425px;
+}
+.container_cart:last-of-type {
+  background-color: rgba(74,214,254,0.45);
+  border-radius: 0 18px 18px 0;
+  min-width: 0;
+}

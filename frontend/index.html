@@ -125,10 +125,17 @@
       </div>
     </section>
     <section class="cart">
-      <div class="container">
+      <div class="container container_cart">
         <h3 class="cart__headline">Корзина покупок</h3>
         <ul class="cart__list"></ul>
-        <button class="cart__button">Подветрдить заказ</button>
+      </div>
+      <div class="container container_cart">
+        <h3 class="cart__headline">Ваш заказ</h3>
+        <form action="/" class="cart__form">
+          <p class="cart__order-quantity">Предметов <span class="cart__order-quantity-span">0</span></p>
+          <p>Итого <span>0</span> рублей</p>
+          <button class="cart__button">Подветрдить заказ</button>
+        </form>
       </div>
     </section>
   </header>
@@ -523,7 +530,12 @@
   <template id="cart__list-element">
     <li class="cart__list-element">
       <p class="cart__list-element-para"></p>
-      <span class="cart__list-element-span"></span>
+      <div class="cart__list-element-navigation">
+        <button class="cart__list-element-navigation-button">-</button>
+        <!-- <span class="cart__list-element-span"></span> -->
+        <input class="cart__list-element-navigation-input" type="number" name="quantity" autocomplete="off" value= 1 />
+        <button class="cart__list-element-navigation-button">+</button>
+      </div>
     </li>
   </template>
   <!-- <template>

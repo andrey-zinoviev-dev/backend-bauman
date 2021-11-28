@@ -8,6 +8,7 @@
 @import url(../blocks/container/_slider/container_slider.css);
 @import url(../blocks/container/_dashboard/container_dashboard.css);
 @import url(../blocks/container/_personal-space/container_personal-space.css);
+@import url(../blocks/container/_cart/container_cart.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__contact-method-img/_small/header__contact-method-img_small.css);
 @import url(../blocks/header/__services-list-element-button/_hidden/header__services-list-element-button_hidden.css);

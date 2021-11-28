@@ -79,7 +79,7 @@ window.onload = () => {
       //Разделение строки картинки услгуи на массив без пробелов
       service.image.split(" ").forEach((oneClass) => {
         serviceTemplateGeneratedImage.classList.add(oneClass);
-      })
+      });
    
       serviceTemplateGeneratedButton.addEventListener('click', () => {
         servicePopup.querySelector('.popup__headline').textContent = service.title;
@@ -313,11 +313,31 @@ servicePopupButton.addEventListener('click', (evt) => {
 
   const cartListElement = generateTemplate(cartListElementTemplate, '.cart__list-element');
   cartListElement.querySelector('.cart__list-element-para').textContent = orderToMake.orderContent;
-  cartListElement.querySelector('.cart__list-element-span').textContent = `${orderToMake.quantity}`;
+  // cartListElement.querySelector('.cart__list-element-span').textContent = `${orderToMake.quantity}`;
   userCartList.append(cartListElement);
+  //изменение количества предметов в корзине заказа
+  userCartOrderQuantity.textContent = userCartOrders.length;
+  //добавление обработчиков для кнопок изменения количества элемента заказа
+  const cartListElementNavigation = cartListElement.querySelector('.cart__list-element-navigation');
+  const cartListElementNavigationInput = cartListElementNavigation.querySelector('.cart__list-element-navigation-input');
+  cartListElementNavigationInput.value = orderToMake.quantity;
+  
+  Array.from(cartListElementNavigation.children).forEach((child, i, array) => {
+    if(i === 1) {
+      return child.addEventListener('input', () => {
+        console.log(child.value);
+      });
+    } 
+    return child.addEventListener('click', () => {
+      if(i === 0) {
+        return cartListElementNavigationInput.value--
+      }
+      return cartListElementNavigationInput.value++;
+    });
+  });
+
   servicePopupForm.reset();
   closePopup(servicePopup);
-  // console.log(orderToMake);
 
   // postOnServer('/add-service', orderToMake)
   // .then((data) => {
