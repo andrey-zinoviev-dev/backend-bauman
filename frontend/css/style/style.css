@@ -72,6 +72,7 @@
 @import url(../blocks/popup/__service-quantity-form-button/_blocked/popup__service-quantity-form-button_blocked.css);
 @import url(../blocks/personal-space/personal-space.css);
 @import url(../blocks/personal-space/__list/_navigation/personal-space__list_navigation.css);
+@import url(../blocks/personal-space/__list/_categories/personal-space__list_categories.css);
 @import url(../blocks/personal-space/__list-element-button/_active/personal-space__list-element-button_active.css);
 ul {
     padding: 0;

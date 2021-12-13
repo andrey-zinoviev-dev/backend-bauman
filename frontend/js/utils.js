@@ -105,12 +105,14 @@ const userLogoutButton = document.querySelector('.header__button-user-logout');
 const userCart = document.querySelector('.cart');
 const userCartList = userCart.querySelector('.cart__list');
 const userCartOrderQuantity = userCart.querySelector('.cart__order-quantity-span');
-// let userCartQuantityButtons = Array.from(userCart.querySelectorAll('.cart__list-element-navigation'));
+const userCartOderButton = userCart.querySelector('.cart__button');
+const userCartPara = userCart.querySelector('.cart__para');
 
 //кнопка корзины пользователя
 const userCartButton = document.querySelector('.header__services-list-element-button-user-cart');
 const userCartSpan = userCartButton.querySelector('.header__services-list-element-button-span');
 
+//переменная предметов в заказе пользователя в корзине
 let userCartOrders = [];
 
 //уникальный попап
@@ -122,6 +124,12 @@ const uniquePopupRootDiv = uniquePopupContainer.querySelector('.popup__text-wrap
 // const uniquePopupLists = uniquePopup.querySelector('.popup__list');
 // const uniquePopupPara = uniquePopup.querySelector('.popup__para');
 
+//переменные блока контента категорий личного кабинета
+let personalSpaceContentDiv;
+let personalSpaceContentDivOrders;
+let defaultProfilePageOrdersArray = [];
+let defaultPendingOrdersArray = [];
+let defaultCategoryButtons = [];
 
 //шаблоны для уникального попапа
 const headlineTemplate = document.querySelector('#popup-headline');
@@ -129,12 +137,13 @@ const paraTemplate = document.querySelector('#popup-para');
 const anchorTemplate = document.querySelector('#popup-anchor');
 const popupButtonTemplate = document.querySelector('#popup__button-submit');
 
-
 //шаблоны личнего кабинета
 const personalSpaceHeadlineTemplate = document.querySelector('#perosnal-space__headline');
 const personalSpaceParaTemplate = document.querySelector('#personal-space__para');
 const personalSpaceListTemplate = document.querySelector('#personal-space__list');
 const personalSpaceListElementTemplate = document.querySelector('#personal-space__list-element');
+const perosnalSpaceListElementContent = document.querySelector('#personal-space__element-content');
+const personalSpaceListElementButtonTemplate = document.querySelector('#personal-space__list-element-button');
 const personalSpaceOrdersTemplate = document.querySelector('#personal-space__orders');
 const personalSpaceOrderTemplate = document.querySelector('#personal-space__order');
 const personalSpaceContentTextWrapperTemplate = document.querySelector('#personal-space__content-text-wrapper');
@@ -146,16 +155,14 @@ const serviceTemplate = document.querySelector('#services__service-new');
 const cartListElementTemplate = document.querySelector('#cart__list-element');
 
 //объект для данных для маршрутизации на стороне клиента
-const htmlToRender = {
-  
-}
+let htmlToRender;
 
 //объект для данных заказа
-let orderToMake = {
-  orderContent: "",
-  timeOfOrder: "",
-  quantity: 0,
-};
+// let orderToMake = {
+//   orderContent: "",
+//   timeOfOrder: "",
+//   quantity: 0,
+// };
 
 //пользователь
 let user;

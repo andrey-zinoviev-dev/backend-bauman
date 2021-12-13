@@ -1,0 +1,4 @@
+.personal-space__list_categories {
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
   orderContent: {
-    type: String,
-    required: true
+    type: Array,
+    required: true,
+    default: [],
   },
   orderTime: {
     type: Object,

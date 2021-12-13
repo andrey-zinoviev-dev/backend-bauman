@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" /> -->
   <!-- <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet"> -->
   <!-- <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;700&display=swap" rel="stylesheet"> -->
@@ -70,12 +71,12 @@
               <button class="dashboard__button dashboard__button_large">Заказы</button>
             </li>
             <li class="dashboard__list-element">
-              <button class="dashboard__button">Активные <span class="dashboard__button-span dashboard__button-span_active"></span></button>
-              <!-- <p class="dashboard__list-element-para">Активные</p> -->
-            </li>
-            <li class="dashboard__list-element">
               <button class="dashboard__button">В ожидании <span class="dashboard__button-span dashboard__button-span_pending"></span></button>
               <!-- <p class="dashboard__list-element-para">В ожидании</p> -->
+            </li>
+            <li class="dashboard__list-element">
+              <button class="dashboard__button">Активные <span class="dashboard__button-span dashboard__button-span_active"></span></button>
+              <!-- <p class="dashboard__list-element-para">Активные</p> -->
             </li>
           </ul>
         </div>
@@ -128,6 +129,7 @@
       <div class="container container_cart">
         <h3 class="cart__headline">Корзина покупок</h3>
         <ul class="cart__list"></ul>
+        <p class="cart__para"></p>
       </div>
       <div class="container container_cart">
         <h3 class="cart__headline">Ваш заказ</h3>
@@ -510,17 +512,33 @@
   <template id="personal-space__para">
     <p class="personal-space__para"></p>
   </template>
+  <template id="personal-space__list-element-button">
+    <button class="personal-space__list-element-button"></button>
+  </template>
+  <template id="personal-space__element-content">
+    <div class="personal-space__element-content">
+      <div class="personal-space__orders-buttons">
+        <button class="personal-space__orders-button personal-space__orders-button_left">left</button>
+        <button class="personal-space__orders-button personal-space__orders-button_right">right</button>
+      </div>
+    </div>
+  </template>
   <template id='personal-space__orders'>
-    <div class="personal-space__orders"></div>
+    <div class="personal-space__orders">
+    </div>
   </template>
   <template id="personal-space__order">
     <div class="personal-space__order">
       <p class="personal-space__order-time"></p>
-      <h3 class="perosnal-space__order-headline"></h3>
+      <!-- <h3 class="perosnal-space__order-headline"></h3> -->
+      <ul class="personal-space__order-list"></ul>
       <button class="personal-space__order-button">Открыть</button>
       <div class="personal-space__order-status-logo"></div>
     </div>
   </template>
+  <!-- <template id="personal-space__order-list-element">
+    <li class="personal-space__order-list-element"></li>
+  </template> -->
   <template id="personal-space__content-text-wrapper">
     <div class="personal-space__content-text-wrapper"></div>
   </template>
@@ -531,7 +549,7 @@
     <li class="cart__list-element">
       <p class="cart__list-element-para"></p>
       <div class="cart__list-element-navigation">
-        <button class="cart__list-element-navigation-button">-</button>
+        <button class="cart__list-element-navigation-button cart__list-element-navigation-button_minus">-</button>
         <!-- <span class="cart__list-element-span"></span> -->
         <input class="cart__list-element-navigation-input" type="number" name="quantity" autocomplete="off" value= 1 />
         <button class="cart__list-element-navigation-button">+</button>

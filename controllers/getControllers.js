@@ -106,6 +106,7 @@ const showUserOrders = (req, res) => {
       });
 
       return res.status(200).send({
+        success: "Заказ успешно составлен",
         userOrders
       });
       // return res.status(200).send({

@@ -118,7 +118,7 @@ const sendRegisterData = (req, res) => {
 
 const sendServiceOrderData = (req, res) => {
   const { token } = req.cookies;
-  const { title, time } = req.body;
+  const { userCartOrders, timeOfOrder, quantity } = req.body;
 
   if(!token) {
     return res.status(403).send({
@@ -130,26 +130,27 @@ const sendServiceOrderData = (req, res) => {
   const { _id } = payload;
 
   Order.create({
-    orderContent: title, orderTime: time,  owner: _id
+    orderContent: userCartOrders, orderTime: timeOfOrder,  owner: _id, quantity: quantity
   })
-  .then((success) => {
-    if(!success) {
+  .then((doc) => {
+    if(!doc) {
       return res.status(400).send({
         errorMessage: "Проверьте данные при отправке заказа",
       });
     }
+    // return res.status(200).send(success);
     User.findByIdAndUpdate(_id, {$addToSet: { ordersList: req.body }}, {new: true})
-    .then((doc) => {
-      if(!doc) {
+    .then((user) => {
+      if(!user) {
         return res.status(400).send({
           errorMessage: "Что-то пошло не так, попробуйте еще раз",
         })
       }
-      return res.status(201).send(doc);
+      return res.status(201).send(user);
     })
-    // return res.status(200).send({
-    //   message: "Заказ успешно отправлен",
-    // });
+    return res.status(200).send({
+      message: "Заказ успешно отправлен",
+    });
 
   });
 };
