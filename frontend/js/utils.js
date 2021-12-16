@@ -184,8 +184,32 @@ let profilePartsToRender = [];
 let profileOrdersToRender = [];
 let userOrders = {};
 
-//попап добавления заказа
-// const orderPopupForm = document.querySelector('.popup__service-quantity-form');
+//переменные страниц HTML 
+let userPage;
+let contactsPage;
+let cataloguePage;
+let pagesRoutes;
+
+//фукнции загрузки HTML страниц
+function loadPage(page) {
+  return fetch(page)
+  .then((data) => {
+    return data.text();
+  })
+}
+
+//в fetch обрабатывать ошибки через либо Promise.reject либо throw new Error
+function loadAllHTMLPages() {
+  return Promise.all([loadPage('../userpage.html'), loadPage('../contacts.html'), loadPage('../catalogue.html')])
+  .then((response) => {
+    response.forEach((el) => {
+      if(el.includes('DOCTYPE')) {
+        throw new Error("Проверьте данные страниц для загрузки");
+      }
+    });
+    return response;
+  })
+}
 
 reviews.forEach((child, i, array) => {
   if(i < 0) {
