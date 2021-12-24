@@ -1,0 +1,12 @@
+.personal-space__list-element-button_navigation {
+  margin-bottom: 0;
+  font-size: 17px;
+  position: relative;
+  color: rgba(255, 255, 255, 0.4);
+  /* border: 2px solid white; */
+  /* background-color: black; */
+}
+
+/* .personal-space__list-element-button_navigation:hover {
+  background-color: #61dee7;
+} */

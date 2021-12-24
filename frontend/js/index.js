@@ -8,14 +8,48 @@
 //изначальная загрузка страниц
 loadAllHTMLPages()
 .then((res) => {
-  userPage = res[0];
+  const htmlParser = new DOMParser();
+  const parsedPage = htmlParser.parseFromString(res[0], 'text/html');
+  userPage = parsedPage.querySelector('.personal-space');
+  privateNavButtons = Array.from(userPage.querySelectorAll('.personal-space__list-element-button'));
+  // let prevButton;
+
+  personalSpaceContentTextDiv = userPage.querySelector('.personal-space__content-text-wrapper');
+  personalSpaceContentDivOrders = userPage.querySelector('.personal-space__content-orders-wrapper');
+
+  privateNavButtons.forEach((button, i) => {
+    button.addEventListener('click', () => {
+      personalSpaceContentTextDiv.innerHTML = '';
+      personalSpaceContentDivOrders.innerHTML = '';
+      //убрать оформление выделения активной кнопки
+      privateNavPrevButton.classList.remove('personal-space__list-element-button_active');
+      if(i === 0) {
+        personalSpaceContentTextDiv.append(userSpaceDefaultHeadline);
+        personalSpaceContentTextDiv.append(userSpacePara);
+        defaultProfilePageOrdersArray.forEach((el) => {
+          personalSpaceContentDivOrders.append(el);
+        });
+      }
+      if(i === 1) {
+        defaultCategoryButtons.forEach((button) => {
+          ordersSpaceNavigationList.append(button);
+        });
+        personalSpaceContentTextDiv.append(ordersSpaceNavigationList);
+        defaultPendingOrdersArray.forEach((order) => {
+          personalSpaceContentDivOrders.append(order);
+        });
+      }
+      //назначение новой активной кнопки
+      privateNavPrevButton = button;
+      //перевод нажатой кнопки в активное состояние
+      privateNavPrevButton.classList.add('personal-space__list-element-button_active');
+    });
+  });
 })
 .catch((err) => {
   console.log(err.message);
-})
+});
 
-
-//назначение первой кнопки 1 отзыва при загрузке страницы
 window.onload = () => {
   let buttons = Array.from(document.querySelectorAll('.reviews__buttons-button'));
   previousButton = buttons[1];
@@ -32,18 +66,6 @@ window.onload = () => {
     //создание объекта с информацией о пользователе
     user = data;
     userSpaceDefaultHeadline.textContent = `Здравствуйте, ${user.name}!`;
-    //добавление элементов для профиля в личном кабинете
-    // for (let key in user) {
-    //   //элементы меню профиля
-    //   if(key === "email" || key === "name") {
-    //     profilePartsToRender.push(user[key]);
-    //   }
-
-    //   //элементы меню заказов
-    //   // if(key.includes('Orders')) {
-    //   //   userOrders[key] = user[key];
-    //   // }
-    // };
     
     hideHeaderButtons(openButtons);
     showHeaderButtons(loggedInButtons);
@@ -82,12 +104,23 @@ window.onload = () => {
           const userSpaceRecenetOrder = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
           userSpaceRecenetOrder.querySelector('.personal-space__order-time').textContent = `${timeOfOrder.getDate()} / ${timeOfOrder.getMonth()} / ${timeOfOrder.getFullYear()}`;
           const userSpaceRecentOrderList = userSpaceRecenetOrder.querySelector('.personal-space__order-list');
+          const userSpaceRecentOrderStatus = userSpaceRecenetOrder.querySelector('.personal-space__order-side');
+          const userSpaceRecentOrderButton = userSpaceRecenetOrder.querySelector('.personal-space__order-button');
+
+          userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#e3c022');
+          // userSpaceRecentOrderButton.style.setProperty('--sidecolor', '#e3c022');
+
+          if(order.status === 'active') {
+            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', 'yellowgreen');
+            // userSpaceRecentOrderButton.style.setProperty('--sidecolor', 'yellowgreen')
+          }
 
           order.orderContent.forEach((element) => {
             const ordersListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
             ordersListElement.textContent = element.orderContent;
             userSpaceRecentOrderList.append(ordersListElement);
           });
+
           defaultProfilePageOrdersArray.push(userSpaceRecenetOrder);
         });
       }
@@ -97,7 +130,8 @@ window.onload = () => {
     for (let key in userOrders) {
       const orderCategorylistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
       const orderCategoryButton = generateTemplate(personalSpaceListElementButtonTemplate, '.personal-space__list-element-button');
-      
+
+      orderCategoryButton.classList.add('personal-space__list-element-button_navigation')
       if(key === 'active') {
         orderCategoryButton.textContent = "Активные заказы";
         orderCategoryButton.setAttribute('data', 'active');
@@ -107,7 +141,8 @@ window.onload = () => {
         orderCategoryButton.textContent = "Заказы в процессе";
         orderCategoryButton.setAttribute('data', 'pending');
         orderCategorylistElement.prepend(orderCategoryButton);
-
+        //значение переменной предыдущей кнопки по умолчанию
+        navPrevButton = orderCategoryButton;
         //отображение заказов в ожидании по умолчанию
         const sortedArray = userOrders[key].sort((a, b) => {
           return Date.parse(b.orderTime) - Date.parse(a.orderTime);
@@ -117,15 +152,66 @@ window.onload = () => {
           const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
           const timePara = orderDiv.querySelector('.personal-space__order-time');
           const orderContentList = orderDiv.querySelector('.personal-space__order-list');
+          const userSpaceRecentOrderStatus = orderDiv.querySelector('.personal-space__order-side');
+          const userSpaceOrderButton = orderDiv.querySelector('.personal-space__order-button');
+
           const orderTime = new Date(order.orderTime);
     
           timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
-    
+
+          userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#e3c022');
+          // userSpaceOrderButton.style.setProperty('--sidecolor', '#e3c022');
+
+          if(order.status === 'active') {
+            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', 'yellowgreen');
+            // userSpaceOrderButton.style.setProperty('--sidecolor', 'yellowgreen');
+          }
+          if(order.status === 'canceled') {
+            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#d1361b');
+            // userSpaceOrderButton.style.setProperty('--sidecolor', '#d1361b');
+          }
+          if(order.status === 'finished') {
+            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#21a35e');
+            // userSpaceOrderButton.style.setProperty('--sidecolor', '#21a35e');
+          }
+
           order.orderContent.forEach((element) => {
             const orderContentListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
             orderContentListElement.textContent = element.orderContent;
             orderContentList.append(orderContentListElement);
           });
+
+          userSpaceOrderButton.addEventListener('click', () => {
+            orderPopupListOfContent.innerHTML = '';
+
+            orderPopupTimePara.textContent = `Дата заказа: ${timePara.textContent}`;
+
+            order.orderContent.forEach((element) => {
+              const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+              orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
+              orderPopupListOfContent.append(orderPopuplistElement);
+            });
+            // orderPopupStatusPara.textContent = '';
+            orderPopupStatusSteps.forEach((statusStep, index) => {
+              if(order.status === 'pending') {
+                if(Array.from(statusStep.classList).includes('popup__status-wrapper-step_pending')) {
+                  return statusStep.classList.add('popup__status-wrapper-step_current');
+                };
+              }
+              // if(order.status === 'active') {
+              //   if(Array.from(statusStep.classList).includes('popup__status-wrapper-step_pending')) {
+              //     console.log(statusStep);
+              //   };
+              //   if(Array.from(statusStep.classList).includes('popup__status-wrapper-step_active')) {
+              //     console.log(statusStep);
+              //   };
+              // }
+            });
+
+            orderPopup.classList.add('popup_opened');
+
+          })
+    
           defaultPendingOrdersArray.push(orderDiv);
         });
       }
@@ -141,10 +227,9 @@ window.onload = () => {
       }
       
       orderCategoryButton.addEventListener('click', () => {
-        // orderCategoryButton.classList.add('clicked');
-        
         personalSpaceContentDivOrders.innerHTML = '';
-  
+       
+        navPrevButton.classList.remove('personal-space__list-element-button_selected');
         const lastSortedArray = userOrders[key].sort((a, b) => {
           return Date.parse(b.orderTime) - Date.parse(a.orderTime);
         });
@@ -153,9 +238,25 @@ window.onload = () => {
           const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
           const timePara = orderDiv.querySelector('.personal-space__order-time');
           const orderContentList = orderDiv.querySelector('.personal-space__order-list');
+          const orderDivStatus = orderDiv.querySelector('.personal-space__order-side');
+          const orderButton = orderDiv.querySelector('.personal-space__order-button');
           const orderTime = new Date(order.orderTime);
 
           timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
+
+          orderDivStatus.style.setProperty('--sidecolor', '#e3c022');
+          if(order.status === 'active') {
+            orderDivStatus.style.setProperty('--sidecolor', 'yellowgreen');
+            // userSpaceOrderButton.style.setProperty('--sidecolor', 'yellowgreen');
+          }
+          if(order.status === 'canceled') {
+            orderDivStatus.style.setProperty('--sidecolor', '#d1361b');
+            // userSpaceOrderButton.style.setProperty('--sidecolor', '#d1361b');
+          }
+          if(order.status === 'finished') {
+            orderDivStatus.style.setProperty('--sidecolor', '#21a35e');
+            // userSpaceOrderButton.style.setProperty('--sidecolor', '#21a35e');
+          }
 
           order.orderContent.forEach((element) => {
             const orderContentListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
@@ -163,8 +264,27 @@ window.onload = () => {
             orderContentList.append(orderContentListElement);
           });
 
+          orderButton.addEventListener('click', () => {
+            orderPopupListOfContent.innerHTML = '';
+            orderPopup.classList.add('popup_opened');
+            // orderPopupHeadline.textContent = 'Ваш Заказ';
+            orderPopupTimePara.textContent = `Ваш заказ был сделан ${timePara.textContent}`;
+
+            order.orderContent.forEach((element) => {
+              const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+              orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
+              orderPopupListOfContent.append(orderPopuplistElement);
+            });
+
+            // orderPopupStatusPara.textContent = 'Статус Вашего заказа';
+          });
+
           personalSpaceContentDivOrders.append(orderDiv);
         });
+
+        navPrevButton = orderCategoryButton;
+        
+        navPrevButton.classList.add('personal-space__list-element-button_selected');
       });
 
       defaultCategoryButtons.push(orderCategorylistElement);
@@ -376,6 +496,7 @@ popups.forEach((popup, i, array) => {
                   const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
                   const timePara = orderDiv.querySelector('.personal-space__order-time');
                   const orderContentList = orderDiv.querySelector('.personal-space__order-list');
+                  const orderButton = orderDiv.querySelector('.personal-space__order-button');
                   const orderTime = new Date(order.orderTime);
 
                   timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
@@ -385,6 +506,19 @@ popups.forEach((popup, i, array) => {
                     orderContentListElement.textContent = element.orderContent;
                     orderContentList.append(orderContentListElement);
                   });
+
+                  orderButton.addEventListener('click', () => {
+                    orderPopupListOfContent.innerHTML = '';
+                    orderPopup.classList.add('popup_opened');
+                    orderPopupTimePara.textContent = timePara.textContent;
+
+                    order.orderContent.forEach((element) => {
+                      const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                      orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
+                      orderPopupListOfContent.append(orderPopuplistElement);
+                    });
+                  });
+
                   defaultPendingOrdersArray.push(orderDiv);
                 })
               }
@@ -719,7 +853,6 @@ userSegments.forEach((segment, index, array) => {
       dashBoardButtonSegment.classList.remove('dashboard__button_active');
     });
 
-    //
     coloredDivSegments.forEach((coloredDiv) => {
       if(Array.from(coloredDiv.classList).includes('dashboard__list-element-circle_color-dense')) {
         coloredDiv.classList.remove('dashboard__list-element-circle_color-dense_active');
@@ -745,9 +878,58 @@ userSegments.forEach((segment, index, array) => {
     segment.querySelector('.dashboard__list_colored-bg').classList.add('dashboard__list_active');
 
     //тест другой загрузки страницы
+    rootElement.classList.add('root_private-space')
     mainContainer.classList.add('main_padding');
-    mainContainer.innerHTML = userPage;
+    personalSpaceContentTextDiv.innerHTML = '';
+    personalSpaceContentDivOrders.innerHTML = '';
+    mainContainer.innerHTML = "";
 
+    mainContainer.append(userPage);
+    
+    if(privateNavPrevButton) {
+      privateNavPrevButton.classList.remove('personal-space__list-element-button_active');
+    }
+
+    if(index === 0) {
+      personalSpaceContentTextDiv.append(userSpaceDefaultHeadline);
+      personalSpaceContentTextDiv.append(userSpacePara);
+
+      defaultProfilePageOrdersArray.forEach((el) => {
+        personalSpaceContentDivOrders.append(el);
+      });
+
+      privateNavPrevButton = privateNavButtons[0];
+      privateNavPrevButton.classList.add('personal-space__list-element-button_active');
+      // navPrevButton = defaultCategoryButtons[0];
+    }; 
+
+    if(index === 1) {
+      defaultCategoryButtons.forEach((button) => {
+        ordersSpaceNavigationList.append(button);
+      });
+      personalSpaceContentTextDiv.append(ordersSpaceNavigationList);
+      defaultPendingOrdersArray.forEach((order) => {
+        personalSpaceContentDivOrders.append(order);
+      });
+
+      privateNavPrevButton = privateNavButtons[1];
+      privateNavPrevButton.classList.add('personal-space__list-element-button_active');
+      
+      navPrevButton = defaultCategoryButtons[3].querySelector('.personal-space__list-element-button');
+      //изменить класс
+      navPrevButton.classList.add('personal-space__list-element-button_selected');
+    };
+
+    if(index === 2) {
+      privateNavPrevButton = privateNavButtons[2];
+      privateNavPrevButton.classList.add('personal-space__list-element-button_active');
+      
+    }
+
+    if(index === 3) {
+      privateNavPrevButton = privateNavButtons[3];
+      privateNavPrevButton.classList.add('personal-space__list-element-button_active');
+    }
     //загрузка страницы личного кабинета
     // loadHtmlPage('./userpage.html')
     // .then((page) => {

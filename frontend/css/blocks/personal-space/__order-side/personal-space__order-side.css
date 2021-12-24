@@ -1,0 +1,19 @@
+
+.personal-space__order-side {
+  width: 7px;
+  background-color: rgba(41,42,47,255);
+  height: 100%;
+  position: relative;
+  /* --sidecolor:""; */
+}
+
+.personal-space__order-side::after {
+  content: "";
+  width: 3px;
+  height: 30px;
+  background-color: var(--sidecolor);
+  box-shadow: 0 0 10px var(--sidecolor), 0 0 25px var(--sidecolor);
+  position: absolute;
+  top: 10%;
+  left: 0;
+}

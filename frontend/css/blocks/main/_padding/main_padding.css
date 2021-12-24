@@ -1,9 +1,9 @@
 .main_padding {
   /* padding-top: 160px; */
   /* height: 63vh; */
-  height: 80vh;
+  height: 75vh;
   padding: 160px 0;
-  background-image: url(../../../../pics/4884273-blur.png);
+  /* background-image: url(../../../../pics/4884273-blur.png); */
   background-size: cover;
   background-position: top;
   /* backdrop-filter: blur(5px); */

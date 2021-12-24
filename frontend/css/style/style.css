@@ -1,4 +1,5 @@
 @import url(../blocks/root/root.css);
+@import url(../blocks/root/_private-space/root_private-space.css);
 @import url(../blocks/overlay/overlay.css);
 @import url(../blocks/overall-container/overall-container.css);
 @import url(../blocks/overall-container/_blurred/overall-container_blurred.css);
@@ -69,11 +70,15 @@
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__para/_service/popup__para_service.css);
+@import url(../blocks/popup/__para/_time/popup__para_time.css);
 @import url(../blocks/popup/__service-quantity-form-button/_blocked/popup__service-quantity-form-button_blocked.css);
+@import url(../blocks/popup/__status-wrapper-step/_current/popup__status-wrapper-step_current.css);
 @import url(../blocks/personal-space/personal-space.css);
 @import url(../blocks/personal-space/__list/_navigation/personal-space__list_navigation.css);
 @import url(../blocks/personal-space/__list/_categories/personal-space__list_categories.css);
+@import url(../blocks/personal-space/__list-element-button/_navigation/personal-space__list-element-button_navigation.css);
 @import url(../blocks/personal-space/__list-element-button/_active/personal-space__list-element-button_active.css);
+@import url(../blocks/personal-space/__list-element-button/_selected/personal-space__list-element-button_selected.css);
 ul {
     padding: 0;
     list-style: none;

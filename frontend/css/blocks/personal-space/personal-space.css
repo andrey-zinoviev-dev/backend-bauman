@@ -10,12 +10,15 @@
 @import url(./__headline/personal-space__headline.css);
 @import url(./__orders/personal-space__orders.css);
 @import url(./__order/personal-space__order.css);
+@import url(./__order-side/personal-space__order-side.css);
+@import url(./__order-wrapper/personal-space__order-wrapper.css);
 @import url(./__order-list/personal-space__order-list.css);
 @import url(./__order-status-logo/personal-space__order-status-logo.css);
+@import url(./__order-button/personal-space__order-button.css);
 
 .personal-space {
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
   border-radius: 0 35px 35px 0;
-  margin: 0 25px 0 0;
+  /* margin: 0 25px 0 0; */
 }

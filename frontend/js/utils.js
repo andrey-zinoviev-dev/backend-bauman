@@ -1,3 +1,4 @@
+const rootElement = document.querySelector('.root');
 const mainContainer = document.querySelector('.main');
 const mainOverallContainer = mainContainer.querySelector('.overall-container');
 
@@ -88,6 +89,14 @@ const servicePopupOrderMinusButton = servicePopup.querySelector('.popup__service
 
 const servicePopupButton = document.querySelector('.popup__order-submit');
 
+//попап заказа
+const orderPopup = document.querySelector('.popup_order');
+// const orderPopupHeadline = orderPopup.querySelector('.popup__headline');
+const orderPopupTimePara = orderPopup.querySelector('.popup__para_time');
+const orderPopupListOfContent = orderPopup.querySelector('.popup__list');
+const orderPopupStatusPara = orderPopup.querySelector('.popup__para_status');
+const orderPopupStatusSteps = Array.from(orderPopup.querySelectorAll('.popup__status-wrapper-step'));
+
 // кнопки логина и регистрации
 const openButtons = Array.from(document.querySelectorAll('.header__loggedOut-button'));
 
@@ -125,11 +134,15 @@ const uniquePopupRootDiv = uniquePopupContainer.querySelector('.popup__text-wrap
 // const uniquePopupPara = uniquePopup.querySelector('.popup__para');
 
 //переменные блока контента категорий личного кабинета
+let navPrevButton;
 let personalSpaceContentDiv;
+let personalSpaceContentTextDiv;
 let personalSpaceContentDivOrders;
 let defaultProfilePageOrdersArray = [];
 let defaultPendingOrdersArray = [];
 let defaultCategoryButtons = [];
+let privateNavButtons;
+let privateNavPrevButton;
 
 //шаблоны для уникального попапа
 const headlineTemplate = document.querySelector('#popup-headline');

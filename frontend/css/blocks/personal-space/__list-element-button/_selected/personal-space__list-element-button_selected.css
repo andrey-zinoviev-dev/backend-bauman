@@ -1,0 +1,14 @@
+.personal-space__list-element-button_selected {
+  font-weight: 700;
+  position: relative;
+  color: rgba(255, 255, 255, 1);
+}
+/* .personal-space__list-element-button_selected::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+} */

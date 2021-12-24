@@ -1,0 +1,11 @@
+.popup__status-wrapper-step-span {
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  background-color: #21a35e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px black;
+  margin-bottom: 15px;
+}

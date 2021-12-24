@@ -461,6 +461,30 @@
     </div>
     <div class="popup__overlay"></div>
   </section>
+  <section class="popup popup_order">
+    <div class="popup__container">
+      <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
+      <h3 class="popup__headline">Ваш заказ</h3>
+      <p class="popup__para popup__para_time"></p>
+      <ul class="popup__list"></ul>
+      <p class="popup__para popup__para_status">Статус Вашего заказа</p>
+      <div class="popup__status-wrapper">
+        <div class="popup__status-wrapper-step popup__status-wrapper-step_pending">
+          <span class="popup__status-wrapper-step-span">1</span>
+          <span class="popup__status-wrapper-step-span_text">В ожидании</span>
+        </div>
+        <div class="popup__status-wrapper-step popup__status-wrapper-step_active">
+          <span class="popup__status-wrapper-step-span">2</span>
+          <span class="popup__status-wrapper-step-span_text">Активный</span>
+        </div>
+        <div class="popup__status-wrapper-step popup__status-wrapper-step_finished">
+          <span class="popup__status-wrapper-step-span">3</span>
+          <span class="popup__status-wrapper-step-span_text">Завершенный</span>
+        </div>
+      </div>
+    </div>
+    <div class="popup__overlay"></div>
+  </section>
   <!-- <section class="popup">
     <h2 class="popup__heading">Это модальное окно</h2>
   </section> -->
@@ -529,11 +553,14 @@
   </template>
   <template id="personal-space__order">
     <div class="personal-space__order">
-      <p class="personal-space__order-time"></p>
-      <!-- <h3 class="perosnal-space__order-headline"></h3> -->
-      <ul class="personal-space__order-list"></ul>
-      <button class="personal-space__order-button">Открыть</button>
-      <div class="personal-space__order-status-logo"></div>
+      <div class="personal-space__order-side"></div>
+      <div class="personal-space__order-wrapper">
+        <p class="personal-space__order-time"></p>
+        <!-- <h3 class="perosnal-space__order-headline"></h3> -->
+        <ul class="personal-space__order-list"></ul>
+        <button class="personal-space__order-button">Открыть</button>
+        <!-- <div class="personal-space__order-status-logo"></div> -->
+      </div>
     </div>
   </template>
   <!-- <template id="personal-space__order-list-element">

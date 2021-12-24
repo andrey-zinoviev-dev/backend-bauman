@@ -1,7 +1,11 @@
 .personal-space__list_navigation {
+  margin: 0;
   padding: 0 10px;
-  border-radius: 35px;
-  border: 1px solid #dc46c6;
-  background-image: url(../../../../../pics/4884273-blur.png);
+  border-radius: 35px 0 0 35px;
+  background-color: rgba(41,42,47,0.5);
+  /* border: 1px solid #dc46c6; */
+  /* background-image: url(../../../../../pics/4884273-blur.png); */
   background-position: right;
+  min-width: 60px;
+  align-items: center;
 }
