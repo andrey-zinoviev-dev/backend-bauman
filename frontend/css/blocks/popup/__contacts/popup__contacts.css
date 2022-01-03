@@ -1,0 +1,8 @@
+.popup__contacts {
+  min-height: 470px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 50px;
+}

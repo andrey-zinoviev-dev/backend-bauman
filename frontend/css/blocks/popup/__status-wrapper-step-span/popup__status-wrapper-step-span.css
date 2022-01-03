@@ -2,10 +2,14 @@
   min-width: 50px;
   min-height: 50px;
   border-radius: 50%;
-  background-color: #21a35e;
+  /* background-color: #21a35e; */
+  background-color: white;
+  border: 5px solid rgba(41,42,47,0.75);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 20px black;
+  box-shadow: 0 0 20px rgb(41 42 47);
   margin-bottom: 15px;
+  position: relative;
+  z-index: 5;
 }

@@ -131,90 +131,77 @@ window.onload = () => {
       const orderCategorylistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
       const orderCategoryButton = generateTemplate(personalSpaceListElementButtonTemplate, '.personal-space__list-element-button');
 
-      orderCategoryButton.classList.add('personal-space__list-element-button_navigation')
+      orderCategoryButton.classList.add('personal-space__list-element-button_navigation');
+
+      orderCategoryButton.textContent = "Заказы в процессе";
+      orderCategoryButton.setAttribute('data', 'pending');
+      orderCategorylistElement.prepend(orderCategoryButton);
+      //значение переменной предыдущей кнопки по умолчанию
+      navPrevButton = orderCategoryButton;
+      //отображение заказов в ожидании по умолчанию
+       const sortedArray = userOrders['pending'].sort((a, b) => {
+        return Date.parse(b.orderTime) - Date.parse(a.orderTime);
+      });
+
+      sortedArray.forEach((order) => {
+        const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
+        const timePara = orderDiv.querySelector('.personal-space__order-time');
+        const orderContentList = orderDiv.querySelector('.personal-space__order-list');
+        const userSpaceRecentOrderStatus = orderDiv.querySelector('.personal-space__order-side');
+        const userSpaceOrderButton = orderDiv.querySelector('.personal-space__order-button');
+
+        const orderTime = new Date(order.orderTime);
+        //тестовый массив кнопок-шагов статуса заказа только в Ожидании!!!
+        const statusStepsButtons = orderPopupStatusSteps.filter((element) => {
+           return Array.from(element.classList).includes('popup__status-wrapper-step_pending');
+        });
+
+        timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
+
+        userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#e3c022');
+
+        order.orderContent.forEach((element) => {
+          const orderContentListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+          orderContentListElement.textContent = element.orderContent;
+          orderContentList.append(orderContentListElement);
+        });
+
+        userSpaceOrderButton.addEventListener('click', () => {
+          orderPopupListOfContent.innerHTML = '';
+          //сброс классов кнопок-шагов статуса заказа
+          orderPopupStatusSteps.forEach((stepsButton) => {
+            stepsButton.classList.remove('popup__status-wrapper-step_achieved');
+            stepsButton.querySelector('.popup__status-wrapper-step-span').classList.remove('popup__status-wrapper-step-span_current');
+            // stepButton.classList.remove('popup__status-wrapper-step-span_current');
+          });
+
+          orderPopupTimePara.textContent = `Дата заказа: ${timePara.textContent}`;
+
+          order.orderContent.forEach((element) => {
+            const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+            orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
+            orderPopupListOfContent.append(orderPopuplistElement);
+          });
+
+          statusStepsButtons.forEach((stepsButton) => {
+            stepsButton.classList.add('popup__status-wrapper-step_achieved');
+            stepsButton.querySelector('.popup__status-wrapper-step-span').classList.add('popup__status-wrapper-step-span_current');
+            // stepButton.classList.add('popup__status-wrapper-step-span_current');
+          });
+
+          orderPopup.classList.add('popup_opened');
+        })
+    
+        defaultPendingOrdersArray.push(orderDiv);
+      });
+      
+
       if(key === 'active') {
         orderCategoryButton.textContent = "Активные заказы";
         orderCategoryButton.setAttribute('data', 'active');
         orderCategorylistElement.prepend(orderCategoryButton);    
       }
-      if(key === 'pending') {
-        orderCategoryButton.textContent = "Заказы в процессе";
-        orderCategoryButton.setAttribute('data', 'pending');
-        orderCategorylistElement.prepend(orderCategoryButton);
-        //значение переменной предыдущей кнопки по умолчанию
-        navPrevButton = orderCategoryButton;
-        //отображение заказов в ожидании по умолчанию
-        const sortedArray = userOrders[key].sort((a, b) => {
-          return Date.parse(b.orderTime) - Date.parse(a.orderTime);
-        });
-
-        sortedArray.forEach((order) => {
-          const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
-          const timePara = orderDiv.querySelector('.personal-space__order-time');
-          const orderContentList = orderDiv.querySelector('.personal-space__order-list');
-          const userSpaceRecentOrderStatus = orderDiv.querySelector('.personal-space__order-side');
-          const userSpaceOrderButton = orderDiv.querySelector('.personal-space__order-button');
-
-          const orderTime = new Date(order.orderTime);
-    
-          timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
-
-          userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#e3c022');
-          // userSpaceOrderButton.style.setProperty('--sidecolor', '#e3c022');
-
-          if(order.status === 'active') {
-            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', 'yellowgreen');
-            // userSpaceOrderButton.style.setProperty('--sidecolor', 'yellowgreen');
-          }
-          if(order.status === 'canceled') {
-            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#d1361b');
-            // userSpaceOrderButton.style.setProperty('--sidecolor', '#d1361b');
-          }
-          if(order.status === 'finished') {
-            userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#21a35e');
-            // userSpaceOrderButton.style.setProperty('--sidecolor', '#21a35e');
-          }
-
-          order.orderContent.forEach((element) => {
-            const orderContentListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
-            orderContentListElement.textContent = element.orderContent;
-            orderContentList.append(orderContentListElement);
-          });
-
-          userSpaceOrderButton.addEventListener('click', () => {
-            orderPopupListOfContent.innerHTML = '';
-
-            orderPopupTimePara.textContent = `Дата заказа: ${timePara.textContent}`;
-
-            order.orderContent.forEach((element) => {
-              const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
-              orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
-              orderPopupListOfContent.append(orderPopuplistElement);
-            });
-            // orderPopupStatusPara.textContent = '';
-            orderPopupStatusSteps.forEach((statusStep, index) => {
-              if(order.status === 'pending') {
-                if(Array.from(statusStep.classList).includes('popup__status-wrapper-step_pending')) {
-                  return statusStep.classList.add('popup__status-wrapper-step_current');
-                };
-              }
-              // if(order.status === 'active') {
-              //   if(Array.from(statusStep.classList).includes('popup__status-wrapper-step_pending')) {
-              //     console.log(statusStep);
-              //   };
-              //   if(Array.from(statusStep.classList).includes('popup__status-wrapper-step_active')) {
-              //     console.log(statusStep);
-              //   };
-              // }
-            });
-
-            orderPopup.classList.add('popup_opened');
-
-          })
-    
-          defaultPendingOrdersArray.push(orderDiv);
-        });
-      }
+      
       if(key === 'finished') {
         orderCategoryButton.textContent = "Заказы завершенные";
         orderCategoryButton.setAttribute('data', 'finished');
@@ -240,6 +227,19 @@ window.onload = () => {
           const orderContentList = orderDiv.querySelector('.personal-space__order-list');
           const orderDivStatus = orderDiv.querySelector('.personal-space__order-side');
           const orderButton = orderDiv.querySelector('.personal-space__order-button');
+          //тестовый массив кнопок-шагов статуса заказа только в Ожидании!!!
+          let statusStepsButtons = orderPopupStatusSteps.filter((stepsButton) => {
+            return Array.from(stepsButton.classList).includes('popup__status-wrapper-step_pending');
+          });
+          if(order.status === 'active') {
+            statusStepsButtons = orderPopupStatusSteps.filter((stepsButton) => {
+              return !Array.from(stepsButton.classList).includes('popup__status-wrapper-step_finished');
+            });
+          };
+          if(order.status === 'finished') {
+            statusStepsButtons = orderPopupStatusSteps;
+          };
+          //
           const orderTime = new Date(order.orderTime);
 
           timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
@@ -247,15 +247,12 @@ window.onload = () => {
           orderDivStatus.style.setProperty('--sidecolor', '#e3c022');
           if(order.status === 'active') {
             orderDivStatus.style.setProperty('--sidecolor', 'yellowgreen');
-            // userSpaceOrderButton.style.setProperty('--sidecolor', 'yellowgreen');
           }
           if(order.status === 'canceled') {
             orderDivStatus.style.setProperty('--sidecolor', '#d1361b');
-            // userSpaceOrderButton.style.setProperty('--sidecolor', '#d1361b');
           }
           if(order.status === 'finished') {
             orderDivStatus.style.setProperty('--sidecolor', '#21a35e');
-            // userSpaceOrderButton.style.setProperty('--sidecolor', '#21a35e');
           }
 
           order.orderContent.forEach((element) => {
@@ -266,6 +263,13 @@ window.onload = () => {
 
           orderButton.addEventListener('click', () => {
             orderPopupListOfContent.innerHTML = '';
+            //сброс классов кнопок-шагов статуса заказа
+            orderPopupStatusSteps.forEach((stepsButton) => {
+              stepsButton.classList.remove('popup__status-wrapper-step_achieved');
+              stepsButton.querySelector('.popup__status-wrapper-step-span').classList.remove('popup__status-wrapper-step-span_current');
+              // stepButton.classList.remove('popup__status-wrapper-step_current');
+            });
+
             orderPopup.classList.add('popup_opened');
             // orderPopupHeadline.textContent = 'Ваш Заказ';
             orderPopupTimePara.textContent = `Ваш заказ был сделан ${timePara.textContent}`;
@@ -276,7 +280,12 @@ window.onload = () => {
               orderPopupListOfContent.append(orderPopuplistElement);
             });
 
-            // orderPopupStatusPara.textContent = 'Статус Вашего заказа';
+            statusStepsButtons.forEach((stepsButton) => {
+              // stepsButton.classList.add('popup__status-wrapper-step_current');
+              stepsButton.classList.add('popup__status-wrapper-step_achieved');
+              stepsButton.querySelector('.popup__status-wrapper-step-span').classList.add('popup__status-wrapper-step-span_current');
+            });
+
           });
 
           personalSpaceContentDivOrders.append(orderDiv);
@@ -457,15 +466,22 @@ popups.forEach((popup, i, array) => {
               sortedArray.slice(0, 3).forEach((element) => {
                 const timeOfOrder = new Date(element.orderTime);
                 const userSpaceRecenetOrder = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
-                userSpaceRecenetOrder.querySelector('.personal-space__order-time').textContent = `${timeOfOrder.getDate()} / ${timeOfOrder.getMonth() + 1} / ${timeOfOrder.getFullYear()}`;
+                const userSpaceRecentOrderTimePara = userSpaceRecenetOrder.querySelector('.personal-space__order-time');
                 const userSpaceRecentOrderList = userSpaceRecenetOrder.querySelector('.personal-space__order-list');
-                // console.log(userSpaceRecentOrderList);
+                const userSpaceRecentOrderStatus = userSpaceRecenetOrder.querySelector('.personal-space__order-side');
+
+                userSpaceRecentOrderTimePara.textContent = `${timeOfOrder.getDate()} / ${timeOfOrder.getMonth() + 1} / ${timeOfOrder.getFullYear()}`;
+
                 element.orderContent.forEach((order) => {
                   const ordersListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
                   ordersListElement.textContent = order.orderContent;
                   userSpaceRecentOrderList.append(ordersListElement);
                 });
 
+                userSpaceRecentOrderStatus.style.setProperty('--sidecolor', '#e3c022');
+                if(element.status === 'active') {
+                  userSpaceRecentOrderStatus.style.setProperty('--sidecolor', 'yellowgreen');
+                }
                 defaultProfilePageOrdersArray.push(userSpaceRecenetOrder);
               })
             }
@@ -475,53 +491,18 @@ popups.forEach((popup, i, array) => {
               const orderCategorylistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
               const orderCategoryButton = generateTemplate(personalSpaceListElementButtonTemplate, '.personal-space__list-element-button');
               
+              navPrevButton = orderCategoryButton;
+
+              orderCategoryButton.textContent = "Заказы в процессе";
+              orderCategoryButton.setAttribute('data', 'pending');
+              orderCategorylistElement.prepend(orderCategoryButton);
+
               if(key === 'active') {
                 orderCategoryButton.textContent = "Активные заказы";
                 orderCategoryButton.setAttribute('data', 'active');
                 orderCategorylistElement.prepend(orderCategoryButton);
-                // ordersSpaceNavigationList.prepend(orderCategorylistElement);
               }
-              if(key === 'pending') {
-                orderCategoryButton.textContent = "Заказы в процессе";
-                orderCategoryButton.setAttribute('data', 'pending');
-                orderCategorylistElement.prepend(orderCategoryButton);
-                // ordersSpaceNavigationList.prepend(orderCategorylistElement);
 
-                //отображение заказов по умолчанию статуса "в ожидании"
-                const sortedArray = userOrders[key].sort((a, b) => {
-                  return Date.parse(b.orderTime) - Date.parse(a.orderTime);
-                });
-
-                sortedArray.forEach((order) => {
-                  const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
-                  const timePara = orderDiv.querySelector('.personal-space__order-time');
-                  const orderContentList = orderDiv.querySelector('.personal-space__order-list');
-                  const orderButton = orderDiv.querySelector('.personal-space__order-button');
-                  const orderTime = new Date(order.orderTime);
-
-                  timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
-
-                  order.orderContent.forEach((element) => {
-                    const orderContentListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
-                    orderContentListElement.textContent = element.orderContent;
-                    orderContentList.append(orderContentListElement);
-                  });
-
-                  orderButton.addEventListener('click', () => {
-                    orderPopupListOfContent.innerHTML = '';
-                    orderPopup.classList.add('popup_opened');
-                    orderPopupTimePara.textContent = timePara.textContent;
-
-                    order.orderContent.forEach((element) => {
-                      const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
-                      orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
-                      orderPopupListOfContent.append(orderPopuplistElement);
-                    });
-                  });
-
-                  defaultPendingOrdersArray.push(orderDiv);
-                })
-              }
               if(key === 'finished') {
                 orderCategoryButton.textContent = "Заказы завершенные";
                 orderCategoryButton.setAttribute('data', 'finished');
@@ -538,6 +519,8 @@ popups.forEach((popup, i, array) => {
               orderCategoryButton.addEventListener('click', () => {
                 personalSpaceContentDivOrders.innerHTML = '';
                 
+                navPrevButton.classList.remove('personal-space__list-element-button_selected');
+
                 const lastSortedArray = userOrders[key].sort((a, b) => {
                   return Date.parse(b.orderTime) - Date.parse(a.orderTime);
                 });
@@ -546,6 +529,31 @@ popups.forEach((popup, i, array) => {
                   const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
                   const timePara = orderDiv.querySelector('.personal-space__order-time');
                   const orderContentList = orderDiv.querySelector('.personal-space__order-list');
+                  const orderDivStatus = orderDiv.querySelector('.personal-space__order-side');
+                  const orderDivButton = orderDiv.querySelector('.personal-space__order-button');
+
+                  let statusStepsButtons = orderPopupStatusSteps.filter((stepsButton) => {
+                    return Array.from(stepsButton.classList).includes('popup__status-wrapper-step_pending');
+                  });
+
+                  orderDivStatus.style.setProperty('--sidecolor', '#e3c022');
+
+                  if(order.status === 'active') {
+                    orderDivStatus.style.setProperty('--sidecolor', 'yellowgreen');
+                    statusStepsButtons = orderPopupStatusSteps.filter((stepButton) => {
+                      return !Array.from(stepButton.classList).includes('popup__status-wrapper-step_finished');
+                    });
+                  };
+
+                  if(order.status === 'finished') {
+                    orderDivStatus.style.setProperty('--sidecolor', '#21a35e');
+                    statusStepsButtons = orderPopupStatusSteps;
+                  };
+
+                  if(order.status === 'canceled') {
+                    orderDivStatus.style.setProperty('--sidecolor', '#d1361b');
+                  };
+
                   const orderTime = new Date(order.orderTime);
 
                   timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
@@ -556,8 +564,107 @@ popups.forEach((popup, i, array) => {
                     orderContentList.append(orderContentListElement);
                   });
 
+                  orderDivButton.addEventListener('click', () => {
+                    orderPopupListOfContent.innerHTML = '';
+
+                    orderPopupStatusSteps.forEach((statusStep) => {
+                      statusStep.classList.remove('popup__status-wrapper-step_achieved');
+                      statusStep.querySelector('.popup__status-wrapper-step-span').classList.remove('popup__status-wrapper-step-span_current');
+                      // statusStep.classList.remove('popup__status-wrapper-step_current');
+                      
+                    });
+
+                    orderPopupTimePara.textContent = timePara.textContent;
+
+                    order.orderContent.forEach((element) => {
+                      const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                      orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
+                      orderPopupListOfContent.append(orderPopuplistElement);
+                    });
+
+                    statusStepsButtons.forEach((stepsButton) => {
+                      stepsButton.classList.add('popup__status-wrapper-step_achieved');
+                      stepsButton.querySelector('.popup__status-wrapper-step-span').classList.add('popup__status-wrapper-step-span_current');
+                      // stepButton.classList.add('popup__status-wrapper-step_current');
+                    });
+
+                    orderPopup.classList.add('popup_opened');
+                  });
+
                   personalSpaceContentDivOrders.append(orderDiv);
-                })
+                });
+
+                navPrevButton = orderCategoryButton;
+                navPrevButton.classList.add('personal-space__list-element-button_selected');
+
+              });
+
+              //отображение заказов по умолчанию статуса "в ожидании"
+              const sortedArray = userOrders['pending'].sort((a, b) => {
+                return Date.parse(b.orderTime) - Date.parse(a.orderTime);
+              });
+              
+              sortedArray.forEach((order) => {
+                const orderDiv = generateTemplate(personalSpaceOrderTemplate, '.personal-space__order');
+                const timePara = orderDiv.querySelector('.personal-space__order-time');
+                const orderContentList = orderDiv.querySelector('.personal-space__order-list');
+                const orderStatus = orderDiv.querySelector('.personal-space__order-side');
+                const orderButton = orderDiv.querySelector('.personal-space__order-button');
+                //переменная количества кнопок для статуса заказа
+                let statusStepsButtons = orderPopupStatusSteps.filter((statusStep) => {
+                  return Array.from(statusStep.classList).includes('popup__status-wrapper-step_pending');
+                });
+
+                const orderTime = new Date(order.orderTime);
+              
+                orderStatus.style.setProperty('--sidecolor', '#e3c022');
+              
+                if(order.status === 'active') {
+                  orderStatus.style.setProperty('--sidecolor', 'yellowgreen');
+                }
+              
+                if(order.status === 'finished') {
+                  orderStatus.style.setProperty('--sidecolor', '#d1361b');
+                }
+              
+                if(order.status === 'canceled') {
+                  orderStatus.style.setProperty('--sidecolor', '#21a35e');
+                }
+              
+                timePara.textContent = `${orderTime.getDate()} / ${orderTime.getMonth() + 1} / ${orderTime.getFullYear()}`;
+              
+                order.orderContent.forEach((element) => {
+                  const orderContentListElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                  orderContentListElement.textContent = element.orderContent;
+                  orderContentList.append(orderContentListElement);
+                });
+              
+                orderButton.addEventListener('click', () => {
+                  orderPopupListOfContent.innerHTML = '';
+                  orderPopupStatusSteps.forEach((stepButton) => {
+                    stepButton.classList.remove('popup__status-wrapper-step_achieved');
+                    stepButton.querySelector('.popup__status-wrapper-step-span').classList.remove('popup__status-wrapper-step-span_current');
+                    // stepButton.classList.remove('popup__status-wrapper-step_current');
+                  });
+
+                  orderPopup.classList.add('popup_opened');
+                  orderPopupTimePara.textContent = timePara.textContent;
+              
+                  order.orderContent.forEach((element) => {
+                    const orderPopuplistElement = generateTemplate(personalSpaceListElementTemplate, '.personal-space__list-element');
+                    orderPopuplistElement.textContent = `${element.orderContent} ${element.quantity}`;
+                    orderPopupListOfContent.append(orderPopuplistElement);
+                  });
+                  
+                  statusStepsButtons.forEach((stepButton) => {
+                    // stepButton.classList.add('popup__status-wrapper-step_current');
+                    stepButton.classList.add('popup__status-wrapper-step_achieved');
+                    stepButton.querySelector('.popup__status-wrapper-step-span').classList.add('popup__status-wrapper-step-span_current');
+                  });
+
+                });
+              
+                defaultPendingOrdersArray.push(orderDiv);
               });
 
               defaultCategoryButtons.push(orderCategorylistElement);
@@ -588,7 +695,7 @@ popups.forEach((popup, i, array) => {
       })
     })
   }
-  // const submitButton = popup.querySelector('.popup__form-button');
+
   const closeButton = popup.querySelector('.popup__button-close');
   const overlay = popup.querySelector('.popup__overlay');
   

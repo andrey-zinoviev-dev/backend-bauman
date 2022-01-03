@@ -1,0 +1,7 @@
+.popup__para_contact {
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+.popup__para_contact:last-of-type {
+  margin: 0;
+}

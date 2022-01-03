@@ -1,0 +1,16 @@
+.popup__para_subscribe {
+  display: flex;
+  align-items: center;
+  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  position: relative;
+}
+.popup__para_subscribe::after {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 200%;
+  top: 120%;
+  right: 50%;
+  background: black;
+}

@@ -464,13 +464,24 @@
   <section class="popup popup_order">
     <div class="popup__container">
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
-      <h3 class="popup__headline">Ваш заказ</h3>
+      <h3 class="popup__headline popup__headline_order">Ваш заказ</h3>
       <p class="popup__para popup__para_time"></p>
-      <ul class="popup__list"></ul>
+      <!-- <p class="popup__para popup__para_order-contnet">Информация о заказе</p> -->
+      <div class="popup__content-wrapper">
+        <div class="popup__content-details">
+          <p class="popup__para popup__para_order-content">Наименования заказа</p>
+          <ul class="popup__list popup__list_order"></ul>
+        </div>
+        <div class="popup__client-info">
+          <p class="popup__para popup__para_order-content">Адрес доставки</p>
+          <p class="popup__para popup__para_contact">Москва, улица Гарибальди, дом 31к2, Россиия, 123456</p>
+          <p class="popup__para popup__para_contact">sttrog_810@mail.ru +79254531948</p>
+        </div>
+      </div>
       <p class="popup__para popup__para_status">Статус Вашего заказа</p>
       <div class="popup__status-wrapper">
         <div class="popup__status-wrapper-step popup__status-wrapper-step_pending">
-          <span class="popup__status-wrapper-step-span">1</span>
+          <p class="popup__status-wrapper-step-span">1</p>
           <span class="popup__status-wrapper-step-span_text">В ожидании</span>
         </div>
         <div class="popup__status-wrapper-step popup__status-wrapper-step_active">
@@ -482,6 +493,26 @@
           <span class="popup__status-wrapper-step-span_text">Завершенный</span>
         </div>
       </div>
+      <nav class="popup__contacts">
+        <p class="popup__para popup__para_subscribe">Подписаться</p>
+        <ul class="popup__list">
+          <li class="popup__list-element popup__list-element_contact">
+            <button><i class="popup__list-element-logo fab fa-facebook-f"></i></button>
+          </li>
+          <li class="popup__list-element popup__list-element_contact">
+            <button><i class="popup__list-element-logo fab fa-whatsapp"></i></button>
+          </li>
+          <li class="popup__list-element popup__list-element_contact">
+            <button><i class="popup__list-element-logo fab fa-telegram-plane"></i></button>
+          </li>
+          <li class="popup__list-element popup__list-element_contact">
+            <button><i class="popup__list-element-logo fab fa-instagram"></i></button>
+          </li>
+          <li class="popup__list-element popup__list-element_contact">
+            <button><i class="popup__list-element-logo fab fa-docker"></i></button>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div class="popup__overlay"></div>
   </section>
@@ -524,6 +555,7 @@
   <template id="popup-anchor">
     <button class="popup__anchor"></button>
   </template>
+  <template></template>
   <template id="perosnal-space__headline">
     <h2 class="personal-space__headline"></h2>
   </template>
@@ -583,31 +615,7 @@
       </div>
     </li>
   </template>
-  <!-- <template>
-    
-  </template> -->
-  <!-- <template id="popup-form-login">
-    <form action="/" class="popup__form" novalidation>
-      <input class="popup__form-input" type="email" name="email" placeholder="Email" required="true" minlength="3" autocomplete="off" pattern="[a-zA-Z0-9_]+@\w+.\w+">
-      <span class="popup__form-span"></span>
-      <input class="popup__form-input" type="password" name="password" placeholder="Пароль" required="true" minlength="8" maxlength="12" autocomplete="off">
-      <span class="popup__form-span"></span>
-      <span class="popup__form-span-server"></span>
-      <button class="popup__form-button">Отправить</button>
-    </form>
-  </template>
-  <template id="popup-form-register" novalidation>
-    <form action="/" class="popup__form">
-      <input class="popup__form-input" type="text" name="login" placeholder="Логин" minlength="6" autocomplete="off" >
-      <span class="popup__form-span"></span>
-      <input class="popup__form-input" type="email" name="email" placeholder="Email" required="true" minlength="3" autocomplete="off" pattern="[a-zA-Z0-9_]+@\w+.\w+">
-      <span class="popup__form-span"></span>
-      <input class="popup__form-input" type="password" name="password" placeholder="Пароль" required="true" minlength="8" maxlength="12" autocomplete="off">
-      <span class="popup__form-span"></span>
-      <span class="popup__form-span-server"></span>
-      <button class="popup__form-button">Отправить</button>
-    </form>
-  </template> -->
+
   <template id="service">
     
   </template>

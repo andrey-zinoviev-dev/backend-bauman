@@ -1,0 +1,10 @@
+.popup__status-wrapper-step_achieved::after {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 5px;
+  top: 27%;
+  right: -125%;
+  background-color: #21a35e;
+  z-index: 3;
+}

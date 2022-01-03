@@ -2,5 +2,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0.65;
+  position: relative;
+  z-index: 5;
+  min-width: 100px;
+  min-height: 95px;
+}
+
+.popup__status-wrapper-step::after {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 5px;
+  top: 27%;
+  right: -125%;
+  background-color: rgba(41,42,47,0.5);
+  z-index: 3;
+}
+
+.popup__status-wrapper-step:last-of-type::after {
+  width: 0;
+  height: 0;
 }
