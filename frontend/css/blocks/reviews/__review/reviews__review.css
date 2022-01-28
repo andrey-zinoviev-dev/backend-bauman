@@ -1,5 +1,5 @@
 .reviews__review {
-  max-width: 600px;
+  max-width: 675px;
   min-height: 300px;
   padding: 0 45px;
   box-sizing: border-box;
@@ -12,6 +12,14 @@
   align-items: center;
   user-select: none;
 }
+
+@media screen and (max-width: 1920px)  {
+  .reviews__review {
+    max-width: 600px;
+  }
+}
+  
+
 /* .reviews__review::after {
   content: url(../../../pics/923778-200.png);
 } */

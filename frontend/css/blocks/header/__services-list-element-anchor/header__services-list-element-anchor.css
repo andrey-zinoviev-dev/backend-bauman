@@ -2,7 +2,7 @@
     /* text-transform: uppercase; */
     font-size: 21px;
     font-weight: 700;
-    color: #d0a2dc;
+    color: #ed66a6;
     display: inline-flex;
     min-width: 150px;
     align-items: center;
@@ -14,8 +14,5 @@
     transition: border 0.5s linear, color 0.5s linear;
 }
 .header__services-list-element-anchor:hover {
-    /* background-color: #d0a2dc; */
-    border: 2px solid #d0a2dc;
-    /* color: white; */
-    /* border: 1px solid #d0a2dc; */
+    border: 2px solid #ed66a6;
 }

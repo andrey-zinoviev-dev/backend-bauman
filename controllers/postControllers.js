@@ -11,16 +11,18 @@ const sendLoginData = (req, res) => {
   User.findOne({ email }).select('+password')
   .then((doc) => {
     if(!doc) {
-      return res.status(400).send({
-        message: "Пользователь не найден"
-      });
+      throw new Error('Пользователь не найден'); 
+      // res.status(400).send({
+      //   message: "Пользователь не найден"
+      // });
     }
     return bcrypt.compare(password, doc.password)
     .then((matched) => {
       if(!matched) {
-        return res.status(400).send({
-          message: "Проверьте пароль"
-        });
+        throw new Error('Проверьте почту или пароль');
+        // return res.status(400).send({
+        //   message: "Проверьте почту или пароль"
+        // });
       }
       const token = jwt.sign({ _id: doc._id }, process.env.SECRET_KEY);
       return res.cookie('token', token, {
@@ -28,62 +30,20 @@ const sendLoginData = (req, res) => {
       }).status(200).send({
         payload: token,
       })
+    })
+    .catch((err) => {
+      res.status(400).send({
+        err: err.message,
+        statusCode: 400,
+      });
     });
-  });
-  // User.findOne({ email }, (err, doc) => {
-  //   if(!doc) {
-  //     console.log('no');
-  //     return res.status(400).send({
-  //       message: "Пользователь не найден",
-  //     })
-  //   } else {
-  //     return bcrypt.compare(password, doc.password)
-  //     .then((matched) => {
-  //       if(!matched) {
-  //         return res.status(400).send({
-  //           message: "Проверьте пароль",
-  //         });
-  //       }
-  //       const token = jwt.sign({
-  //         _id: doc._id
-  //       }, process.env.SECRET_KEY);
-  //       return res.cookie('token', token, {
-  //         httpOnly: true,
-  //       }).status(200).send({
-  //         result: "Вы успешно вошли",
-  //       });
-  //       // res.status(200).send({payload: token})
-  //     });
-  //   }
-
-  // });
-  // User.findOne({ email }).select('+password')
-  // .then((data) => {
-  //   if(data === null) {
-  //     return res.status(400).send({
-  //       message: "Пользователь не найден",
-  //     })
-  //   } 
-  //   // else {
-  //   //   bcrypt.compare(password, data.password)
-  //   //   .then((matched) => {
-  //   //     const token = jwt.sign({
-  //   //       _id: data._id
-  //   //     }, process.env.SECRET_KEY);
-  //   //     return res.status(200).send({payload: token});
-  //   //   });
-  //   // }
-    
-  //   // res.send(data);
-  // })
-  // .catch(() => {
-  //   res.status(400).send({
-  //     message: "Пользователь не найден",
-  //   });
-  // });
-  // res.status(200).send({
-  //   message: "Вы успешно вошли"
-  // });
+  })
+  .catch((err) => {
+    res.status(400).send({
+      err: err.message,
+      statusCode: 400,
+    });
+  })
 };
 
 const sendRegisterData = (req, res) => {
@@ -92,11 +52,12 @@ const sendRegisterData = (req, res) => {
   User.findOne({ email })
   .then((user) => {
     if(user) {
-      return res.status(400).send({
-        message: "Пользователь с такой почтой уже существует",
-      }) 
+      throw new Error("Пользователь с такой почтой уже существует");
+      // return res.status(400).send({
+      //   message: "Пользователь с такой почтой уже существует",
+      // }) 
     }
-    bcrypt.hash(password, 10)
+    return bcrypt.hash(password, 10)
     .then((hash) => {
       User.create({
         email, password: hash, name: login,
@@ -113,7 +74,13 @@ const sendRegisterData = (req, res) => {
         // res.status(201).send({payload: token});
       })
     });
-  });
+  })
+  .catch((err) => {
+    res.status(409).send({
+      err: err.message,
+      statusCode: 409,
+    });
+  })
 };
 
 const sendServiceOrderData = (req, res) => {

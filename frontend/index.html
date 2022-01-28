@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" /> -->
   <!-- <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet"> -->
   <!-- <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;700&display=swap" rel="stylesheet"> -->
@@ -17,17 +18,20 @@
 <body class="root">
   <header class="header">
     <div class="container container_display-type_flex container_more-padding">
-      <img class="header__logo" src="https://www.designfreelogoonline.com/wp-content/uploads/2017/05/000840-Infinity-logo-maker-Free-infinito-Logo-design-06.png" alt="логотип">
+      <div class="header__logo-wrapper">
+        <img class="header__logo" src="./pics/shapes-logo-test.png" alt="логотип">
+        <span class="popup__image-div-title">Bauman CORP</span>
+      </div>
       <ul class="header__services-list">
         <!-- <li class="header__services-list-element"><a class="header__services-list-element-anchor" href="#">Главная</a></li> -->
         <!-- <li class="header__services-list-element"><a class="header__services-list-element-anchor" href="#">Оборудование</a></li> -->
         <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_catalogue" href="#">Каталог</a></li>
         <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_coop" href="#">Сотрудничество</a></li>
         <li class="header__services-list-element"><a class="header__services-list-element-anchor header__services-list-element-anchor_contact" href="#">Контакты</a></li>
-        <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Войти <i class="fas fa-sign-in-alt"></i></button></li>
-        <li class="header__services-list-element"><button class="header__services-list-element-button header__loggedOut-button">Регистрация <i class="fas fa-user-plus"></i></button></li>
-        <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user"><span></span> <i class="fas fa-user-circle"></i></button></li>
-        <li class="header__services-list-element"><button class="header__services-list-element-button header__services-list-element-button_hidden header__loggedIn-button header__button-user-logout">Выйти <i class="fas fa-sign-out-alt"></i></i></button></li>
+        <li class="header__services-list-element header__services-list-element_loggedOut"><button class="header__services-list-element-button header__loggedOut-button">Войти <i class="fas fa-sign-in-alt"></i></button></li>
+        <li class="header__services-list-element header__services-list-element_loggedOut"><button class="header__services-list-element-button header__loggedOut-button">Регистрация <i class="fas fa-user-plus"></i></button></li>
+        <li class="header__services-list-element header__services-list-element_loggedIn header__services-list-element_hidden"><button class="header__services-list-element-button header__loggedIn-button header__button-user"><span></span> <i class="fas fa-user-circle"></i></button></li>
+        <li class="header__services-list-element header__services-list-element_loggedIn header__services-list-element_hidden"><button class="header__services-list-element-button header__loggedIn-button header__button-user-logout">Выйти <i class="fas fa-sign-out-alt"></i></i></button></li>
         <li>
           <button class="header__services-list-element-button header__services-list-element-button-user-cart">
             <i class="header__services-list-element-button-cart fas fa-shopping-cart"></i>
@@ -145,7 +149,7 @@
       <div class="overall-container">
         <section class="content">
 
-          <div class="container">
+          <div class="container container_fixed-width">
             <div class="content__text-wrapper">
               <h1 class="content__headline">Инновационные системы электроснабжения для бизнеса и частных проектов</h1>
               <p class="content__para">
@@ -166,71 +170,27 @@
           <img class="content__vent content__vent_order_fifth" src="./pics/commission-1.png" alt="лопасть">
           <img class="content__vent content__vent_order_sixth" src="./pics/commission-1.png" alt="лопасть"> -->
         </section>
+        <!-- <section>
+          <div class="container">
+            <h2>Принципы, которые мы передаем нашим заказчикам и внедряем в производство</h2>
+            <div class="principles-wrapper">
+              <ul>
+                <li>Эффективность</li>
+                <li>Быстрота</li>
+                <li>Адаптивность</li>
+                <li>Универсальность</li>
+              </ul>
+            </div>
+          </div>
+
+        </section> -->
         <section class="services">
           <div class="container">
-            <h2 class="services__heading">Каталог</h2>
-            <p class="services__para">Продукция компании</p>
-            <div class="services__wrapper">
-              <!-- <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Электрооборудование</h3>
-                  <i class="services__service-new-vector fas fa-microchip"></i>
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Резервуары</h3>
-                  <i class="services__service-new-vector fas fa-database"></i>
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Электростанции</h3>
-                  <i class="services__service-new-vector fas fa-bolt"></i>
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Трубопроводы</h3>
-                  <i class="services__service-new-vector fas fa-stream"></i>
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Металлоконструкции</h3>
-                  <i class="services__service-new-vector fas fa-satellite"></i>
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Перемешивающие устройства</h3>
-                  <i class="services__service-new-vector fab fa-mix"></i>
-
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Бесперебойное питание</h3>
-                  <i class="services__service-new-vector fas fa-car-battery"></i>
-
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div>
-              <div class="services__service-new">
-                <div class="services__service-new-container">
-                  <h3 class="services__service-new-headline">Строительные материалы</h3>
-                  <i class="services__service-new-vector fas fa-hammer"></i>
-
-                  <button class="services__service-new-button">Подробнее</button>
-                </div>
-              </div> -->
+            <div class="services__text-wrapper">
+              <h2 class="services__heading">Каталог услуг компании</h2>
+              <!-- <p class="services__para">Продукция компании</p> -->
             </div>
+            <div class="services__wrapper"></div>
           </div>
         </section>
         <section class="reviews">
@@ -277,68 +237,36 @@
             <i class="reviews__button-sign fas fa-chevron-right"></i>
           </button>
         </section>
-        <section class="clients">
+        <!-- <section class="clients">
           <div class="container">
             <h3 class="clients__headline">Наши Клинеты</h3>
             <p class="clients__para">Мы верим, что успех заключается в постоянном сотрудничестве с нашими заказчиками и динамическом взаимодействии, поэтому мы создаем прочную деловую связь с каждым нашим клиентом</p>
             <div class="clients__wrapper">
-              <article class="clients__client">
+              <article class="clients__client"> -->
                 <!-- <h3 class="clients__client-heading"></h3> -->
                 <!-- <img src="" alt=""> -->
-              </article>
-              <article class="clients__client">
+              <!-- </article>
+              <article class="clients__client"> -->
                 <!-- <h3 class="clients__client-heading"></h3> -->
                 <!-- <img src="" alt=""> -->
-              </article>
-              <article class="clients__client">
+              <!-- </article>
+              <article class="clients__client"> -->
                 <!-- <h3 class="clients__client-heading"></h3> -->
                 <!-- <img src="" alt=""> -->
-              </article>
-              <article class="clients__client">
+              <!-- </article>
+              <article class="clients__client"> -->
                 <!-- <h3 class="clients__client-heading"></h3> -->
                 <!-- <img src="" alt=""> -->
-              </article>
-              <article class="clients__client">
+              <!-- </article>
+              <article class="clients__client"> -->
                 <!-- <h3 class="clients__client-heading"></h3> -->
                 <!-- <img src="" alt=""> -->
-              </article>
+              <!-- </article>
             </div>
           </div>
-        </section>
+        </section> -->
        
       </div>
-              <!-- <div class="services__service services__service_thirteenth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>
-              <div class="services__service services__service_fourteenth">
-                <div class="services__service-shadow services__service-shadow_top"></div>
-                <div class="services__service-shadow services__service-shadow_bottom"></div>
-              </div>              
-            </div>
-          </div>
-        </section>
-      </div> -->
-      
-      <!-- <div class="container"> -->
-        
-        
-        <!-- <section class="slider">
-          <div class="container container_slider swiper-container">
-            <div class="slider__wrapper"></div>
-            <div class="slider__wrapper swiper-wrapper"></div>
-            <button class="slider__left swiper-button-prev"></button>
-            <button class="slider__right swiper-button-next"></button>
-            <div class="thumbnails"></div>
-          </div>
-          <div class="container">
-            <div class="slides">
-              
-            </div>
-          </div>
-          
-        </section> -->
-      <!-- </div> -->
     </main>
     <section class="collaboration">
       <!-- <div class="container container_display-type_flex">
@@ -361,51 +289,122 @@
             </p>
           </div>
         </div>
-        <div class="collaboration__text-wrapper collaboration__text-wrapper_small-width">
+        <!-- <div class="collaboration__text-wrapper collaboration__text-wrapper_small-width"> -->
           <!-- <h2 class="collaboration__headline">Гарантия на продукцию</h2>
           <p class="collaboration__para">
             Мы готовы предложить Вам самые передовые материалы и конструкции, чтобы Вы произвели передовой продукт или вопротили в жизнь Ваш самый амбициозный проект.
           </p> -->
-          <footer class="footer">
+          <!-- <footer class="footer">
             <div class="container">
               <h3 class="footer__headline">Контакты</h3>
-              <div class="footer__footer-wrapper">
+              <div class="footer__footer-wrapper"> -->
                 <!-- <span class="footer__span">Контакты</span> -->
-                <ul class="footer__list">
+                <!-- <ul class="footer__list">
                   <li class="footer__list-element">
-                    <i class="footer__list-element-logo fab fa-facebook-f"></i>
+                    <i class="footer__list-element-logo fab fa-facebook-f"></i> -->
                     <!-- <div class="footer__list-element-overlay"></div> -->
-                  </li>
-                  <li class="footer__list-element">
-                    <i class="footer__list-element-logo fab fa-whatsapp"></i>
+                  <!-- </li> -->
+                  <!-- <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-whatsapp"></i> -->
                     <!-- <div class="footer__list-element-overlay"></div> -->
-                  </li>
-                  <li class="footer__list-element">
-                    <i class="footer__list-element-logo fab fa-telegram-plane"></i>
+                  <!-- </li> -->
+                  <!-- <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-telegram-plane"></i> -->
                     <!-- <div class="footer__list-element-overlay"></div> -->
-                  </li>
-                  <li class="footer__list-element">
-                    <i class="footer__list-element-logo fab fa-instagram"></i>
+                  <!-- </li> -->
+                  <!-- <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-instagram"></i> -->
                     <!-- <div class="footer__list-element-overlay"></div> -->
-                  </li>
-                  <li class="footer__list-element">
-                    <i class="footer__list-element-logo fab fa-docker"></i>
+                  <!-- </li> -->
+                  <!-- <li class="footer__list-element">
+                    <i class="footer__list-element-logo fab fa-docker"></i> -->
                     <!-- <div class="footer__list-element-overlay"></div> -->
-                  </li>
-                </ul>
-              </div>
+                  <!-- </li> -->
+                <!-- </ul>
+              </div> -->
             </div>
           </footer>
         </div>
       </div>
     </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__lists-wrapper">
+        <div class="footer__logo-wrapper">
+          <img class="header__logo" src="./pics/shapes-logo-test.png" alt="логотип">
+          <span class="popup__image-div-title">Bauman CORP</span>
+        </div>
+        <div class="footer__lists-anchors">
+          <div class="footer__navigation">
+            <!-- <h3 class="footer__headline">Перемещение по сайту</h3> -->
+            <ul class="footer__list">
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Главная</a>
+              </li>
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Каталог</a>
+              </li>
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Условаия пользования</a>
+              </li>
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Партнеры</a>
+              </li>
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Центр исследований и инноваций</a>
+              </li>
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Оферта</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__about">
+            <!-- <h3 class="footer__headline">О Bauman CORP</h3> -->
+            <ul class="footer__list">
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">О Bauman CORP</a>
+              </li>
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Миссия и цели</a>
+              </li class="footer__list-element">
+              <li class="footer__list-element">
+                <a href="#" class="footer__list-element-anchor">Реквизиты Bauman CORP</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__contacts">
+          <h3 class="footer__headline">Подписаться и оставаться на связи</h3>
+          <ul class="footer__list footer__list_contacts">
+            <li class="footer__list-element footer__list-element_contact">
+              <i class="footer__list-element-logo fab fa-facebook-f"></i>
+            </li>
+            <li class="footer__list-element footer__list-element_contact">
+              <i class="footer__list-element-logo fab fa-whatsapp"></i>
+            </li>
+            <li class="footer__list-element footer__list-element_contact">
+              <i class="footer__list-element-logo fab fa-telegram-plane"></i>
+            </li>
+            <li class="footer__list-element footer__list-element_contact">
+              <i class="footer__list-element-logo fab fa-instagram"></i>
+            </li>
+            <li class="footer__list-element footer__list-element_contact">
+              <i class="footer__list-element-logo fab fa-docker"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
   <section class="popup">
     <div class="popup__container">
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
       <h3 class="popup__headline">Войти</h3>
-      <form class="popup__form" action="/" method="POST">
-        <input class="popup__form-input" type="email" name="email" placeholder="Email">
-        <input class="popup__form-input" type="password" name="password" placeholder="Пароль">
+      <form class="popup__form" method="POST" novalidate>
+        <input id='login-input' class="popup__form-input" type="email" name="email" placeholder="Email" required pattern="\w+@\w+.(ru|com|net|org)">
+        <span id='login-input-error' class="popup__form-input-span popup__form-input-span_email"></span>
+        <input id='login-password-input' class="popup__form-input" type="password" name="password" placeholder="Пароль" minlength="4" required>
+        <span id='login-password-input-error' class="popup__form-input-span"></span>
         <button class="popup__form-button popup__form-button_login" type="submit">Отправить</button>
       </form>
       <p class="popup__para">Не можете войти? <a class="popup__anchor" href="#">Восстановить доступ</a></p>
@@ -417,10 +416,13 @@
     <div class="popup__container">
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
       <h3 class="popup__headline">Регистрация</h3>
-      <form class="popup__form" action="/" method="POST">
-        <input class="popup__form-input" type="text" name="login" placeholder="Логин">
-        <input class="popup__form-input" type="email" name="email" placeholder="Email">
-        <input class="popup__form-input" type="password" name="password" placeholder="Пароль">
+      <form class="popup__form" method="POST" novalidate>
+        <input id='username-input' class="popup__form-input" type="text" name="login" placeholder="Логин" minlength="4" required>
+        <span id='username-input-error' class="popup__form-input-span popup__form-input-span_register-email"></span>
+        <input id='email-input' class="popup__form-input" type="email" name="email" placeholder="Email" pattern="\w+@\w+.(ru|com|net|org)" required>
+        <span id='email-input-error' class="popup__form-input-span"></span>
+        <input id='password-input' class="popup__form-input" type="password" name="password" placeholder="Пароль" minlength="4" required>
+        <span id='password-input-error' class="popup__form-input-span"></span>
         <button class="popup__form-button popup__form-button_register" type="submit">Отправить</button>
       </form>
       <!-- <p class="popup__para">Не можете войти? <a class="popup__anchor" href="#">Восстановить доступ</a></p> -->
@@ -462,35 +464,56 @@
     <div class="popup__overlay"></div>
   </section>
   <section class="popup popup_order">
-    <div class="popup__container">
+    <div class="popup__container popup__container_order">
       <button class="popup__button-close"><i class="far fa-times-circle"></i></button>
-      <h3 class="popup__headline popup__headline_order">Ваш заказ</h3>
-      <p class="popup__para popup__para_time"></p>
-      <!-- <p class="popup__para popup__para_order-contnet">Информация о заказе</p> -->
-      <div class="popup__content-wrapper">
-        <div class="popup__content-details">
-          <p class="popup__para popup__para_order-content">Наименования заказа</p>
-          <ul class="popup__list popup__list_order"></ul>
+      <div class="popup__image-div">
+        <div class="popup__image-div-logo-wrapper">
+          <img class="popup__order-page-logo" src="./pics/order-shapes.png" alt="">
+          <span class="popup__image-div-title">Bauman CORP</span>
         </div>
-        <div class="popup__client-info">
-          <p class="popup__para popup__para_order-content">Адрес доставки</p>
-          <p class="popup__para popup__para_contact">Москва, улица Гарибальди, дом 31к2, Россиия, 123456</p>
-          <p class="popup__para popup__para_contact">sttrog_810@mail.ru +79254531948</p>
+        <div class="popup__image-div-text-wrapper">
+          <p class="popup__image-div-text-wrapper-para">Здравствуйте, <span class="popup__image-div-text-wrapper-span"></span></p> 
+          <p class="popup__image-div-text-wrapper-para popup__image-div-text-wrapper-para_thanking">Спасибо Вам за заказ</p>
         </div>
       </div>
-      <p class="popup__para popup__para_status">Статус Вашего заказа</p>
-      <div class="popup__status-wrapper">
-        <div class="popup__status-wrapper-step popup__status-wrapper-step_pending">
-          <p class="popup__status-wrapper-step-span">1</p>
-          <span class="popup__status-wrapper-step-span_text">В ожидании</span>
+      <div class="popup__order-info-wrapper">
+        <h3 class="popup__headline popup__headline_order">Ваш заказ</h3>
+        <p class="popup__para popup__para_time"></p>
+        <!-- <p class="popup__para popup__para_order-contnet">Информация о заказе</p> -->
+        <div class="popup__content-wrapper">
+          <div class="popup__content-details">
+            <p class="popup__para popup__para_order-content">Наименования заказа</p>
+            <ul class="popup__list popup__list_order"></ul>
+          </div>
+          <div class="popup__client-info">
+            <p class="popup__para popup__para_order-content">Адрес доставки</p>
+            <p class="popup__para popup__para_contact">Москва, улица Гарибальди, дом 31к2, Россиия, 123456</p>
+            <p class="popup__para popup__para_contact">sttrog_810@mail.ru +79254531948</p>
+          </div>
         </div>
-        <div class="popup__status-wrapper-step popup__status-wrapper-step_active">
-          <span class="popup__status-wrapper-step-span">2</span>
-          <span class="popup__status-wrapper-step-span_text">Активный</span>
+        <p class="popup__para popup__para_status">Статус Вашего заказа</p>
+        <div class="popup__status-wrapper">
+          <div class="popup__status-wrapper-step popup__status-wrapper-step_pending">
+            <p class="popup__status-wrapper-step-span">1</p>
+            <span class="popup__status-wrapper-step-span_text">В ожидании</span>
+          </div>
+          <div class="popup__status-wrapper-step popup__status-wrapper-step_active">
+            <span class="popup__status-wrapper-step-span">2</span>
+            <span class="popup__status-wrapper-step-span_text">Активный</span>
+          </div>
+          <div class="popup__status-wrapper-step popup__status-wrapper-step_finished">
+            <span class="popup__status-wrapper-step-span">3</span>
+            <span class="popup__status-wrapper-step-span_text">Завершенный</span>
+          </div>
         </div>
-        <div class="popup__status-wrapper-step popup__status-wrapper-step_finished">
-          <span class="popup__status-wrapper-step-span">3</span>
-          <span class="popup__status-wrapper-step-span_text">Завершенный</span>
+        <div class="popup__order-feedback-wrapper">
+          <h3 class="popup__headline popup__headline_feedback">Связаться с нами по любому вопросу, особенно по заказу</h3>
+          <ul class="popup__list">
+            <li><button><i class="popup__list-element-logo fas fa-phone"></i></button></li>
+            <li><button><i class="popup__list-element-logo fas fa-at"></i></button></li>
+            <li><button><i class="popup__list-element-logo fab fa-whatsapp"></i></button></li>
+            <li><button><i class="popup__list-element-logo fab fa-telegram-plane"></i></button></li>
+          </ul>
         </div>
       </div>
       <nav class="popup__contacts">
@@ -618,6 +641,9 @@
 
   <template id="service">
     
+  </template>
+  <template id='personal-space__image'>
+    <img class="personal-space__image" src="" alt="">
   </template>
   <!-- <script src="https://unpkg.com/swiper/swiper-bundle.js"></script> -->
   <!-- <script src="./js/components/Section.js"></script>

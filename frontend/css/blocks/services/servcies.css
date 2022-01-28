@@ -1,3 +1,4 @@
+@import url(./__text-wrapper/services__text-wrapper.css);
 @import url(./__wrapper/services__wrapper.css);
 @import url(./__service/services__service.css);
 @import url(./__service-shadow/services__service-shadow.css);
@@ -12,14 +13,14 @@
 /* @import url(./__service-new-wrapper/services__service-new-wrapper.css); */
 .services {
   /* width: 100vw; */
-  /* height: 100vh; */
+  height: 100vh;
   /*раскомментировать для горизортального скролла*/
   /* height: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 3% 0;
+  /* padding: 3% 0; */
   /* background-image: url(../../pics/5084836.jpg); */
   /* height: 100vh; */
   /* width: 100vw; */
@@ -34,9 +35,12 @@
   position: absolute;
     top: 0;
     right: 0;
-    width: calc(80% - 225px);
+    width: 85%;
+    /* width: calc(80% - 225px); */
     height: 3px;
-    background: #8027b5;
-    box-shadow: 0 0 20px #8027b5, 0 0 35px #8027b5;
+    /* background: #8027b5;
+    box-shadow: 0 0 20px #8027b5, 0 0 35px #8027b5; */
+    background-color: rgba(94,218,227,255);
+    box-shadow: 0 0 20px rgba(94,218,227,255), 0 0 35px rgba(94,218,227,255);
     border-radius: 10px 0 0 10px;
 }

@@ -1,0 +1,7 @@
+.footer__lists-anchors {
+  display: flex;
+  flex-basis: 45%;
+  justify-content: space-between;
+  align-content: center;
+  /* max-width: 200px; */
+}

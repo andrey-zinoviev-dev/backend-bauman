@@ -1,7 +1,13 @@
 @import url(./__footer-wrapper/footer__footer-wrapper.css);
 @import url(./__span/footer__span.css);
+@import url(./__logo-wrapper/footer__logo-wrapper.css);
+@import url(./__lists-wrapper/footer__lists-wrapper.css);
+@import url(./__lists-anchors/footer__lists-anchors.css);
+@import url(./__navigation/footer__navigation.css);
+@import url(./__about/footer__about.css);
 @import url(./__list/footer__list.css);
 @import url(./__list-element/footer__list-element.css);
+@import url(./__list-element-anchor/footer__list-element-anchor.css);
 @import url(./__list-element-overlay/footer__list-element-overlay.css);
 @import url(./__list-element-logo/footer__list-element-logo.css);
 .footer {
@@ -11,4 +17,9 @@
   z-index: 2;
   /* right: 15%; */
   right: 3%;
+  border: 3px solid rgba(7,147,223,0.8);
+  border-radius: 25px 25px 0 0;
+  box-shadow: 0 -5px 50px black;
+  padding: 80px 0;
+  box-sizing: border-box;
 }

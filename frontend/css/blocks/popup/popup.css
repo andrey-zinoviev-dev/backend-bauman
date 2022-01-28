@@ -4,6 +4,7 @@
 @import url(./__service-quantity-form/popup__service-quantity-form.css);
 @import url(./__service-quantity-form-navigation/popup__service-quantity-form-navigation.css);
 @import url(./__form-input/popup__form-input.css);
+@import url(./__form-input-span/popup__form-input-span.css);
 @import url(./__service-quantity-form-input/popup__service-quantity-form-input.css);
 @import url(./__form-button/popup__form-button.css);
 @import url(./__service-quantity-form-button/popup__service-quantity-form-button.css);
@@ -16,7 +17,14 @@
 @import url(./__status-wrapper-step-span/popup__status-wrapper-step-span.css);
 @import url(./__contacts/popup__contacts.css);
 @import url(./__list-element-logo/popup__list-element-logo.css);
+@import url(./__order-page-logo/popup__order-page-logo.css);
+@import url(./__image-div/popup__image-div.css);
+@import url(./__image-div-logo-wrapper/popup__image-div-logo-wrapper.css);
+@import url(./__image-div-title/popup__image-div-title.css);
+@import url(./__image-div-text-wrapper-para/popup__image-div-text-wrapper-para.css);
+@import url(./__order-info-wrapper/popup__order-info-wrapper.css);
 @import url(./__content-wrapper/popup__content-wrapper.css);
+@import url(./__order-feedback-wrapper/popup__order-feedback-wrapper.css);
 @import url(./__client-info/popup__client-info.css);
 .popup {
   position: fixed;

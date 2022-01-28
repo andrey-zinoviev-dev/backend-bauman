@@ -11,6 +11,8 @@
 @import url(./__buttons-button-round/reviews__buttons-button-round.css);
 .reviews {
   position: relative;
+  padding: 110px 0;
+  box-sizing: border-box;
   /* overflow: hidden; */
 }
 .reviews::after {
@@ -18,7 +20,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(80% - 1320px);
+  width: 85%;
+  /* width: calc(80% - 1320px); */
   height: 3px;
   background: rgba(94,218,227,255);
   box-shadow: 0 0 20px rgb(94 218 227), 0 0 35px rgb(94 218 227);

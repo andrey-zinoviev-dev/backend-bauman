@@ -1,7 +1,8 @@
 .content__text-wrapper {
-  /* max-width: 500px; */
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-right: calc(100% - 490px);
+  /* margin-right: calc(100% - 490px);
+  min-width: 1280px; */
 }

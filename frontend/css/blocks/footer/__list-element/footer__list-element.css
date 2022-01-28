@@ -1,10 +1,21 @@
 .footer__list-element {
-  min-width: 55px;
-  min-height: 55px;
+  /* min-width: 55px;
+  min-height: 55px; */
+  /* min-width: 60px;
+  min-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid #d0a2dc;
   border-radius: 10px;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d; */
+  /* display: inline-block; */
+}
+
+/* .footer__list-element:hover {
+  font-weight: 700;
+  transition: font-weight 0.35s ease-in-out;
+} */
+.footer__list-element:not(:last-of-type) {
+  margin-bottom: 35px;
 }

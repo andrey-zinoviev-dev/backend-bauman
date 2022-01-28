@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Avant-Grande';
+  src: 
+  /* url('./ITCAvantGardeStd-Bold.ttf') format('truetype') */
+  url('./ITCAvantGardeStd-Bold.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Avant-Grande';
+  src: 
+  /* url('./ITCAvantGardeStd-Md.ttf') format('truetype') */
+  url('./ITCAvantGardeStd-Md.woff') format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Avant-Grande';
+  src: 
+  /* url('./ITCAvantGardeStd-DemiCn.ttf') format('truetype') */
+  url('./ITCAvantGardeStd-DemiCn.woff') format('woff');
+  font-weight: normal;
+}

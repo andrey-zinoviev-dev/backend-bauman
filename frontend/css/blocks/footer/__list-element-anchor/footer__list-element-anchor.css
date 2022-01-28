@@ -1,0 +1,11 @@
+.footer__list-element-anchor {
+  color: #ed66a6;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.footer__list-element-anchor:hover {
+  /* transform: scale(2);
+  transition: transform 0.35s ease-in-out; */
+  font-weight: 700;
+}

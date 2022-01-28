@@ -1,0 +1,5 @@
+.footer__list_contacts {
+  display: flex;
+  align-items: center;
+  min-width: 410px;
+}

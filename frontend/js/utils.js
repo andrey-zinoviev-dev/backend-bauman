@@ -2,10 +2,10 @@ const rootElement = document.querySelector('.root');
 const mainContainer = document.querySelector('.main');
 const mainOverallContainer = mainContainer.querySelector('.overall-container');
 
-const footerButtons = Array.from(document.querySelectorAll('.footer__list-element'));
+const footerButtons = Array.from(document.querySelectorAll('.footer__list-element_contact'));
 const scrollButton = document.querySelector('.content__button');
 const footer = document.querySelector('.footer');
-const footerList = footer.querySelector('.footer__list');
+const footerList = footer.querySelector('.footer__list_contacts');
 
 const footerLeftOffset = footer.offsetLeft;
 const footerTopOffset = footer.offsetTop;
@@ -24,6 +24,7 @@ const reviewsSection = document.querySelector('.reviews');
 const reviewSectionScroll = reviewsSection.querySelector('.reviews__scroll');
 const reviewsContainer = reviewsSection.querySelector('.reviews__wrapper');
 const reviews = Array.from(reviewsSection.querySelectorAll('.reviews__review'));
+const review = reviewsSection.querySelector('.reviews__review');
 
 const firstMainButton = document.querySelector('.content__button_first');
 const secondMainButton = document.querySelector('.content__button_second'); 
@@ -38,7 +39,6 @@ const headerCoopButton = document.querySelector('.header__services-list-element-
 const servicesDiv = document.querySelector('.services__wrapper');
 // const services = Array.from(servicesSection.querySelectorAll('.services__service-new'));
 // const companyButton = mainContainer.querySelector('.content__button_second');
-
 
 // кнопки отзывов
 const reviewButtonsWrapper = reviewsSection.querySelector('.reviews__buttons');
@@ -92,12 +92,15 @@ const servicePopupButton = document.querySelector('.popup__order-submit');
 //попап заказа
 const orderPopup = document.querySelector('.popup_order');
 // const orderPopupHeadline = orderPopup.querySelector('.popup__headline');
+const orderPopupCustomer = orderPopup.querySelector('.popup__image-div-text-wrapper-span');
 const orderPopupTimePara = orderPopup.querySelector('.popup__para_time');
 const orderPopupListOfContent = orderPopup.querySelector('.popup__list');
 const orderPopupStatusPara = orderPopup.querySelector('.popup__para_status');
 const orderPopupStatusSteps = Array.from(orderPopup.querySelectorAll('.popup__status-wrapper-step'));
 
 // кнопки логина и регистрации
+const openButtonsListElements = Array.from(document.querySelectorAll('.header__services-list-element_loggedOut'));
+const openButtonsListElementsHidden = Array.from(document.querySelectorAll('.header__services-list-element_loggedIn'));
 const openButtons = Array.from(document.querySelectorAll('.header__loggedOut-button'));
 
 //скрытые кнопки
@@ -143,6 +146,23 @@ let defaultPendingOrdersArray = [];
 let defaultCategoryButtons = [];
 let privateNavButtons;
 let privateNavPrevButton;
+let orderCategories = [
+  {
+    title: "Активные заказы",
+    type: "active",
+  }, 
+  {
+    title: "Заказы в процессе",
+    type: "pending",
+  }, 
+  {
+    title: "Заказы завершенные",
+    type: "finished",
+  }, 
+  {
+    title: "Заказы отмененные",
+    type: "canceled",
+}];
 
 //шаблоны для уникального попапа
 const headlineTemplate = document.querySelector('#popup-headline');
@@ -160,6 +180,7 @@ const personalSpaceListElementButtonTemplate = document.querySelector('#personal
 const personalSpaceOrdersTemplate = document.querySelector('#personal-space__orders');
 const personalSpaceOrderTemplate = document.querySelector('#personal-space__order');
 const personalSpaceContentTextWrapperTemplate = document.querySelector('#personal-space__content-text-wrapper');
+const personalSpaceImageTemplate = document.querySelector('#personal-space__image');
 
 //шаблон услуги компании
 const serviceTemplate = document.querySelector('#services__service-new');
@@ -169,13 +190,6 @@ const cartListElementTemplate = document.querySelector('#cart__list-element');
 
 //объект для данных для маршрутизации на стороне клиента
 let htmlToRender;
-
-//объект для данных заказа
-// let orderToMake = {
-//   orderContent: "",
-//   timeOfOrder: "",
-//   quantity: 0,
-// };
 
 //пользователь
 let user;
@@ -202,6 +216,10 @@ let userPage;
 let contactsPage;
 let cataloguePage;
 let pagesRoutes;
+
+//элементы span ошибок попапа логина
+const loginEmailErrorSpan = document.querySelector('.popup__form-input-span_email');
+const registerEmailErrorSpan = document.querySelector('.popup__form-input-span_register-email');
 
 //фукнции загрузки HTML страниц
 function loadPage(page) {
@@ -242,20 +260,17 @@ reviews.forEach((child, i, array) => {
 });
 
 function showMouseEvent(logo, evt) {
-  // if(evt.target.classList.contains('footer__list-element-logo')) {
-  //   return;
-  // }
-  const logoHeight = logo.clientHeight;
-  const logoWidth = logo.clientWidth;
+  const logoCoordinates = logo.getBoundingClientRect();
+
+  const logoXCoordinate = evt.pageX - logoCoordinates.x - logoCoordinates.width/2;
+  const logoYCoordinate = evt.pageY - window.scrollY - logoCoordinates.y - logoCoordinates.height/2
   
-  const logoXCoordinate = evt.pageX - footerLeftOffset - logo.offsetLeft - logoWidth/2;
-  const logoYCoordinate = evt.pageY - footerTopOffset - footerListTopOffset - logo.offsetTop - logoHeight/2;
-  
-  const rotateX = rotateDegree*logoYCoordinate/(logoHeight/2);
-  const rotateY = rotateDegree*logoXCoordinate/(logoWidth/2);
-  // console.log(logoXCoordinate, logoYCoordinate);
-  // console.log(evt.target.offsetLeft);
-  // console.log(evt.pageX - footerLeftOffset - evt.target.offsetLeft - logoWidth/2, evt.pageY - footerTopOffset - evt.target.offsetTop - logoHeight/2);
+
+  const rotateX = logoYCoordinate/1.8;
+  const rotateY = logoXCoordinate/1.8;
+
+
+
   activateTiltEffect(rotateX, rotateY, logo);
 };
 
@@ -277,6 +292,8 @@ function deactivateTiltEffect(element) {
 }
 
 function translateReviewsLeft() {
+  const slideStep = (reviewsContainer.clientWidth - (review.clientWidth * reviews.length))/3 + review.clientWidth;
+
   previousButton = reviewsThumbnailsDiv.children[reviewOrder + 1];
   reviewOrder -= 1;
   
@@ -284,10 +301,13 @@ function translateReviewsLeft() {
     reviewOrder = reviews.length - 2;
   }
   switchThumbnail(reviewOrder);
-  return reviewsContainer.style.transform = `translateX(${-currentReviewOffset * reviewOrder}px)`;
+  return reviewsContainer.style.transform = `translateX(${-slideStep * reviewOrder}px)`;
 }
 
 function translateReviewsRight() {
+  const slideStep = (reviewsContainer.clientWidth - (review.clientWidth * reviews.length))/3 + review.clientWidth;
+  
+
   previousButton = reviewsThumbnailsDiv.children[reviewOrder + 1];
   reviewOrder += 1;
   
@@ -296,7 +316,7 @@ function translateReviewsRight() {
     // return reviewsContainer.style.transform = `translateX(${currentReviewOffset})`
   }
   switchThumbnail(reviewOrder);
-  return reviewsContainer.style.transform = `translateX(${-currentReviewOffset * reviewOrder}px)`;
+  return reviewsContainer.style.transform = `translateX(${-slideStep * reviewOrder}px)`;
 }
 
 //touch functions
@@ -441,7 +461,6 @@ function requestOnServer(route) {
 };
 
 function postOnServer(route, data) {
-  // console.log(data);
   return fetch(route, {
     method: 'POST',
     headers: {
@@ -483,6 +502,19 @@ function hideHeaderButtons(buttons) {
   })
 }
 
+//функция скрытия элемента списка
+function hideHeaderListElements(listElements) {
+  listElements.forEach((listElement) => {
+    listElement.classList.add('header__services-list-element_hidden');
+  });
+}
+
+//функция показа эелемента списка
+function showHeaderListElements(listElements) {
+  listElements.forEach((listElement) => {
+    listElement.classList.remove('header__services-list-element_hidden');
+  });
+}
 //функция показа элементов до логина-регистрации
 function showHeaderButtons(buttons) {
   buttons.forEach((button) => {
@@ -506,212 +538,6 @@ function changeAddressBar(route) {
   return window.history.pushState({}, route, route);
 }
 
-// function fetchData(route) {
-//   // openPopup(uniquePopup);
-//   requestOnServer(route)
-//   .then((data) => {
-  
-//     Array.from(uniquePopupContainer.children).forEach((child) => {
-//       if(Array.from(child.classList).includes('popup__button-close')) {
-//         return;
-//       }
-//       // console.log(Array.from(child.classList));
-//       uniquePopupContainer.removeChild(child);
-//     });
-
-//     const objectInners = Object.entries(data);
-
-//     for (const [key, value] of objectInners) {
-//       if(key === 'headline') {
-//         const popupHeadlineTemplate = generateTemplate(headlineTemplate, '.popup__headline');
-//         popupHeadlineTemplate.textContent = value;
-//         uniquePopupContainer.append(popupHeadlineTemplate);
-//       }
-//       if(key === 'content') {
-//         const popupParaTemplate = generateTemplate(paraTemplate, '.popup__para');
-//         popupParaTemplate.textContent = value;
-//         uniquePopupContainer.append(popupParaTemplate);
-//       }
-//       if(key === "form" && value === "register") {
-//         const dataToPost = {};
-
-//         let validationMessage;
-
-//         const popupFormTemplate = generateTemplate(formRegisterTemplate, '.popup__form');
-        
-//         const serverErrorSpan = popupFormTemplate.querySelector(('.popup__form-span-server'));
-
-//         const formInputs = Array.from(popupFormTemplate.querySelectorAll('.popup__form-input'));
-
-//         const formButton = popupFormTemplate.querySelector('.popup__form-button');
-
-//         formInputs.forEach((input, index, array) => {
-//           changeFormButtonStatus(array, formButton)
-//           input.addEventListener('input', (evt) => {
-            
-//             const inputSpan = evt.target.nextElementSibling;
-//             changeFormButtonStatus(array, formButton);
-//             if(!evt.target.validity.valid) {
-//               if(evt.target.validity.tooShort) {
-//                 validationMessage = 'Введено менее 3 символов';
-//               }
-//               if(evt.target.validity.typeMismatch) {
-//                 if(evt.target.name === "email") {
-//                   validationMessage = 'Введите почту';
-//                 };
-//                 if(evt.target.name === "password") {
-//                   validationMessage = 'Введите пароль необходимого типа';
-//                 }
-//               }
-//               inputSpan.textContent = validationMessage;
-//             } else {
-//               inputSpan.textContent = '';
-//             }
-            
-//             dataToPost[evt.target.name] = evt.target.value;
-//           });
-//         });
-
-//         formButton.addEventListener('click', (evt) => {
-//           evt.preventDefault();
-//           postOnServer('/register', dataToPost)
-//           .then((data) => {
-//             if(data.message) {
-//               return serverErrorSpan.textContent = data.message;
-//             }
-//             // localStorage.setItem('token', data.payload);
-//             return console.log(data);
-//             // hideHeaderButtons(openButtons);
-//             // showHeaderButtons(hiddenButtons);
-//             // popupFormTemplate.reset();
-//             // closePopup(uniquePopup);
-//           })
-//           .then(() => {
-//             // const token = localStorage.getItem('token');
-//             // if(!token) {
-//             //   return console.log('no');
-//             // }
-//             getDataLoggedIn('/current-user')
-//             .then((res) => {
-//               hideHeaderButtons(openButtons);
-//               showHeaderButtons(hiddenButtons);
-//               popupFormTemplate.reset();
-//               userButton.textContent = res.email;
-//               closePopup(uniquePopup);
-//             });
-//           })
-//         });
-//         uniquePopupContainer.append(popupFormTemplate);
-//       }
-//       if(key === 'form' && value === 'login') {
-//         const dataToPost = {};
-
-//         let validationMessage;
-
-//         const popupFormTemplate = generateTemplate(formTemplate, '.popup__form');
-        
-//         const serverErrorSpan = popupFormTemplate.querySelector(('.popup__form-span-server'));
-        
-//         const formInputs = Array.from(popupFormTemplate.querySelectorAll('.popup__form-input'));
-
-//         const formButton = popupFormTemplate.querySelector('.popup__form-button');
-
-//         formInputs.forEach((input, index, array) => {
-          
-//           changeFormButtonStatus(array, formButton);
-//           input.addEventListener('input', (evt) => {
-
-//             serverErrorSpan.textContent = "";
-
-//             const inputSpan = evt.target.nextElementSibling;
-//             changeFormButtonStatus(array, formButton);
-//             if(!evt.target.validity.valid) {
-              
-//               if(evt.target.validity.tooShort) {
-//                 validationMessage = "Введена слишком короткая запись";
-//               }
-//               if(evt.target.validity.typeMismatch) {
-//                 if(evt.target.name === "email") {
-//                   validationMessage = 'Введите почту';
-//                 }
-//                 if(evt.target.name === "password") {
-//                   validationMessage = 'Введите пароль необходимого типа';
-//                 }
-//                 // validationMessage = "Необходим пароль, соттветствующий правилам";
-//               }
-//               inputSpan.textContent = validationMessage;;
-//             } else {
-//               inputSpan.textContent = '';
-//             }
-            
-//             dataToPost[evt.target.name] = evt.target.value;
-//           });
-//         });
-        
-//         formButton.addEventListener('click', (evt) => {
-//           evt.preventDefault();
-//           postOnServer('/login', dataToPost)
-//           .then((data) => {
-//             if(data.message) {
-//               return serverErrorSpan.textContent = data.message;
-//             } else {
-//               // localStorage.setItem("token", data.payload)
-//               return data;
-//             }
-//           })
-//           .then(() => {
-//             // if(!localStorage.getItem("token")) {
-//             //   return console.log('no');
-//             // }
-//             // const token = localStorage.getItem("token");
-//             getDataLoggedIn('/current-user')
-//             .then((data) => {
-//               userButton.textContent = data.email;
-//               hideHeaderButtons(openButtons);
-//               showHeaderButtons(hiddenButtons);
-//               popupFormTemplate.reset();
-//               closePopup(uniquePopup);
-//             })
-//           });
-//         });
-
-//         uniquePopupContainer.append(popupFormTemplate);
-//       }
-//       if(typeof(value) === 'object' && value.length >= 1 && key !== "form") {
-//         const popupListTemplate = generateTemplate(listTemplte, '.popup__list');
-//         // if(key === "links") {
-//         //   value.forEach((element) => {
-//         //     const popupButtonTemplate = generateTemplate(anchorTemplate, '.popup__anchor');
-//         //     popupButtonTemplate.textContent = element;
-//         //     uniquePopupContainer.append(popupButtonTemplate);
-//         //   })
-//         // }
-//         value.forEach((element) => {
-//           //здесь сделать генерацию ссылок
-//           const popupListElementTemplate = generateTemplate(listELementTemplate, '.popup__list-element');
-//           popupListElementTemplate.textContent = element;
-//           if(key === 'links') {
-//             // console.log(value);
-//             popupListElementTemplate.textContent = '';
-//             const linkTemplate = generateTemplate(anchorTemplate, '.popup__anchor');
-//             linkTemplate.textContent = element;
-//             popupListElementTemplate.append(linkTemplate);
-//           }
-          
-//           popupListTemplate.append(popupListElementTemplate);
-//         });
-//         // popupListElementTemplate.textContent = value;
-//         // popupListTemplate.append(popupListElementTemplate);
-
-//         uniquePopupContainer.append(popupListTemplate);
-//       }
-
-//     }
-//     openPopup(uniquePopup);
-//   });
-
-// }
-
 function loadHtmlPage(page) {
   // console.log(uniquePopup);
   return fetch(page)
@@ -733,8 +559,4 @@ function insertPopupContent(data) {
 
   uniquePopupRootDiv.innerHTML = data;
   // uniquePopupContainer.append(data);
-}
-
-function sendDataToServerTest(route, data) {
-  console.log(route, data);
 }

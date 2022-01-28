@@ -1,3 +1,5 @@
+@import url(../../fonts/font.css);
+@import url(../../fonts/avantGrandeStyle.css);
 @import url(../blocks/root/root.css);
 @import url(../blocks/root/_private-space/root_private-space.css);
 @import url(../blocks/overlay/overlay.css);
@@ -10,8 +12,10 @@
 @import url(../blocks/container/_dashboard/container_dashboard.css);
 @import url(../blocks/container/_personal-space/container_personal-space.css);
 @import url(../blocks/container/_cart/container_cart.css);
+@import url(../blocks/container/_fixed-width/container_fixed-width.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__contact-method-img/_small/header__contact-method-img_small.css);
+@import url(../blocks/header/__services-list-element/_hidden/header__services-list-element_hidden.css);
 @import url(../blocks/header/__services-list-element-button/_hidden/header__services-list-element-button_hidden.css);
 @import url(../blocks/dashboard/dashboard.css);
 @import url(../blocks/dashboard/_opened/dashboard_opened.css);
@@ -33,6 +37,7 @@
 @import url(../blocks/main/main.css);
 @import url(../blocks/main/_padding/main_padding.css);
 @import url(../blocks/content/content.css);
+@import url(../blocks/content/__button/_second/content__button_second.css);
 @import url(../blocks/content/__vent/_order/_first/content__vent_order_first.css);
 @import url(../blocks/content/__vent/_order/_second/content__vent_order_second.css);
 @import url(../blocks/content/__vent/_order/_third/content__vent_order_third.css);
@@ -67,14 +72,18 @@
 @import url(../blocks/slides/slides.css);
 @import url(../blocks/thumbnails/thumbnails.css);
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__list-element/_contact/footer__list-element_contact.css);
+@import url(../blocks/footer/__list/_contacts/footer__list_contacts.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/_order/popup__container_order.css);
 @import url(../blocks/popup/__headline/_order/popup__headline_order.css);
 @import url(../blocks/popup/__para/_service/popup__para_service.css);
 @import url(../blocks/popup/__para/_time/popup__para_time.css);
 @import url(../blocks/popup/__para/_order-contnet/popup__para_order-content.css);
 @import url(../blocks/popup/__para/_subscribe/popup__para_subscribe.css);
 @import url(../blocks/popup/__para/_contact/popup__para_contact.css);
+@import url(../blocks/popup/__image-div-text-wrapper-para/_thanking/popup__image-div-text-wrapper-para_thanking.css);
 @import url(../blocks/popup/__service-quantity-form-button/_blocked/popup__service-quantity-form-button_blocked.css);
 @import url(../blocks/popup/__status-wrapper-step/_achieved/popup__status-wrapper-step_achieved.css);
 @import url(../blocks/popup/__status-wrapper-step-span/_current/popup__status-wrapper-step-span_current.css);
